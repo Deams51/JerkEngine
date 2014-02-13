@@ -401,10 +401,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470635168}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0126915, y: 1, z: 4.59592533}
+  m_LocalPosition: {x: 254.608032, y: 176.080276, z: -109.724968}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1640302697}
 --- !u!1 &966142632
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,10 +472,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 966142632}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106829}
-  m_LocalPosition: {x: .917204142, y: 1, z: 3.22753882}
+  m_LocalPosition: {x: 251.512543, y: 176.080276, z: -111.093353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1640302697}
 --- !u!114 &966142637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,6 +527,8 @@ Transform:
   - {fileID: 334907873}
   - {fileID: 1653944046}
   - {fileID: 1864769634}
+  - {fileID: 470635174}
+  - {fileID: 966142636}
   - {fileID: 38477311}
   m_Father: {fileID: 0}
 --- !u!1 &1653944042
@@ -674,7 +676,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -682,7 +684,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: .300000012
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -701,7 +703,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1719705700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .134210229, y: -.168736458, z: -.216415286}
+  m_LocalPosition: {x: .696243644, y: .268884182, z: -2.07830811}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -724,6 +726,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40539b6ad0b54e42bf16aa2d03cf2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RenderEffect: 0
+  PostProcessMaterial: {fileID: 2100000, guid: b342a5cd3b0d13e4887f15b7872347a1, type: 2}
   BlurFactor: 40
 --- !u!1 &1864769630
 GameObject:

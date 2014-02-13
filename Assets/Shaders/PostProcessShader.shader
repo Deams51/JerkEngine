@@ -2,7 +2,7 @@
 {
 	Properties 
 	{
-		_MainTex ("Base (RGB)", 2D) = "white" {}
+		_MainTex ("Main Texture", 2D) = "white" {}
 	}
 	SubShader 
 	{
@@ -14,7 +14,9 @@
         
 			#include "UnityCG.cginc"
 
+			uniform sampler2D _MainTex;
 			uniform sampler2D _VelocityTexture : register(s1);
+			uniform half _DebugShader = -1;
 
 			struct fragmentInput
 			{
@@ -32,7 +34,11 @@
 
 			float4 frag(fragmentInput f) : COLOR
 			{
-				return tex2D(_VelocityTexture, f.uv);
+				half4 color = tex2D(_MainTex, f.uv);
+				if(_DebugShader > 0)
+					color = tex2D(_VelocityTexture, f.uv);
+
+				return color;
 			}
 			ENDCG
 		}
