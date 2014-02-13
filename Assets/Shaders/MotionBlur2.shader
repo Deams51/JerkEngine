@@ -46,37 +46,40 @@
 				#include "UnityCG.cginc"
 
 				uniform sampler2D _MainTex;
-				uniform float4x4 _PrevVP;
 				uniform sampler2D _GrabTexture;
-				uniform float _Top;
-				uniform float _Bottom;
+				uniform float4x4 _PrevObject2World;
+				uniform float4x4 _PrevVP;
+
+				struct vertexInput
+				{
+					float4 vertex : POSITION;
+				};
  
 				struct fragmentInput 
 				{
 					float4 pos : POSITION;
-					float4 velocity : COLOR;
-					float4 color;
-					float4 screenPos : TEXCOORD0;
+					float4 screenPos;
+					float4 oldScreenPos; 
 				};
- 
-				fragmentInput vert(appdata_base v)
+
+				//vertex shader
+				//////////////////////////////////////////////////////////
+				fragmentInput vert(vertexInput v)
 				{
 					fragmentInput o;
-					float4x4 m = _Object2World;
-					float4x4 vp = _PrevVP;
-					float4x4 mvp = mul(vp, m);
-
-					o.velocity = float4(0,1,0,1);
 
 					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-					//o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord.xy);
-					o.screenPos = o.pos;
+					o.screenPos = mul(mul(UNITY_MATRIX_VP, _Object2World), v.vertex);
+					o.oldScreenPos = mul(mul(UNITY_MATRIX_VP, _PrevObject2World), v.vertex);
 
 					return o;
 				}
- 
+
+				//fragment shader
+				//////////////////////////////////////////////////////////
 				float4 frag(fragmentInput i) : COLOR
 				{
+					/*
 					float2 screenPos = i.screenPos.xy / i.screenPos.w;
 					float halved = (_Top + _Bottom) * 0.5;
 					float diff = (_Bottom - _Top) * 0.5;
@@ -84,8 +87,18 @@
 					screenPos.x = (screenPos.x + 1) * 0.5;
 					screenPos.y = 1-(screenPos.y + 1) * 0.5 ;
 					half4 sum = half4(0.0h,0.0h,0.0h,0.0h);  
+					*/
+
+					float blurVectorScale = 40.0;
+					float2 position1 = i.screenPos.xy / i.screenPos.w;
+					float2 position2 = i.oldScreenPos.xy / i.oldScreenPos.w;
+					float2 delta = (position1 - position2) * blurVectorScale + 0.5;
+
+					return float4(delta.x, delta.y, 0, 1);
+					//return float4(r, g, 0, 1);
 					//return tex2D( _GrabTexture, screenPos);
-					return float4(0,0,1,1);
+					//return float4(i.velocity.x, i.velocity.y, 0, 1);
+					//return float4(0,0,1,1);
 					//return tex2D(_GrabTexture, i.uv);
 				}
 				ENDCG
