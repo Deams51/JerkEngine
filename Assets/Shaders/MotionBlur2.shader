@@ -49,6 +49,7 @@
 				uniform sampler2D _GrabTexture;
 				uniform float4x4 _PrevObject2World;
 				uniform float4x4 _PrevVP;
+				uniform float _BlurFactor;
 
 				struct vertexInput
 				{
@@ -58,8 +59,8 @@
 				struct fragmentInput 
 				{
 					float4 pos : POSITION;
-					float4 screenPos;
-					float4 oldScreenPos; 
+					float4 newPos;
+					float4 oldPos;
 				};
 
 				//vertex shader
@@ -69,8 +70,8 @@
 					fragmentInput o;
 
 					o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-					o.screenPos = mul(mul(UNITY_MATRIX_VP, _Object2World), v.vertex);
-					o.oldScreenPos = mul(mul(UNITY_MATRIX_VP, _PrevObject2World), v.vertex);
+					o.newPos = mul(mul(UNITY_MATRIX_VP, _Object2World), v.vertex);
+					o.oldPos = mul(mul(_PrevVP, _PrevObject2World), v.vertex);
 
 					return o;
 				}
@@ -89,10 +90,9 @@
 					half4 sum = half4(0.0h,0.0h,0.0h,0.0h);  
 					*/
 
-					float blurVectorScale = 40.0;
-					float2 position1 = i.screenPos.xy / i.screenPos.w;
-					float2 position2 = i.oldScreenPos.xy / i.oldScreenPos.w;
-					float2 delta = (position1 - position2) * blurVectorScale + 0.5;
+					float2 position1 = i.newPos.xy / i.newPos.w;
+					float2 position2 = i.oldPos.xy / i.oldPos.w;
+					float2 delta = (position1 - position2) * _BlurFactor + 0.5;
 
 					return float4(delta.x, delta.y, 0, 1);
 					//return float4(r, g, 0, 1);
