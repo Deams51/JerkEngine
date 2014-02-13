@@ -4,10 +4,9 @@ using System.Collections.Generic;
 public class PostProcessScript : MonoBehaviour
 {
     private List<ObjectRenderScript> _renderObjects;
+    public float BlurFactor = 40.0f;
 
     private Matrix4x4 _oldViewProjMat;
-    private float _exposureTime = 1 / 60.0f; //60 frames per second
-    private float _timer = 0;
 
     void Start()
     {
@@ -15,9 +14,6 @@ public class PostProcessScript : MonoBehaviour
 
     void StoreOldProjectionMatrix()
     {
-        _timer += Time.deltaTime;
-        if (_timer >= _exposureTime)
-        {
             Matrix4x4 P = camera.projectionMatrix;
             if (SystemInfo.graphicsDeviceVersion.IndexOf("Direct3D") > -1) //if D3D
             {
@@ -35,12 +31,11 @@ public class PostProcessScript : MonoBehaviour
 
             _oldViewProjMat = P * camera.worldToCameraMatrix;
             Shader.SetGlobalMatrix("_PrevVP", _oldViewProjMat);
-        }
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        StoreOldProjectionMatrix();
+        Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
         Graphics.Blit(source, destination);
     }
 
@@ -54,6 +49,7 @@ public class PostProcessScript : MonoBehaviour
 
     void OnPostRender()
     {
+        StoreOldProjectionMatrix();
         foreach (ObjectRenderScript obj in _renderObjects)
         {
             obj.OnPostRenderUpdate();
