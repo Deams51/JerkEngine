@@ -6,6 +6,7 @@ public class PostProcessScript : MonoBehaviour
     public bool RenderEffect = true;
     public Material PostProcessMaterial;
     public float BlurFactor = 40.0f;
+    public float BlurIntensity = 40.0f;
 
     private Matrix4x4 _oldViewProjMat;
     private List<ObjectRenderScript> _renderObjects;
@@ -37,6 +38,7 @@ public class PostProcessScript : MonoBehaviour
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        Shader.SetGlobalFloat("_BlurIntensity", BlurIntensity);
         Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
 
         if (RenderEffect)
@@ -53,6 +55,15 @@ public class PostProcessScript : MonoBehaviour
             _renderObjects = new List<ObjectRenderScript>();
 
         _renderObjects.Add(obj);
+    }
+
+    public void RemoveFromRenderList(ObjectRenderScript obj)
+    {
+        if (_renderObjects != null)
+        {
+            if (_renderObjects.Contains(obj))
+                _renderObjects.Remove(obj);
+        }
     }
 
     void OnPostRender()
