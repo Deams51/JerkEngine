@@ -40,9 +40,11 @@ public class PostProcessScript : MonoBehaviour
         Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
 
         if (RenderEffect)
-            Graphics.Blit(source, destination, PostProcessMaterial);
+            Shader.SetGlobalFloat("_DebugShader", 1);
         else
-            Graphics.Blit(source, destination);
+            Shader.SetGlobalFloat("_DebugShader", -1);
+
+        Graphics.Blit(source, destination, PostProcessMaterial);
     }
 
     public void AddToRenderList(ObjectRenderScript obj)

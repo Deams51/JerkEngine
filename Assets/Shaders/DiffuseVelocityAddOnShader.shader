@@ -52,13 +52,13 @@
 
 				//fragment shader
 				//////////////////////////////////////////////////////////
-				float4 frag(fragmentInput i) : COLOR
+				half4 frag(fragmentInput i) : COLOR
 				{
 					float2 position1 = i.newPos.xy / i.newPos.w;
 					float2 position2 = i.oldPos.xy / i.oldPos.w;
 					float2 delta = (position1 - position2) * _BlurFactor + 0.5;
 
-					return float4(delta.x, delta.y, 0, 1);
+					return half4(delta.x, delta.y, 0, 1);
 				}
 				ENDCG
 			}
