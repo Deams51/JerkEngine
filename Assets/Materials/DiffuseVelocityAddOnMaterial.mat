@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: MotionBlurTexture
+  m_Name: DiffuseVelocityAddOnMaterial
   m_Shader: {fileID: 4800000, guid: 97c1106b97ebdd844837c8d77da3f8fc, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1

@@ -16,6 +16,7 @@
 
 			uniform sampler2D _MainTex;
 			uniform sampler2D _VelocityTexture : register(s1);
+			uniform float _BlurIntensity;
 			uniform half _DebugShader = -1;
 
 			struct fragmentInput
@@ -32,11 +33,41 @@
 				return o;
 			}
 
+			float4 motionBlur(sampler2D color, sampler2D motion, float2 uv, float intensity)
+			{
+				float2 texcoord = uv;
+				float2 speed = (tex2D(motion, texcoord).rg - 0.5) / _BlurIntensity;
+
+				//speed = float2(0.0, 0.0)
+
+				float4 fragment = tex2D(color, uv);
+				texcoord += speed;
+				float numSamples = 10.0;
+
+				for(int i = 1; i < numSamples; ++i, texcoord += speed)
+				{
+					float4 currentFragment = tex2D(color, texcoord);
+					fragment += currentFragment;
+				}
+				float4 finalColor = fragment / numSamples;
+
+				return finalColor;
+				
+				//return float4(speed.xy, 0, speed.w);
+			}
+
 			float4 frag(fragmentInput f) : COLOR
 			{
 				half4 color = tex2D(_MainTex, f.uv);
+
 				if(_DebugShader > 0)
+				{
 					color = tex2D(_VelocityTexture, f.uv);
+				}
+				else
+				{
+					color = motionBlur(_MainTex, _VelocityTexture, f.uv, _BlurIntensity);
+				}
 
 				return color;
 			}
