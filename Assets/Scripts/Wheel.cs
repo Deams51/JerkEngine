@@ -5,10 +5,13 @@ using System.Collections;
 // suspension (basically just a single, independant spring and damper).
 public class Wheel : MonoBehaviour {
 
+	bool debug = true;
 	// Wheel Specifications
-	
-	// Wheel radius in meters
-	public float radius = 10.34f;
+
+    // Wheel radius in meters
+    public float radius = 10.34f;
+    // Wheel width in meters
+    public float width = 2.00f;
 	// Wheel suspension travel in meters
 	public float suspensionTravel = 0.2f;
 	// Damper strength in kg/s
@@ -260,27 +263,68 @@ public class Wheel : MonoBehaviour {
 		return totalForce;
 	}
 	
-	void FixedUpdate () {
+    // Check if a hitpoint is inside the cylinder
+    bool inCylinder(Vector3 hitPoint, Vector3 center, float radius, float width)
+    {
+        // Seems like the orientation is always on x axis
+        Vector3 orientation = new Vector3(1.0f,0.0f,0.0f); 
+        Vector3 pointRel = transform.InverseTransformPoint(hitPoint); // center is now origin
+        // dist on direction = pointRel scalar orientation
+        float distRelDir = Vector3.Dot(pointRel, orientation) / orientation.magnitude; // Division shouldn't be necessary since orientation is normalized.
+        // In case vector is outside the tire
+        if (distRelDir > width / 2 || distRelDir < -width / 2)
+            return false;
+        return true;
+    }
 
-		Vector3 pos = transform.position;
-		up = transform.up;
-		RaycastHit hit;
-		bool onGround = Physics.Raycast( pos, -up, out hit, suspensionTravel + radius);
-		
-		if (onGround && hit.collider.isTrigger)
-		{
-			onGround = false;float dist = suspensionTravel + radius;
-			RaycastHit[] hits = Physics.RaycastAll( pos, -up, suspensionTravel + radius);
-			foreach(RaycastHit test in hits)
-			{
-				if (!test.collider.isTrigger && test.distance <= dist)
-				{
-					hit = test;
-					onGround = true;
-					dist = test.distance;
-				}
-			}
-		}
+    void FixedUpdate () {
+
+        Vector3 pos = transform.position;
+        Vector3 centerW = pos + ((-up) * suspensionTravel);
+        up = transform.up;
+        
+		/*RaycastHit[] hitSphere = Physics.SphereCastAll(centerW , radius, transform.forward);
+        foreach (RaycastHit h in hitSphere)
+        {
+            Logger("Collision between " + this.name + " and " + h.rigidbody.name + " " + h.collider.transform.parent.gameObject.name);
+            //If is in the tire : in cylinder from pos 
+            if ( inCylinder(h.point, (-up) * (suspensionTravel + radius), radius, width) )
+            {
+                Logger("In cylinder");
+            }
+        }*/
+        
+        Collider[] cols = Physics.OverlapSphere(centerW, radius);
+        foreach (Collider col in cols)
+        {
+            if (col.name != "Collider")
+            {
+                Vector3 hitPoint = col.ClosestPointOnBounds(centerW);
+                if (inCylinder(hitPoint, (-up) * (suspensionTravel + radius), radius, width))
+                {
+                    Logger("Collision between " + this.name + " and " + col.name);
+                    Debug.DrawLine(hitPoint, centerW, Color.green, 10.0f); 
+                }
+            }
+        }
+            
+        RaycastHit hit;
+        bool onGround = Physics.Raycast(pos, -up, out hit, suspensionTravel + radius);
+
+        if (onGround && hit.collider.isTrigger)
+        {
+            onGround = false; float dist = suspensionTravel + radius;
+            RaycastHit[] hits = Physics.RaycastAll(pos, -up, suspensionTravel + radius);
+            foreach (RaycastHit test in hits)
+            {
+                if (!test.collider.isTrigger && test.distance <= dist)
+                {
+                    hit = test;
+                    onGround = true;
+                    dist = test.distance;
+                }
+            }
+        }
 
 		if (onGround)
 		{
@@ -294,6 +338,7 @@ public class Wheel : MonoBehaviour {
 		}
 		else
 		{
+			Logger("not on ground");
 			compression = 0.0f;
 			suspensionForce = Vector3.zero;
 			roadForce = Vector3.zero;
@@ -322,5 +367,10 @@ public class Wheel : MonoBehaviour {
 			model.transform.localPosition = Vector3.up * (compression - 1.0f) * suspensionTravel;
 			model.transform.localRotation = Quaternion.Euler (Mathf.Rad2Deg * rotation, maxSteeringAngle * steering, 0);
 		}
+	}
+	
+	void Logger(string log)
+	{
+        if (debug) Debug.Log(this.name + ": " + log + "\n");
 	}
 }
