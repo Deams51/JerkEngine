@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 public class PostProcessScript : MonoBehaviour
 {
-    private List<ObjectRenderScript> _renderObjects;
+    public bool RenderEffect = true;
+    public Material PostProcessMaterial;
     public float BlurFactor = 40.0f;
 
     private Matrix4x4 _oldViewProjMat;
+    private List<ObjectRenderScript> _renderObjects;
 
     void Start()
     {
@@ -36,7 +38,11 @@ public class PostProcessScript : MonoBehaviour
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
-        Graphics.Blit(source, destination);
+
+        if (RenderEffect)
+            Graphics.Blit(source, destination, PostProcessMaterial);
+        else
+            Graphics.Blit(source, destination);
     }
 
     public void AddToRenderList(ObjectRenderScript obj)
