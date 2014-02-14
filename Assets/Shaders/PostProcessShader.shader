@@ -39,7 +39,7 @@
 				float2 speed = (tex2D(motion, uv) - 0.5) / intensity;
 
 				float4 fragment = tex2D(color, uv);
-				texcoord -= speed;
+				texcoord += speed;
 
 				for(int i = 1; i < 11; ++i, texcoord += speed)
 				{
