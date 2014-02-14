@@ -5,7 +5,7 @@ using System.Collections;
 // suspension (basically just a single, independant spring and damper).
 public class Wheel : MonoBehaviour {
 
-	bool debug = true;
+	bool debug = false;
 	// Wheel Specifications
 
     // Wheel radius in meters
@@ -277,37 +277,79 @@ public class Wheel : MonoBehaviour {
         return true;
     }
 
+    public struct rayElem
+    {
+        Vector3 center;
+        Vector3 direction;
+        float length;
+        public rayElem(Vector3 c, Vector3 d, float l)
+        {
+            center = c;
+            direction = d;
+            length = l;
+        }
+        public Vector3 c()
+        {
+            return center;
+        }
+        public Vector3 d()
+        {
+            return direction;
+        }
+        public float l()
+        {
+            return length;
+        }
+    }
+    rayElem[] listRays(Vector3 center, float radius, float width, int rPrecision, int wPrecision)
+    {
+        int numberRays = rPrecision * wPrecision;
+        int cpt = 0;
+        float widthInc = width / rPrecision;
+        float rInc = 180.0f / (float)rPrecision;
+        rayElem[] tabRays = new rayElem[numberRays]; 
+        for (int w = 0; w < wPrecision; w++)
+        {
+            for (float a = 0.0f; a < 180.0f; a += rInc)
+            {
+                tabRays[cpt] = new rayElem(center + new Vector3((w-((int)rPrecision/2))*widthInc,0,0),
+                    new Vector3(0, - radius * Mathf.Sin(a * Mathf.PI / 180), radius * Mathf.Cos(a * Mathf.PI / 180)), radius);
+                //Logger("cos : " + -radius * Mathf.Cos(a * Mathf.PI / 180) + " sin : " + radius * Mathf.Sin(a * Mathf.PI / 180));
+                //Debug.DrawRay(tabRays[cpt].c(), tabRays[cpt].d(), Color.blue, 10.0f);
+                cpt++;
+            }
+        }
+        return tabRays;
+    }
+
+    
     void FixedUpdate () {
 
         Vector3 pos = transform.position;
-        Vector3 centerW = pos + ((-up) * suspensionTravel);
         up = transform.up;
-        
-		/*RaycastHit[] hitSphere = Physics.SphereCastAll(centerW , radius, transform.forward);
-        foreach (RaycastHit h in hitSphere)
+
+        Vector3 centerW = pos +((-up) * suspensionTravel);
+
+
+        bool onGroundAlt = false;
+        float dist2 = radius;
+        RaycastHit hitAlternate = new RaycastHit();
+
+        rayElem[] tab = listRays(centerW, radius, width, 100, 10);
+        foreach (rayElem r in tab)
         {
-            Logger("Collision between " + this.name + " and " + h.rigidbody.name + " " + h.collider.transform.parent.gameObject.name);
-            //If is in the tire : in cylinder from pos 
-            if ( inCylinder(h.point, (-up) * (suspensionTravel + radius), radius, width) )
+            RaycastHit[] hts = Physics.RaycastAll(r.c(),r.d(),r.l());
+            foreach (RaycastHit h in hts)
             {
-                Logger("In cylinder");
-            }
-        }*/
-        
-        Collider[] cols = Physics.OverlapSphere(centerW, radius);
-        foreach (Collider col in cols)
-        {
-            if (col.name != "Collider")
-            {
-                Vector3 hitPoint = col.ClosestPointOnBounds(centerW);
-                if (inCylinder(hitPoint, (-up) * (suspensionTravel + radius), radius, width))
+                if (!h.collider.isTrigger && h.distance < dist2 && h.distance > radius / 2)
                 {
-                    Logger("Collision between " + this.name + " and " + col.name);
-                    Debug.DrawLine(hitPoint, centerW, Color.green, 10.0f); 
+                    hitAlternate = h;
+                    onGroundAlt = true;
+                    dist2 = h.distance;
                 }
             }
         }
-            
+        
         RaycastHit hit;
         bool onGround = Physics.Raycast(pos, -up, out hit, suspensionTravel + radius);
 
@@ -327,9 +369,17 @@ public class Wheel : MonoBehaviour {
         }
 
 		if (onGround)
-		{
-			groundNormal = transform.InverseTransformDirection (inverseLocalRotation * hit.normal);
-			compression = 1.0f - ((hit.distance - radius) / suspensionTravel);
+        {
+            //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
+            //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
+            
+            Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hitAlternate.normal);
+            groundNormal = transform.up; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
+
+            Logger("RCM - dist : " + (hitAlternate.distance + suspensionTravel - radius) + " normal : " + groundNormalRCM
+             + "\nRC - dist : " + (hit.distance - radius) + " normal : " + groundNormal);
+ 
+            compression = 1.0f - ((hitAlternate.distance + suspensionTravel - radius) / suspensionTravel);
 			wheelVelo = body.GetPointVelocity (pos);
 			localVelo = transform.InverseTransformDirection (inverseLocalRotation * wheelVelo);
 			suspensionForce = SuspensionForce ();
@@ -354,12 +404,12 @@ public class Wheel : MonoBehaviour {
 			slipRatio = 0;
 			slipVelo = 0;
 		}
-		
+
 		if (skid != null && Mathf.Abs(slipRatio) > 0.2)
 			lastSkid = skid.AddSkidMark(hit.point, hit.normal, Mathf.Abs(slipRatio) - 0.2f,lastSkid);
 		else
 			lastSkid = -1;
-			
+
 		compression = Mathf.Clamp01 (compression);
 		rotation += angularVelocity * Time.deltaTime;
 		if (model != null)
