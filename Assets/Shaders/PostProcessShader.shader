@@ -36,22 +36,21 @@
 			float4 motionBlur(sampler2D color, sampler2D motion, float2 uv, float intensity)
 			{
 				float2 texcoord = uv;
-				float2 speed = (tex2D(motion, texcoord).rg - 0.5) / _BlurIntensity;
-
-				//speed = float2(0.0, 0.0)
+				float2 speed = (tex2D(motion, uv) - 0.5) / intensity;
 
 				float4 fragment = tex2D(color, uv);
-				texcoord += speed;
-				float numSamples = 10.0;
+				texcoord -= speed;
 
-				for(int i = 1; i < numSamples; ++i, texcoord += speed)
+				for(int i = 1; i < 11; ++i, texcoord += speed)
 				{
 					float4 currentFragment = tex2D(color, texcoord);
 					fragment += currentFragment;
 				}
-				float4 finalColor = fragment / numSamples;
+				float4 finalColor = fragment / 11.0;
 
 				return finalColor;
+				//return float4(speed.x, speed.y, 0, 1);
+				//return tex2D(motion, float2(0.01,0.01));
 				
 				//return float4(speed.xy, 0, speed.w);
 			}
