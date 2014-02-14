@@ -5,7 +5,9 @@ using System.Collections;
 // suspension (basically just a single, independant spring and damper).
 public class Wheel : MonoBehaviour {
 
-	bool debug = false;
+	public bool debug = true;
+    public bool debugRay = false;
+        
 	// Wheel Specifications
 
     // Wheel radius in meters
@@ -305,17 +307,31 @@ public class Wheel : MonoBehaviour {
     {
         int numberRays = rPrecision * wPrecision;
         int cpt = 0;
-        float widthInc = width / rPrecision;
+        float widthInc = width / wPrecision;
         float rInc = 180.0f / (float)rPrecision;
-        rayElem[] tabRays = new rayElem[numberRays]; 
+        bool showRays = false;
+        rayElem[] tabRays = new rayElem[numberRays];
+        Quaternion rotate = Quaternion.Euler(0, maxSteeringAngle * steering, 0);
+        //Quaternion rotate = this.model.transform.;
+
+        if (debugRay)
+        {
+            debugRay = false;
+            showRays = true;
+        }
         for (int w = 0; w < wPrecision; w++)
         {
             for (float a = 0.0f; a < 180.0f; a += rInc)
             {
-                tabRays[cpt] = new rayElem(center + new Vector3((w-((int)rPrecision/2))*widthInc,0,0),
-                    new Vector3(0, - radius * Mathf.Sin(a * Mathf.PI / 180), radius * Mathf.Cos(a * Mathf.PI / 180)), radius);
+                Vector3 translation = new Vector3((-width/2) + w*widthInc, -suspensionTravel, 0);
+                Vector3 direction = new Vector3(0, -radius * Mathf.Sin(a * Mathf.PI / 180), radius * Mathf.Cos(a * Mathf.PI / 180));
+
+                tabRays[cpt] = new rayElem(transform.TransformPoint( translation), transform.TransformDirection(rotate * direction), radius);
                 //Logger("cos : " + -radius * Mathf.Cos(a * Mathf.PI / 180) + " sin : " + radius * Mathf.Sin(a * Mathf.PI / 180));
-                //Debug.DrawRay(tabRays[cpt].c(), tabRays[cpt].d(), Color.blue, 10.0f);
+                if (showRays)
+                {
+                    Debug.DrawRay(tabRays[cpt].c(), tabRays[cpt].d(), Color.blue, 10.0f);
+                }
                 cpt++;
             }
         }
@@ -335,52 +351,37 @@ public class Wheel : MonoBehaviour {
         float dist2 = radius;
         RaycastHit hitAlternate = new RaycastHit();
 
-        rayElem[] tab = listRays(centerW, radius, width, 100, 10);
+        rayElem[] tab = listRays(centerW, radius, width, 50, 10);
         foreach (rayElem r in tab)
         {
             RaycastHit[] hts = Physics.RaycastAll(r.c(),r.d(),r.l());
             foreach (RaycastHit h in hts)
             {
-                if (!h.collider.isTrigger && h.distance < dist2 && h.distance > radius / 2)
+                if (!h.collider.isTrigger && h.collider.name != "Collider" && h.distance < dist2)
                 {
                     hitAlternate = h;
                     onGroundAlt = true;
-                    dist2 = h.distance;
-                }
-            }
-        }
-        
-        RaycastHit hit;
-        bool onGround = Physics.Raycast(pos, -up, out hit, suspensionTravel + radius);
-
-        if (onGround && hit.collider.isTrigger)
-        {
-            onGround = false; float dist = suspensionTravel + radius;
-            RaycastHit[] hits = Physics.RaycastAll(pos, -up, suspensionTravel + radius);
-            foreach (RaycastHit test in hits)
-            {
-                if (!test.collider.isTrigger && test.distance <= dist)
-                {
-                    hit = test;
-                    onGround = true;
-                    dist = test.distance;
+                    dist2 = h.distance; 
+                    //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x - pos.x, 0, 0), Color.green, 10.0f);
+            
                 }
             }
         }
 
-		if (onGround)
+		if (onGroundAlt)
         {
             //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
-            //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
-            
+            Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
+            //Logger("Colliding with : " + hitAlternate.collider.name);
             Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hitAlternate.normal);
-            groundNormal = transform.up; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
+            groundNormal = groundNormalRCM; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
 
-            Logger("RCM - dist : " + (hitAlternate.distance + suspensionTravel - radius) + " normal : " + groundNormalRCM
-             + "\nRC - dist : " + (hit.distance - radius) + " normal : " + groundNormal);
+            //Logger("RCM - dist : " + (hitAlternate.distance + suspensionTravel - radius) + " normal : " + groundNormalRCM
+             //+ "\nRC - dist : " + (hit.distance - radius) + " normal : " + groundNormal);
  
             compression = 1.0f - ((hitAlternate.distance + suspensionTravel - radius) / suspensionTravel);
-			wheelVelo = body.GetPointVelocity (pos);
+			
+            wheelVelo = body.GetPointVelocity (pos);
 			localVelo = transform.InverseTransformDirection (inverseLocalRotation * wheelVelo);
 			suspensionForce = SuspensionForce ();
 			roadForce = RoadForce ();
@@ -406,7 +407,7 @@ public class Wheel : MonoBehaviour {
 		}
 
 		if (skid != null && Mathf.Abs(slipRatio) > 0.2)
-			lastSkid = skid.AddSkidMark(hit.point, hit.normal, Mathf.Abs(slipRatio) - 0.2f,lastSkid);
+			lastSkid = skid.AddSkidMark(hitAlternate.point, hitAlternate.normal, Mathf.Abs(slipRatio) - 0.2f,lastSkid);
 		else
 			lastSkid = -1;
 
@@ -418,6 +419,14 @@ public class Wheel : MonoBehaviour {
 			model.transform.localRotation = Quaternion.Euler (Mathf.Rad2Deg * rotation, maxSteeringAngle * steering, 0);
 		}
 	}
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            debugRay = true;
+        }
+    }
 	
 	void Logger(string log)
 	{
