@@ -371,7 +371,7 @@ public class Wheel : MonoBehaviour {
 		if (onGroundAlt)
         {
             //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
-            Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
+            //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
             //Logger("Colliding with : " + hitAlternate.collider.name);
             Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hitAlternate.normal);
             groundNormal = groundNormalRCM; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
