@@ -11,11 +11,13 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#pragma fragmentoption ARB_precision_hint_fastest
         
 			#include "UnityCG.cginc"
 
 			uniform sampler2D _MainTex;
 			uniform sampler2D _VelocityTexture : register(s1);
+			uniform sampler2D _CameraDepthTexture;
 			uniform float _BlurIntensity;
 			uniform half _DebugShader = -1;
 
@@ -33,31 +35,41 @@
 				return o;
 			}
 
-			float4 motionBlur(sampler2D color, sampler2D motion, float2 uv, float intensity)
+			float4 crudeMotionBlur(sampler2D color, sampler2D motion, float2 uv, float intensity)
 			{
 				float2 texcoord = uv;
-				float2 speed = (tex2D(motion, uv) - 0.5) / intensity;
+				fixed2 speed = (tex2D(motion, uv)) - 0.5;
+				speed /= intensity;
 
 				float4 fragment = tex2D(color, uv);
 				texcoord += speed;
+				float numSamples = 11.0;
 
-				for(int i = 1; i < 11; ++i, texcoord += speed)
+				for(int i = 1; i < numSamples; ++i, texcoord += speed)
 				{
 					float4 currentFragment = tex2D(color, texcoord);
 					fragment += currentFragment;
 				}
-				float4 finalColor = fragment / 11.0;
+				float4 result = fragment / numSamples;
 
-				return finalColor;
-				//return float4(speed.x, speed.y, 0, 1);
-				//return tex2D(motion, float2(0.01,0.01));
-				
-				//return float4(speed.xy, 0, speed.w);
+				return result;
+			}
+
+			float random(float3 co)
+			{
+				return frac(sin( dot(co.xyz ,float3(12.9898,78.233,45.5432) )) * 43758.5453);
+			}
+
+			float4 motionReconstructionFilter(float2 uv, sampler2D colorTex, sampler2D velocityTex, sampler2D depthTex)
+			{
+				float4 resultColor = tex2D(colorTex, uv);				
+
+				return resultColor;
 			}
 
 			float4 frag(fragmentInput f) : COLOR
 			{
-				half4 color = tex2D(_MainTex, f.uv);
+				float4 color = tex2D(_MainTex, f.uv);
 
 				if(_DebugShader > 0)
 				{
@@ -65,7 +77,8 @@
 				}
 				else
 				{
-					color = motionBlur(_MainTex, _VelocityTexture, f.uv, _BlurIntensity);
+					color = crudeMotionBlur(_MainTex, _VelocityTexture, f.uv, _BlurIntensity);
+					//color = motionFilter(f.uv, _MainTex, _VelocityTexture, _CameraDepthTexture);
 				}
 
 				return color;
