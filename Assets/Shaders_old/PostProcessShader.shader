@@ -6,6 +6,7 @@
 	}
 	SubShader 
 	{
+		Tags { "RenderType"="Opaque" }
 		Pass
 		{
 			CGPROGRAM
@@ -25,6 +26,7 @@
 			{
 				float4 pos : POSITION;
 				half2 uv : TEXCOORD0;
+				float4 scrPos : TEXCOORD1;
 			};
 
 			fragmentInput vert(appdata_img v)
@@ -32,6 +34,9 @@
 				fragmentInput o;
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord.xy);
+				o.scrPos=ComputeScreenPos(o.pos);
+			   //for some reason, the y position of the depth texture comes out inverted
+			   o.scrPos.y = 1 - o.scrPos.y;
 				return o;
 			}
 
@@ -77,8 +82,18 @@
 				}
 				else
 				{
-					color = crudeMotionBlur(_MainTex, _VelocityTexture, f.uv, _BlurIntensity);
+					//color = crudeMotionBlur(_MainTex, _VelocityTexture, f.uv, _BlurIntensity);
 					//color = motionFilter(f.uv, _MainTex, _VelocityTexture, _CameraDepthTexture);
+					float depthValue = Linear01Depth(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(f.scrPos)).r);
+					half4 depth;
+
+					depth.r = depthValue;
+					depth.g = depthValue;
+					depth.b = depthValue;
+
+					depth.a = 1;
+
+					color = depth;
 				}
 
 				return color;
