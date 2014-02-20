@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class PostProcessScript : MonoBehaviour
 {
+    public Shader DepthShader;
     public bool RenderEffect = true;
     public Material PostProcessMaterial;
     public float BlurFactor = 40.0f;
@@ -11,8 +12,9 @@ public class PostProcessScript : MonoBehaviour
     private Matrix4x4 _oldViewProjMat;
     private List<ObjectRenderScript> _renderObjects;
 
-    void Start()
+    void OnEnable()
     {
+        camera.depthTextureMode |= DepthTextureMode.Depth;	
     }
 
     void StoreOldProjectionMatrix()
@@ -35,6 +37,25 @@ public class PostProcessScript : MonoBehaviour
             _oldViewProjMat = P * camera.worldToCameraMatrix;
             Shader.SetGlobalMatrix("_PrevVP", _oldViewProjMat);
     }
+
+    //void OnRenderImage(RenderTexture source, RenderTexture destination)
+    //{
+    //    RenderTexture depthBuffer = RenderTexture.GetTemporary(source.width, source.height, 24, RenderTextureFormat.ARGB32);
+    //    camera.targetTexture = depthBuffer;
+    //    camera.RenderWithShader(DepthShader, "");
+    //    camera.targetTexture = null;
+
+
+    //    Shader.SetGlobalFloat("_BlurIntensity", BlurIntensity);
+    //    Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
+
+    //    if (RenderEffect)
+    //        Shader.SetGlobalFloat("_DebugShader", 1);
+    //    else
+    //        Shader.SetGlobalFloat("_DebugShader", -1);
+
+    //    Graphics.Blit(source, destination, PostProcessMaterial);
+    //}
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {

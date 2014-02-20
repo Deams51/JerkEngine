@@ -64,7 +64,7 @@
 
 			GrabPass { "_VelocityTexture" }
 
-			CGPROGRAM
+			/*CGPROGRAM
 			#pragma surface surf Lambert vertex:vert
 
 			sampler2D _MainTex;
@@ -84,7 +84,7 @@
 				o.Albedo = c.rgb;
 				o.Alpha = c.a;
 			}
-			ENDCG
+			ENDCG*/
 
 /*
 			Pass

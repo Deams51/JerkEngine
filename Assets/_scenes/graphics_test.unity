@@ -1062,7 +1062,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 2
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
@@ -1096,6 +1096,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40539b6ad0b54e42bf16aa2d03cf2f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DepthShader: {fileID: 4800000, guid: abaa9f096590bb0419eefd35a11b306f, type: 3}
   RenderEffect: 0
   PostProcessMaterial: {fileID: 2100000, guid: b342a5cd3b0d13e4887f15b7872347a1, type: 2}
   BlurFactor: 15
