@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Camera))]
 public class PostEffectsCamera : MonoBehaviour 
 {
     public Shader VelocityShader;
-    public float BlurFactor = 40.0f;
+    public float BlurFactor = 15.0f;
     public float BlurIntensity = 40.0f;
     public Material MotionBlurMaterial;
 
@@ -43,9 +44,9 @@ public class PostEffectsCamera : MonoBehaviour
         cam.cullingMask = 1 << 8; //NOTE: Requires the velocity objects to be on layer 8!!!
 
         Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
-        Shader.SetGlobalTexture("_GlobalVelocityTexture", _renderTexture);
 
         cam.Render();
+        Shader.SetGlobalTexture("_GlobalVelocityTexture", _renderTexture);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
