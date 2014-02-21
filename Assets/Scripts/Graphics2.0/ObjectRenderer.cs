@@ -22,13 +22,14 @@ public class ObjectRenderer : MonoBehaviour
     {
         if (_postEffects.IsVelocityRenderStage)
         {
-            Shader.SetGlobalMatrix("_PrevObject2World", _previousObject2World);
             renderer.material.shader = _defaultShader;
+            //renderer.material.SetMatrix("_PrevObject2World", _previousObject2World);
         }
         else
         {
-            //renderer.material.SetMatrix("_PrevObject2World", _previousObject2World);
+            //Shader.SetGlobalMatrix("_PrevObject2World", _previousObject2World);
             renderer.material.shader = _velShader;
+            renderer.material.SetMatrix("_PrevObject2World", _previousObject2World);
         }
     }
 
