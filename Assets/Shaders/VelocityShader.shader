@@ -1,10 +1,8 @@
-﻿Shader "Custom/VelocityShader" 
+﻿Shader "Custom/Velocity Shader" 
 {
-	Properties 
-	{
-	}
 	SubShader 
 	{
+		Tags { "RenderType"="Moving" }
 		Pass
 		{
 			CGPROGRAM
@@ -14,15 +12,17 @@
 
 			#include "UnityCG.cginc"
 
-			//uniform sampler2D _MainTex;
-			//uniform sampler2D _GrabTexture;
-			uniform float4x4 _PrevObject2World;
-			uniform float4x4 _PrevVP;
+			uniform float4x4 _mv;
+			uniform float4x4 _mvPrev;
+			uniform float4x4 _mvInvTrans;
+			uniform float4x4 _mvpPrev;
+
 			uniform float _BlurFactor;
 
 			struct vertexInput
 			{
 				float4 vertex : POSITION;
+				float3 normal : NORMAL;
 			};
  
 			struct fragmentInput 
@@ -37,10 +37,21 @@
 			fragmentInput vert(vertexInput v)
 			{
 				fragmentInput o;
+				float4 curPoint = mul(_mv, v.vertex);
+				float4 prevPoint = mul(_mvPrev, v.vertex);
+
+				float3 N = (float3)mul(_mvInvTrans, float4(v.normal, 1));
+				float3 eyeMotion = curPoint.xyz - prevPoint.xyz;
+
+				curPoint = mul(UNITY_MATRIX_MVP, v.vertex);
+				prevPoint = mul(_mvpPrev, v.vertex);
+
+				float dotMN = dot(eyeMotion, N);
+				float4 pointStrech = dotMN > 0 ? curPoint : prevPoint;
 
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-				o.newPos = mul(mul(UNITY_MATRIX_VP, _Object2World), v.vertex);
-				o.oldPos = mul(mul(_PrevVP, _PrevObject2World), v.vertex);
+				o.newPos = curPoint;
+				o.oldPos = prevPoint;
 
 				return o;
 			}
@@ -49,12 +60,15 @@
 			//////////////////////////////////////////////////////////
 			float4 frag(fragmentInput i) : COLOR
 			{
-				float2 position1 = i.newPos.xy / i.newPos.w;
-				float2 position2 = i.oldPos.xy / i.oldPos.w;
-				float2 delta = (position2 - position1) * _BlurFactor + 0.5;
-
-				return half4(delta.x, delta.y, 0, 1);
-				//return float4(0,0,0,1);
+				float3 curPosition = i.newPos.xyz / i.newPos.w;
+				float3 prevPosition = i.oldPos.xyz / i.oldPos.w;
+				float2 delta = curPosition.xy - prevPosition.xy;
+					
+				delta.xy = delta.xy * 0.25 + 0.5; //additional blur factor: *0.25, normalizing to color value: +0.5
+					
+				return float4(EncodeFloatRG(delta.x), EncodeFloatRG(delta.y));
+				//return float4(delta.x, delta.y, 0, 1);
+				//return float4(1,1,1,1);
 			}
 			ENDCG
 		}
