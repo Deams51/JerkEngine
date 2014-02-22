@@ -151,7 +151,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 354440258}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2328dd438db224e48b69862feb1b804a, type: 3}
   m_Name: 
@@ -241,7 +241,8 @@ GameObject:
   - 33: {fileID: 929389101}
   - 64: {fileID: 929389100}
   - 23: {fileID: 929389099}
-  m_Layer: 0
+  - 114: {fileID: 929389103}
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,6 +301,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &929389103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 929389098}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2328dd438db224e48b69862feb1b804a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1578397694
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +444,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1603014518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2328dd438db224e48b69862feb1b804a, type: 3}
   m_Name: 
@@ -501,6 +513,7 @@ GameObject:
   - 124: {fileID: 1833940890}
   - 81: {fileID: 1833940889}
   - 114: {fileID: 1833940888}
+  - 114: {fileID: 1833940894}
   m_Layer: 0
   m_Name: camera_main
   m_TagString: MainCamera
@@ -520,9 +533,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VelocityShader: {fileID: 4800000, guid: 9fe62f53e81776d40aaf007a863026fe, type: 3}
-  BlurFactor: 40
-  BlurIntensity: 40
+  BlurFactor: 15
+  BlurIntensity: 175
   MotionBlurMaterial: {fileID: 2100000, guid: a9013b3dcbb5a8541ba1be607438a80d, type: 2}
+  DisplayVelocityBuffer: 0
 --- !u!81 &1833940889
 AudioListener:
   m_ObjectHideFlags: 0
@@ -572,7 +586,7 @@ Camera:
   m_RenderingPath: 2
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
 --- !u!4 &1833940893
 Transform:
   m_ObjectHideFlags: 0
@@ -584,3 +598,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1833940894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1833940887}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c74d75982fa694288f62f790a25cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunScript: 0
+  Speed: 10

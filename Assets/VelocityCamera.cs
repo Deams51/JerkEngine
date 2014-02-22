@@ -2,18 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Camera))]
-public class PostEffectsCamera : MonoBehaviour 
+public class VelocityCamera : MonoBehaviour 
 {
     public Shader VelocityShader;
     public float BlurFactor = 15.0f;
     public float BlurIntensity = 40.0f;
     public Material MotionBlurMaterial;
-    public bool DisplayVelocityBuffer = false;
 
     private Material _material = null;
     private Matrix4x4 _oldViewProjMat;
-    private List<ObjectRenderer> _renderObjects;
+    private List<VelocityObject> _renderObjects;
 
     private GameObject _shaderCamera;
     private RenderTexture _renderTexture;
@@ -24,50 +22,35 @@ public class PostEffectsCamera : MonoBehaviour
     void OnEnable()
     {
         _material = new Material(VelocityShader);
+        camera.depthTextureMode = DepthTextureMode.Depth;
     }
 
     void OnPreRender()
     {
-        _velocityRenderStage = true;
-        _renderTexture = RenderTexture.GetTemporary((int)camera.pixelWidth, (int)camera.pixelHeight, 24);
-        if (_shaderCamera == null)
+        if (_renderObjects != null)
         {
-            _shaderCamera = new GameObject("ShaderCamera", typeof(Camera));
-            _shaderCamera.camera.enabled = false;
-            _shaderCamera.hideFlags = HideFlags.HideAndDontSave;
+            foreach (VelocityObject obj in _renderObjects)
+            {
+                obj.SetShader(VelocityShader);
+            }
         }
-
-        Camera cam = _shaderCamera.camera;
-        cam.CopyFrom(camera);
-        cam.backgroundColor = new Color(0.5f, 0.5f, 0.0f, 1.0f);
-        cam.clearFlags = CameraClearFlags.SolidColor;
-        cam.targetTexture = _renderTexture;
-        cam.cullingMask = 1 << 8; //NOTE: Requires the velocity objects to be on layer 8!!!
-
-        Shader.SetGlobalFloat("_BlurFactor", BlurFactor);
-
-        cam.Render();
-        Shader.SetGlobalTexture("_VelTex", _renderTexture);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        _velocityRenderStage = false;
         Shader.SetGlobalFloat("_BlurIntensity", BlurIntensity);
-
-        //Graphics.Blit(source, destination);
-        Graphics.Blit(source, destination, MotionBlurMaterial);
+        Graphics.Blit(source, destination);
     }
 
-    public void AddToRenderList(ObjectRenderer obj)
+    public void AddToRenderList(VelocityObject obj)
     {
         if (_renderObjects == null)
-            _renderObjects = new List<ObjectRenderer>();
+            _renderObjects = new List<VelocityObject>();
 
         _renderObjects.Add(obj);
     }
 
-    public void RemoveFromRenderList(ObjectRenderer obj)
+    public void RemoveFromRenderList(VelocityObject obj)
     {
         if (_renderObjects != null)
         {
@@ -99,14 +82,15 @@ public class PostEffectsCamera : MonoBehaviour
 
     void OnPostRender()
     {
+        //RenderTexture.ReleaseTemporary(_renderTexture);
         StoreOldProjectionMatrix();
         if (_renderObjects != null)
         {
-            foreach (ObjectRenderer obj in _renderObjects)
+            foreach (VelocityObject obj in _renderObjects)
             {
                 obj.OnPostRenderUpdate();
+                obj.ResetShader();
             }
         }
-        RenderTexture.ReleaseTemporary(_renderTexture);
     }
 }
