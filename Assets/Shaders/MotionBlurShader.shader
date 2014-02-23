@@ -8,13 +8,9 @@
 
 	SubShader 
 	{
-		ZTest Always
-		Cull Off
-		ZWrite Off
-		Fog { Mode off }
+		Tags {"RenderType"="Opaque"}
 		Pass 
 		{
-			Blend One Zero
 			CGPROGRAM
 			#pragma vertex vert_img
 			#pragma fragment frag
@@ -25,7 +21,7 @@
 
 			uniform sampler2D _MainTex;
 			uniform sampler2D _VelocityBuffer;
-			//uniform sampler2D _CameraDepthTexture;
+			uniform sampler2D _CameraDepthTexture;
 
 			float4 crudeMotionBlur(v2f_img f)
 			{
@@ -56,6 +52,7 @@
 				//return tex2D(_GlobalVelocityTexture, i.uv);
 				//return color;
 				return crudeMotionBlur(f);
+				//return tex2D(_VelocityBuffer, f.uv);
 			}
 			ENDCG
 		}
