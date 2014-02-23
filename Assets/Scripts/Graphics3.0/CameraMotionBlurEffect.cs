@@ -41,10 +41,13 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     virtual protected void Awake()
     {
+        camera.depthTextureMode = DepthTextureMode.Depth;
+
         GameObject velCamera = new GameObject("VelocityCamera", typeof(Camera));
         velCamera.transform.parent = transform;
         _velocityCamera = velCamera.camera;
         _velocityCamera.transform.localPosition = Vector3.zero;
+        _velocityCamera.depthTextureMode = DepthTextureMode.Depth;
         velCamera.active = false;
 
         ViewMatrix = Matrix4x4.identity;
@@ -99,7 +102,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
         _velocityCamera.CopyFrom(camera);
         _velocityCamera.backgroundColor = new Color(0.4980392f, 0.5f, 0.4980392f, 0.5f); //EncodeFloatRG(0.5) from UnityCG.cginc, this is needed due to floating point precision issues
         _velocityCamera.targetTexture = velocityBuffer;
-        _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "RenderType");
+        _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
         //Render everything

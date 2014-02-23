@@ -2,7 +2,7 @@
 {
 	SubShader 
 	{
-		Tags { "RenderType"="Moving" }
+		Tags { "RenderType"="Opaque" }
 		Pass
 		{
 			CGPROGRAM
