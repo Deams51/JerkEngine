@@ -423,6 +423,7 @@ public class Wheel : MonoBehaviour {
 		else
 		{
 			Logger("not on ground");
+			deflectionsInit(n);
 			compression = 0.0f;
 			suspensionForce = Vector3.zero;
 			roadForce = Vector3.zero;
@@ -465,13 +466,13 @@ public class Wheel : MonoBehaviour {
             body.AddForce(Physics.gravity * 5000);
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
-            angularVelocity += 10;
+            angularVelocity += 1;
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
-            angularVelocity -= 10;
+            angularVelocity -= 1;
         }
     }
 	
@@ -646,8 +647,8 @@ public class Wheel : MonoBehaviour {
         float phiy; // result
         float teta1 = 0.0f;
         float teta2 = 0.0f;
-        float teta0x = 0.1f * (3.16f * 100000.0f * Fz);
-        float teta0y = ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
+        float teta0x =  (3.16f * 100000.0f * Fz);
+		float teta0y = 0.1f *((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
 
         float muS = -0.054f * Fz + 1.887f; // Given by tables
         float muC = -0.022f * Fz + 0.734f; // Given by tables
@@ -714,7 +715,7 @@ public class Wheel : MonoBehaviour {
     {
         Quaternion toLocal;
         Quaternion toWheel;
-        Fz = 4000.0f;
+        //Fz = 4000.0f;
         
         // velocity in woorld coordinate
         Vector3 vGroundInWorld = -body.rigidbody.GetPointVelocity(model.transform.position);
@@ -753,10 +754,10 @@ public class Wheel : MonoBehaviour {
         Vector2 resIntegral = integral(v, vAng, alpha, Fz, n);
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
-        Vector3 FLocal = new Vector3(1000.0f * Fy, 0.0f, 10000.0f * Fx);
+        Vector3 FLocal = new Vector3(10000.0f * Fy, 0.0f, 10000.0f * Fx);
         if (steeringWheel)
         {
-            FLocal.z=0.0f;
+            //FLocal.z=0.0f;
         }
         F = transform.TransformDirection(toWheel * FLocal);
         Debug.DrawRay(model.transform.position + up * 3, transform.TransformDirection(toWheel * new Vector3(0.0f,0.0f,1.0f)));

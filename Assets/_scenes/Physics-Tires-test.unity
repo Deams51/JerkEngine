@@ -4774,7 +4774,7 @@ MonoBehaviour:
   F: {x: 0, y: 0, z: 0}
   L: .0199999996
   W: .00999999978
-  n: 100
+  n: 50
   alpha: 0
 --- !u!114 &810996925
 MonoBehaviour:
@@ -6500,7 +6500,7 @@ MonoBehaviour:
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
-  maxSteeringAngle: 15
+  maxSteeringAngle: 28
   model: {fileID: 938200978}
   massFraction: .300000012
   a:
@@ -6550,7 +6550,7 @@ MonoBehaviour:
   F: {x: 0, y: 0, z: 0}
   L: .0199999996
   W: .00999999978
-  n: 30
+  n: 50
   alpha: 0
 --- !u!114 &1142982333
 MonoBehaviour:
@@ -7780,7 +7780,7 @@ MonoBehaviour:
   F: {x: 0, y: 0, z: 0}
   L: .0199999996
   W: .00999999978
-  n: 100
+  n: 50
   alpha: 0
 --- !u!114 &1314332686
 MonoBehaviour:
@@ -10207,7 +10207,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868475597}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b6b876735f9646ba896b31288c287b4, type: 3}
   m_Name: 
@@ -11130,7 +11130,7 @@ MonoBehaviour:
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
-  maxSteeringAngle: 15
+  maxSteeringAngle: 28
   model: {fileID: 841130299}
   massFraction: .300000012
   a:
@@ -11180,7 +11180,7 @@ MonoBehaviour:
   F: {x: 0, y: 0, z: 0}
   L: .0199999996
   W: .00999999978
-  n: 100
+  n: 50
   alpha: 0
 --- !u!114 &1988499783
 MonoBehaviour:
