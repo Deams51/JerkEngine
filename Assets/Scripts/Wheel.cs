@@ -82,6 +82,15 @@ public class Wheel : MonoBehaviour {
 	float maxAngle;
 	float oldAngle;	
 	Skidmarks skid;
+
+    RaycastHit hit;
+    public bool onGround;
+    public bool steeringWheel;
+    public float Fx;
+    public float Fy;
+
+    public Vector3 FBase;
+    public Vector3 F;
 	
 	float CalcLongitudinalForce(float Fz,float slip)
 	{
@@ -107,7 +116,7 @@ public class Wheel : MonoBehaviour {
 		float E=a[6]*Fz+a[7];
 		float Sv=a[12]*Fz+a[13];
 		float Fy=D*Mathf.Sin(a[0]*Mathf.Atan(S*B+E*(Mathf.Atan(S*B)-S*B)))+Sv;
-		return Fy;
+        return Fy;
 	}
 	
 	float CalcLongitudinalForceUnit(float Fz,float slip)
@@ -177,6 +186,10 @@ public class Wheel : MonoBehaviour {
 		InitSlipMaxima ();
 		skid = FindObjectOfType(typeof(Skidmarks)) as Skidmarks;
 		fullCompressionSpringForce = body.mass * massFraction * 2.0f * -Physics.gravity.y;
+
+
+        // Tests
+        deflectionsInit(n);
 	}
 	
 	Vector3 SuspensionForce () {
@@ -253,7 +266,7 @@ public class Wheel : MonoBehaviour {
 			else
 				angularVelocity = 0;
 				
-			wheelVelo += worldForce* (1/body.mass) * Time.deltaTime * invSlipRes;
+			wheelVelo += worldForce* (1/body.mass) * Time.fixedDeltaTime * invSlipRes;
 			totalForce += worldForce;
 		}
 
@@ -338,54 +351,74 @@ public class Wheel : MonoBehaviour {
         return tabRays;
     }
 
-    
-    void FixedUpdate () {
-
-        Vector3 pos = transform.position;
-        up = transform.up;
-
-        Vector3 centerW = pos +((-up) * suspensionTravel);
-
-
-        bool onGroundAlt = false;
+    public void checkOnGround()
+    {
+        Vector3 up = transform.up;
+        Vector3 centerW = model.transform.position;// transform.position + ((-up) * suspensionTravel);
+        onGround = false;
         float dist2 = radius;
-        RaycastHit hitAlternate = new RaycastHit();
-
+        
+        hit = new RaycastHit();
         rayElem[] tab = listRays(centerW, radius, width, 50, 10);
+        Debug.DrawRay(centerW, up);
+
         foreach (rayElem r in tab)
         {
-            RaycastHit[] hts = Physics.RaycastAll(r.c(),r.d(),r.l());
+            RaycastHit[] hts = Physics.RaycastAll(r.c(), r.d(), r.l());
             foreach (RaycastHit h in hts)
             {
                 if (!h.collider.isTrigger && h.collider.name != "Collider" && h.distance < dist2)
                 {
-                    hitAlternate = h;
-                    onGroundAlt = true;
-                    dist2 = h.distance; 
+                    hit = h;
+                    onGround = true;
+                    dist2 = h.distance;
                     //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x - pos.x, 0, 0), Color.green, 10.0f);
-            
+
                 }
             }
         }
+    }
 
-		if (onGroundAlt)
+    void FixedUpdate()
+    {
+    
+    }
+
+    public void PhysUpdate()
+    {
+        Vector3 pos = transform.position;
+        up = transform.up;
+
+        // Calulating weight
+
+
+        Vector3 centerW = pos +((-up) * suspensionTravel);
+
+		if (onGround)
         {
             //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
-            //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x-pos.x,0,0), Color.red, 10.0f);
+            Debug.DrawLine(hit.point, centerW , Color.red, 10.0f);
             //Logger("Colliding with : " + hitAlternate.collider.name);
-            Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hitAlternate.normal);
+            Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
             groundNormal = groundNormalRCM; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
 
             //Logger("RCM - dist : " + (hitAlternate.distance + suspensionTravel - radius) + " normal : " + groundNormalRCM
              //+ "\nRC - dist : " + (hit.distance - radius) + " normal : " + groundNormal);
- 
-            compression = 1.0f - ((hitAlternate.distance + suspensionTravel - radius) / suspensionTravel);
+
+            compression = 1.0f - ((hit.distance + suspensionTravel - radius) / suspensionTravel);
 			
             wheelVelo = body.GetPointVelocity (pos);
 			localVelo = transform.InverseTransformDirection (inverseLocalRotation * wheelVelo);
 			suspensionForce = SuspensionForce ();
-			roadForce = RoadForce ();
-			body.AddForceAtPosition (suspensionForce + roadForce, pos);
+            //roadForce = RoadForce();
+
+            // TESTS
+            FCalc(angularVelocity, steering * maxSteeringAngle, normalForce, n);
+            body.AddForceAtPosition(new Vector3(0.0f, suspensionForce.y, 0.0f) + F, pos);
+            Debug.DrawLine(model.transform.position, model.transform.position + F, Color.red);
+            Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 1000), Color.blue);
+            FBase = roadForce;
+            //body.AddForceAtPosition (suspensionForce + roadForce, pos);
 		}
 		else
 		{
@@ -407,7 +440,7 @@ public class Wheel : MonoBehaviour {
 		}
 
 		if (skid != null && Mathf.Abs(slipRatio) > 0.2)
-			lastSkid = skid.AddSkidMark(hitAlternate.point, hitAlternate.normal, Mathf.Abs(slipRatio) - 0.2f,lastSkid);
+            lastSkid = skid.AddSkidMark(hit.point, hit.normal, Mathf.Abs(slipRatio) - 0.2f, lastSkid);
 		else
 			lastSkid = -1;
 
@@ -418,6 +451,7 @@ public class Wheel : MonoBehaviour {
 			model.transform.localPosition = Vector3.up * (compression - 1.0f) * suspensionTravel;
 			model.transform.localRotation = Quaternion.Euler (Mathf.Rad2Deg * rotation, maxSteeringAngle * steering, 0);
 		}
+
 	}
 
     void Update()
@@ -426,10 +460,305 @@ public class Wheel : MonoBehaviour {
         {
             debugRay = true;
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            body.AddForce(Physics.gravity * 5000);
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            angularVelocity += 10;
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            angularVelocity -= 10;
+        }
     }
 	
 	void Logger(string log)
 	{
         if (debug) Debug.Log(this.name + ": " + log + "\n");
 	}
+    /*
+    void AverageLumpedModel()
+    {
+        Vector3 F = new Vector3();
+        Vector3 Fn = new Vector3();
+
+        Fn =   ;// integral de 0 à L (fn(bizarre)dbizarre)
+        F = (t0 * zt + t1 * Vzt + t2 * Vr) * Fn;
+    }*/
+
+
+
+
+
+    // tire model at : http://code.eng.buffalo.edu/dat/sites/tire/tire.html
+    // Not working yet
+    void BuffaloTire(float Fa)
+    {
+        float Fz = massFraction * body.mass * Physics.gravity.magnitude;
+        /* mu :  nominal coefficient of friction and has a value of 0.85 for normal road conditions,
+         *       0.3 for wet road conditions, and 0.1 for icy road conditions. */
+        float mu0 = 0.85f; 
+
+                    float Fzt = 810f;   // Given by table
+                    float Tw = 6f;      // Given by table
+                    float Tp = 24f;     // Given by table
+                float ap0 = ( 0.0768f *  Mathf.Sqrt(Fz*Fzt) ) / ( Tw * (Tp + 5) );
+                float A0 = 914.02f;     // Given by table
+                float A1 = 12.9f;       // Given by table
+                float A2 = 2028.24f;    // Given by table
+            float Ks = (2.0f/(ap0*ap0) * (A0 + (A1*Fz) - ( (A1/A2) * Fz * Fz )));
+                    
+                    Vector3 wheelVelocity = body.rigidbody.GetPointVelocity(transform.position);
+                    Vector3 wheelVeloInW = transform.InverseTransformDirection(wheelVelocity);
+                float u = wheelVeloInW.z; // velocity of the wheel on xW axis
+                float v = wheelVeloInW.x; // velocity of the wheel on orth direction (lateral)
+            float alpha = Mathf.Atan(v / u); // Angle between VxW axis and vW the velocity of the wheel
+                if (u == 0) alpha = 0;
+            
+            float S;
+            if (u > radius*angularVelocity) S = (u - radius*angularVelocity)/u;
+            else  S = (radius*angularVelocity - u)/radius*angularVelocity;
+
+                    float CSFZ = 18.7f; // Given by table
+                float Kc =(2.0f/(ap0*ap0)) *Fz * (CSFZ) ;
+            float kpc = Kc + (Ks - Kc)*Mathf.Sqrt(Mathf.Pow(Mathf.Sin(alpha),2) + S*S*Mathf.Pow(Mathf.Cos(alpha),2));
+
+                float C1 = 1.0f; // Given
+                float C2 = 0.34f; // Given
+                float C3 = 0.57f; // Given
+                float C4 = 0.32f; // Given
+                    float Ka = 0.05f; // Given
+                    float ap = ap0 * (1 - (Ka * (Fx/Fz))); // Using old version of Fx  
+                //Debug.Log("ap = " + ap + " ap0 = " + ap0 + " Fx = " + Fx + " Fz = " + Fz);
+                float teta = ( (Mathf.PI*ap*ap) / ( 8.0f * mu0 * Fz) ) * Mathf.Sqrt( (Ks*Ks * Mathf.Tan(alpha) * Mathf.Tan(alpha)) + ( Kc*Kc*(S/(1-S))) );
+                float teta2 = teta * teta;
+                float teta3 = teta2 * teta;
+
+
+            float fteta =( (C1*teta3) + (C2*teta2) + ((4/Mathf.PI)*teta) ) / ( (C1*teta3) + (C3*teta2) + (C4*teta) + 1);
+           // Debug.Log("teta = " + teta + " mu0 = " + mu0 + " ap =" + ap + " Fz = " + Fz + " Ks = " + Ks + " Kc = " + Kc + " S = " + S + " alpha = " + alpha + "tan(alpha) = " + Mathf.Tan(alpha));
+            float tan2 = Mathf.Tan(alpha) * Mathf.Tan(alpha);
+            float temp = Mathf.Sqrt((Ks*Ks*tan2) + (kpc*kpc*S*S));
+                
+                float Kmu = 0.124f; // Givern
+            float mu = mu0*(1 - (Kmu * Mathf.Sqrt(Mathf.Sin(alpha)*Mathf.Sin(alpha) + S*S*Mathf.Cos(alpha)*Mathf.Cos(alpha))));
+
+        Fx = (fteta*kpc*S*mu*Fz) / temp ;
+        Fy = ( fteta*Ks*Mathf.Tan(alpha)*mu*Fz) / temp ;
+        
+        //Debug.Log("fteta = " + fteta + " ks = " + Ks + " alpha = " + alpha + " mu = " + mu + " Fz = " + Fz + " temp = " + temp);
+    }
+
+
+    // OTHER MODEL : LUMPED
+
+
+    public struct defl_struct
+    {
+        // Deflection on x
+        public float x;
+        // Deflection on y
+        public float y;
+
+        // Update current deflection
+        public void update(Vector2 vGround, float wr, float delta)
+        {
+            x = x + (wr) - (vGround.x);
+            y = y - (vGround.y);
+        }
+
+        // Constructor
+        public defl_struct(float x_, float y_)
+        {
+            x = x_;
+            y = y_;
+        }
+    }
+
+    public defl_struct[] deflections;
+    public float L = 0.02f;
+    public float W = 0.01f;
+    public int n = 100;
+
+    // Creating deflections arrays for n bristles
+    // At the start no bristle is deflected
+    // 2D array : bristle deflection on x (deflections[i][0]) and y (deflections[i][1])
+    public void deflectionsInit(int n)
+    {
+        deflections = new defl_struct[n];
+        for (int i=0; i < n; i++)
+        {
+            deflections[i] = new defl_struct(0.0f, 0.0f);
+        }
+    }
+
+    public void updateDeflection(Vector2 vGround, float wr, float delta, int n)
+    {
+        defl_struct newBristle, temp;
+
+        // replacing missing data due to delta
+        // number of bristles concerned
+        int nbr_bristles = Mathf.Abs((int)(wr * delta * n / L)) + 1;
+        float subDelta = delta / nbr_bristles;
+
+        for (int i = 0; i<nbr_bristles ; i++)
+        {
+            newBristle = new defl_struct(0.0f, 0.0f);
+            temp = deflections[0];
+            deflections[0] = newBristle;
+
+            //Debug.Log("delta = " + delta);        
+            for (int j = 1; j < n; j++)
+            {
+                temp.update(vGround, wr, subDelta);
+                newBristle = deflections[j];
+                deflections[j] = temp;
+                temp = newBristle;
+            }  
+        }
+    }
+
+    // normalized normal pressure distribution
+    public float nnpd()
+    {
+        return 1.0f/(float)n;
+    }
+
+    public float zx(int i)
+    {
+        if (i < 0) return 0.0f;
+        return deflections[i].x;
+    }
+
+    public float zy(int i)
+    {
+        if (i < 0) return 0.0f;
+        return deflections[i].y;
+    }
+
+    // Phi for a bristle i
+    public Vector2 Phi(int i, Vector2 v, float vAng, float alpha, float Fz, int n)
+    {
+        float phix; // result
+        float phiy; // result
+        float teta1 = 0.0f;
+        float teta2 = 0.0f;
+        float teta0x = 0.1f * (3.16f * 100000.0f * Fz);
+        float teta0y = ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
+
+        float muS = -0.054f * Fz + 1.887f; // Given by tables
+        float muC = -0.022f * Fz + 0.734f; // Given by tables
+        float Vs = 3.5f; // Given by tables        
+        float d = 0.6f; // Given by tables
+
+        float Fc = muC * Fz; // Coulomb friction force
+        float Fs = muS * Fz; // maximum static friction force
+
+        float vrx = (radius * vAng) - (v.x);
+        float vry = -v.y;
+        float vrAbs = Mathf.Sqrt(vrx * vrx + vry * vry);
+
+        float gvr = ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+
+        float dzx = vrx - ((teta0x * Mathf.Abs(vrAbs) / gvr) * zx(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zx(i) - zx(i - 1)));
+        float dzy = vry - ((teta0y * Mathf.Abs(vrAbs) / gvr) * zy(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zy(i) - zy(i - 1)));
+
+        float part1 = (nnpd() * L * W) / Fz;
+        // phiX calculus
+        float part2x = (teta0x * zx(i)) + (teta1 * dzx) + (teta2 * vrx);
+        
+        // phiY calculus
+        float part3y = (teta0y * zy(i)) + (teta1 * dzy) + (teta2 * vry);
+        
+        
+        phix = part1 * part2x;
+        phiy = part1 * part3y;
+        //Debug.Log("vrx = " + vrx + " vrabs = " + vrAbs + " zx(i) = " +  zx(i) + " radius = " + radius + " vAngAbs = " + vAng + " L = " + L  
+        //   + "\nphi = " + phix + " part1 = " + part1 + " part2 = " + part2 + " dz = " + dzx + " gvr = " + gvr );
+        //Debug.Log("phiY = " + phiy);
+        return new Vector2(phix,phiy);
+    }
+
+    public Vector2 integral(Vector2 v, float vAng, float alpha, float Fz, int n)
+    {
+        float resx = 0.0f;
+        float resy = 0.0f;
+        float sumx = 0.0f;
+        float sumy = 0.0f;
+
+        float coef = L/(2*n);
+        Vector2 phiInit = Phi(0, v, vAng, alpha, Fz, n);
+        sumx += phiInit.x;
+        sumy += phiInit.y;
+        for (int i = 1; i < n - 1; i++)
+        {
+            Vector2 phi = Phi(i, v, vAng, alpha, Fz, n);
+            sumx += (2 * phi.x);
+            sumy += (2 * phi.y);
+        }
+        Vector2 phiLast = Phi(n - 1, v, vAng, alpha, Fz, n);
+        sumx += phiLast.x;
+        sumy += phiLast.y;
+
+        resx = coef * sumx;
+        resy = coef * sumy;
+
+        return new Vector2(resx,resy);
+    }
+    public float alpha;
+
+    public void FCalc(float vAng, float steering, float Fz, int n)
+    {
+        Quaternion toLocal;
+        Quaternion toWheel;
+        Fz = 4000.0f;
+        
+        // velocity in woorld coordinate
+        Vector3 vGroundInWorld = -body.rigidbody.GetPointVelocity(model.transform.position);
+        float wr = vAng * radius;
+        
+        if (!steeringWheel)
+        {
+            steering = 0;
+        }
+        
+        toLocal = Quaternion.Euler(0, -steering, 0);
+        toWheel = Quaternion.Euler(0, steering, 0);
+        
+        // velocity in wheel coordinate minus alpha angle
+        Vector3 vGround = transform.InverseTransformDirection(vGroundInWorld);
+        // apply alpha angle
+        Vector3 vLocal = toLocal * vGround;
+        // Transform into equations coord system and into ground velocity
+        Vector2 v = new Vector2(vLocal.z, vLocal.x);
+        Debug.DrawRay(model.transform.position+transform.up*3, -vGroundInWorld, Color.green);
+
+        alpha = Vector2.Angle( new Vector2(-vGroundInWorld.z,-vGroundInWorld.x),
+            new Vector2(transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)).z, 
+                transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)).x));
+        Vector3 cross = Vector3.Cross(-vGroundInWorld, transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)));
+        if (cross.z > 0) alpha -= 360;
+        
+        if (steeringWheel)
+        {
+            wr = -v.x;
+            angularVelocity = wr / radius;
+            vAng = wr / radius;
+        }
+
+        updateDeflection(v, wr, Time.fixedDeltaTime, n);
+        Vector2 resIntegral = integral(v, vAng, alpha, Fz, n);
+        Fx = W * resIntegral.x;
+        Fy = W * resIntegral.y;
+        Vector3 FLocal = new Vector3(1000.0f * Fy, 0.0f, 10000.0f * Fx);
+        if (steeringWheel)
+        {
+            FLocal.z=0.0f;
+        }
+        F = transform.TransformDirection(toWheel * FLocal);
+        Debug.DrawRay(model.transform.position + up * 3, transform.TransformDirection(toWheel * new Vector3(0.0f,0.0f,1.0f)));
+    }
 }

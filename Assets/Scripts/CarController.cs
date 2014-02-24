@@ -220,4 +220,24 @@ public class CarController : MonoBehaviour {
 		//GUI.Label (new Rect(0,60,100,200),"km/h: "+rigidbody.velocity.magnitude * 3.6f);
 		//tractionControl = GUI.Toggle(new Rect(0,80,300,20), tractionControl, "Traction Control (bypassed by shift key)");
 	}
+    void FixedUpdate()
+    {
+        int cpt = 0;
+        foreach (Wheel w in wheels)
+        {
+            w.checkOnGround();
+            if (w.onGround) cpt++;
+        }
+        foreach (Wheel w in wheels)
+        {
+            if (w.onGround) w.massFraction = (1.0f / (float)cpt);
+            else w.massFraction = 0.0f;
+            w.PhysUpdate();
+        }
+    }
+
+    void FixedUpdateNew()
+    {
+
+    }
 }

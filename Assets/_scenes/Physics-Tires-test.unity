@@ -3530,11 +3530,11 @@ Transform:
   m_PrefabParentObject: {fileID: 400176, guid: 57b01c33a2f0e44c8973dae2f9a0144a, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 603212650}
-  m_LocalRotation: {x: .0359889604, y: -.0134908538, z: .000485881028, w: .999261081}
-  m_LocalPosition: {x: .786682129, y: 3.43604159, z: -16.4228344}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: .107190497, y: .00298145204, z: -.000323224172, w: .994233966}
+  m_LocalPosition: {x: 16.6791382, y: 5.35484934, z: -6.647892}
+  m_LocalScale: {x: 1.00098598, y: 1.0216912, z: 1.02199948}
   m_Children: []
-  m_Father: {fileID: 1868475598}
+  m_Father: {fileID: 0}
 --- !u!114 &603212652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3542,13 +3542,14 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 603212650}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd3b9afcf8ec8544b856947c92a970db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1868475598}
-  smooth: 5
+  rotat: {x: 0, y: 0, z: 0, w: 0}
+  distRelat: {x: 0, y: 0, z: 0}
 --- !u!81 &603212653
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3582,7 +3583,7 @@ Camera:
   m_GameObject: {fileID: 603212650}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 2
   m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -3592,10 +3593,10 @@ Camera:
     height: 1
   near clip plane: .300000012
   far clip plane: 1000
-  field of view: 20
+  field of view: 27
   orthographic: 0
   orthographic size: 100
-  m_Depth: -1
+  m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -4680,6 +4681,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 810996923}
   - 114: {fileID: 810996924}
+  - 114: {fileID: 810996925}
   m_Layer: 0
   m_Name: WheelRL
   m_TagString: Untagged
@@ -4716,14 +4718,14 @@ MonoBehaviour:
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
-  damping: 4000
+  damping: 5000
   inertia: 2.20000005
   grip: 1
   brakeFrictionTorque: 3000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
-  model: {fileID: 645232460}
+  model: {fileID: 195667075}
   massFraction: .200000003
   a:
   - 1
@@ -4764,6 +4766,53 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 0
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  L: .0199999996
+  W: .00999999978
+  n: 100
+  alpha: 0
+--- !u!114 &810996925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 810996922}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nS: 0
+  nL: 0
+  r: 0
+  angleChassis: 0
+  v: {x: 0, y: 0, z: 0}
+  alpha: 0
+  sL: 0
+  sS: 0
+  sRes: 0
+  muRes: 0
+  Fz: 0
+  FL: 0
+  Fx: 0
+  Fy: 0
+  FS: 0
+  FZC: 0
+  position: 
+  CoG: {fileID: 0}
+  radius: .310000002
+  width: .200000003
+  kT: 0
+  kS: .899999976
+  vcog: 0
+  vphi: 0
+  beta: 0
+  dw: 0
 --- !u!1 &818327003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6408,6 +6457,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1142982331}
   - 114: {fileID: 1142982332}
+  - 114: {fileID: 1142982333}
   m_Layer: 0
   m_Name: WheelFL
   m_TagString: Untagged
@@ -6444,13 +6494,13 @@ MonoBehaviour:
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
-  damping: 3000
+  damping: 4000
   inertia: 2.20000005
   grip: 1
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
-  maxSteeringAngle: 28
+  maxSteeringAngle: 15
   model: {fileID: 938200978}
   massFraction: .300000012
   a:
@@ -6492,6 +6542,53 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 1
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  L: .0199999996
+  W: .00999999978
+  n: 30
+  alpha: 0
+--- !u!114 &1142982333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142982330}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nS: 0
+  nL: 0
+  r: 0
+  angleChassis: 0
+  v: {x: 0, y: 0, z: 0}
+  alpha: 0
+  sL: 0
+  sS: 0
+  sRes: 0
+  muRes: 0
+  Fz: 0
+  FL: 0
+  Fx: 0
+  Fy: 0
+  FS: 0
+  FZC: 0
+  position: 
+  CoG: {fileID: 0}
+  radius: .310000002
+  width: .200000003
+  kT: 0
+  kS: .899999976
+  vcog: 0
+  vphi: 0
+  beta: 0
+  dw: 0
 --- !u!1 &1144916177
 GameObject:
   m_ObjectHideFlags: 0
@@ -7508,10 +7605,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1293427852}
   m_LocalRotation: {x: -.0567243174, y: .725298643, z: -.06019786, w: -.68344748}
-  m_LocalPosition: {x: 34.7504997, y: 2.21757007, z: 47.0773087}
+  m_LocalPosition: {x: 18.4057217, y: 2.21757007, z: 10.3410416}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1868475598}
 --- !u!114 &1293427854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7525,7 +7622,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1868475598}
-  smooth: 5
+  rotat: {x: 0, y: 0, z: 0, w: 0}
+  distRelat: {x: 0, y: 0, z: 0}
 --- !u!81 &1293427855
 AudioListener:
   m_ObjectHideFlags: 0
@@ -7589,6 +7687,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1314332684}
   - 114: {fileID: 1314332685}
+  - 114: {fileID: 1314332686}
   m_Layer: 0
   m_Name: WheelRR
   m_TagString: Untagged
@@ -7625,14 +7724,14 @@ MonoBehaviour:
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
-  damping: 4000
+  damping: 5000
   inertia: 2.20000005
   grip: 1
   brakeFrictionTorque: 3000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
-  model: {fileID: 195667075}
+  model: {fileID: 645232460}
   massFraction: .200000003
   a:
   - 1
@@ -7673,6 +7772,53 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 0
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  L: .0199999996
+  W: .00999999978
+  n: 100
+  alpha: 0
+--- !u!114 &1314332686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1314332683}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nS: 0
+  nL: 0
+  r: 0
+  angleChassis: 0
+  v: {x: 0, y: 0, z: 0}
+  alpha: 0
+  sL: 0
+  sS: 0
+  sRes: 0
+  muRes: 0
+  Fz: 0
+  FL: 0
+  Fx: 0
+  Fy: 0
+  FS: 0
+  FZC: 0
+  position: 
+  CoG: {fileID: 0}
+  radius: .310000002
+  width: .200000003
+  kT: 0
+  kS: .899999976
+  vcog: 0
+  vphi: 0
+  beta: 0
+  dw: 0
 --- !u!1 &1339465046
 GameObject:
   m_ObjectHideFlags: 0
@@ -10026,6 +10172,7 @@ GameObject:
   - 114: {fileID: 1868475601}
   - 114: {fileID: 1868475600}
   - 114: {fileID: 1868475599}
+  - 114: {fileID: 1868475606}
   m_Layer: 0
   m_Name: Peugeot
   m_TagString: Untagged
@@ -10040,18 +10187,18 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868475597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.3447781, y: 1.11022302e-16, z: 36.7362671}
+  m_LocalPosition: {x: 16.6591148, y: 2.00229454, z: 7.57204056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1882941293}
   - {fileID: 1012404701}
   - {fileID: 1737813003}
   - {fileID: 1844059352}
+  - {fileID: 1293427853}
   - {fileID: 1988499781}
   - {fileID: 1142982331}
   - {fileID: 1314332684}
   - {fileID: 810996923}
-  - {fileID: 603212651}
   m_Father: {fileID: 0}
 --- !u!114 &1868475599
 MonoBehaviour:
@@ -10191,7 +10338,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868475597}
   serializedVersion: 2
-  m_Mass: 1045
+  m_Mass: 1345
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -10199,6 +10346,33 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1868475606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1868475597}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aadb4cd4da6bcff4eaa31b8601186e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fL: {fileID: 1142982333}
+  fR: {fileID: 1988499783}
+  rL: {fileID: 810996925}
+  rR: {fileID: 1314332686}
+  g: 9.81000042
+  massCoG: 0
+  bR: 0
+  bF: 0
+  lF: 0
+  lR: 0
+  totalForce: {x: 0, y: 0, z: 0}
+  FR: 0
+  angularVelo: 10
+  aY: 0
+  aX: 0
+  dW: 0
 --- !u!1 &1869502775
 GameObject:
   m_ObjectHideFlags: 0
@@ -10913,6 +11087,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1988499781}
   - 114: {fileID: 1988499782}
+  - 114: {fileID: 1988499783}
   m_Layer: 0
   m_Name: WheelFR
   m_TagString: Untagged
@@ -10949,13 +11124,13 @@ MonoBehaviour:
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
-  damping: 3000
+  damping: 4000
   inertia: 2.20000005
   grip: 1
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
-  maxSteeringAngle: 28
+  maxSteeringAngle: 15
   model: {fileID: 841130299}
   massFraction: .300000012
   a:
@@ -10997,6 +11172,53 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 1
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  L: .0199999996
+  W: .00999999978
+  n: 100
+  alpha: 0
+--- !u!114 &1988499783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1988499780}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nS: 0
+  nL: 0
+  r: 0
+  angleChassis: 0
+  v: {x: 0, y: 0, z: 0}
+  alpha: 0
+  sL: 0
+  sS: 0
+  sRes: 0
+  muRes: 0
+  Fz: 0
+  FL: 0
+  Fx: 0
+  Fy: 0
+  FS: 0
+  FZC: 0
+  position: 
+  CoG: {fileID: 0}
+  radius: .310000002
+  width: .200000003
+  kT: 0
+  kS: .899999976
+  vcog: 0
+  vphi: 0
+  beta: 0
+  dw: 0
 --- !u!1 &1999819441
 GameObject:
   m_ObjectHideFlags: 0

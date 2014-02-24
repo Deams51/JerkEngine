@@ -5,18 +5,19 @@ using System.Collections;
 public class cameraPhysicTest : MonoBehaviour {
 
     public Transform target;
-    public float smooth= 5.0f;
-	
+    public Quaternion rotat;
+    public Vector3 distRelat;
+
     // Use this for initialization
 	void Start () {
-	
+        rotat = target.rotation;
+        distRelat = transform.position - target.position;
 	}
 	
 	// Update is called once per frame
     void  Update ()
     {
-        transform.position = Vector3.Lerp (
-        transform.position, target.position,
-        Time.deltaTime * smooth);
+        //transform.rotation = relativeRotat;
+        transform.position = target.position + distRelat;
     }
 }
