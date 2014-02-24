@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3c9c8b1544acc49b192d8703aa47ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EulerRotation: {x: 500, y: 500, z: 0}
+  EulerRotation: {x: 5000, y: 500, z: 0}
 --- !u!114 &115088101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +178,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 115088098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.34420013, y: 0, z: -2.82442904}
+  m_LocalPosition: {x: 1.34420013, y: .020318985, z: -1.0727253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -208,7 +208,7 @@ Light:
   serializedVersion: 3
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .5
+  m_Intensity: 1.03999996
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -312,7 +312,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 505296989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.29016685, y: 0, z: -.670215726}
+  m_LocalPosition: {x: 3.29016685, y: 0, z: -.632864714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
