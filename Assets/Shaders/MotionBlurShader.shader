@@ -45,8 +45,10 @@
 
 		float4 velocitySample = tex2D(_VelocityBuffer, velocityUV);
 		float2 velocity = float2(DecodeFloatRG(velocitySample.rg), DecodeFloatRG(velocitySample.ba));
+		float4 compare = float4(EncodeFloatRG(0.5), EncodeFloatRG(0.5));
+		float2 compare2 = float2(DecodeFloatRG(compare.rg), DecodeFloatRG(compare.ba));
 
-		velocity = (velocity - 0.5) * 4; //decode from color to velocity value
+		velocity = (velocity - 0.5); //decode from color to velocity value
 
 		float zx = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x,0,0)));
 		zx = -Linear01Depth(zx);
@@ -56,7 +58,7 @@
 			float intensity = 1.0 / (NUM_SAMPLES + 1);
 			float length = (0.5 / NUM_SAMPLES);
 			
-			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5);
+			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 4;
 
 			float zy = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x+offset,0,0)));
 			zy = -Linear01Depth(zy);
@@ -69,6 +71,7 @@
 		}
 
 		return result;
+		//return tex2D(_VelocityBuffer, f.uv);
 	}
 	
 	ENDCG
