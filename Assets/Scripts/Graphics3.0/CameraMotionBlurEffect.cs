@@ -92,11 +92,18 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     virtual protected void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        //Set shaders for objects to render velocity buffer
+        List<EffectObject> objs = new List<EffectObject>();
+
+        //check which objects are visible by the camera, (this includes the editor camera)
         foreach (EffectObject obj in EffectObjects)
         {
-            obj.PreVelocityRender();
+            if (obj.IsObjectVisible)
+                objs.Add(obj);
         }
+
+        //Set shaders for these objects to render velocity buffer
+        foreach (EffectObject obj in objs)
+            obj.PreVelocityRender();
 
         RenderTexture velocityBuffer = RenderTexture.GetTemporary(source.width, source.height, 24);
         _velocityCamera.CopyFrom(camera);
@@ -111,11 +118,9 @@ public class CameraMotionBlurEffect : ImageEffectBase
         Graphics.Blit(source, destination, material);
         //Graphics.Blit(velocityBuffer, destination); //render velocity buffer
 
-        //reset shaders for objects
-        foreach (EffectObject obj in EffectObjects)
-        {
+        //reset shaders for visible objects
+        foreach (EffectObject obj in objs)
             obj.PostVelocityRender();
-        }
 
         RenderTexture.ReleaseTemporary(velocityBuffer);
     }
