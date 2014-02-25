@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EffectObject : MonoBehaviour 
 {
+    public bool IsObjectVisible { get { return renderer.isVisible; } }
     public static Shader VelocityBufferShader
     {
         get
@@ -14,6 +15,7 @@ public class EffectObject : MonoBehaviour
         }
     }
     private static Shader _velocityBufferShader;
+
 
     private Material _velocityMaterial;
     private Material _regularMaterial;
