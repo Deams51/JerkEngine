@@ -102,6 +102,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
         _velocityCamera.CopyFrom(camera);
         _velocityCamera.backgroundColor = new Color(0.4980392f, 0.5f, 0.4980392f, 0.5f); //EncodeFloatRG(0.5) from UnityCG.cginc, this is needed due to floating point precision issues
         _velocityCamera.targetTexture = velocityBuffer;
+        _velocityCamera.cullingMask = ~(1 << 8);
         _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
