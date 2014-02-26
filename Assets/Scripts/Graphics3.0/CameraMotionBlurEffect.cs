@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Camera))]
 public class CameraMotionBlurEffect : ImageEffectBase
 {
+    public bool Active = true;
+
     public static Matrix4x4 ViewMatrix { get; private set; }
     public static Matrix4x4 PreviousViewMatrix { get; private set; }
 
@@ -38,6 +40,28 @@ public class CameraMotionBlurEffect : ImageEffectBase
     }
 
     protected Camera _velocityCamera;
+
+    override protected void Start()
+    {
+        //sets up the EffectObject script for each object that is rendered by the mesh renderer
+        Object[] sceneObjects = GameObject.FindObjectsOfType(typeof(MeshRenderer));
+
+        foreach (Object obj in sceneObjects)
+        {
+            if (obj is MeshRenderer)
+            {
+                GameObject gmObj = ((MeshRenderer)obj).gameObject;
+
+                EffectObject component = gmObj.GetComponent<EffectObject>();
+                if (component == null)
+                    gmObj.AddComponent<EffectObject>();
+                else if (!component.enabled)
+                    component.enabled = true;
+            }
+        }
+
+        base.Start();
+    }
 
     virtual protected void Awake()
     {
@@ -92,6 +116,12 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     virtual protected void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if (!UnityEditorInternal.InternalEditorUtility.HasPro() || !Active)
+        {
+            Graphics.Blit(source, destination);
+            return;
+        }
+
         List<EffectObject> objs = new List<EffectObject>();
 
         //check which objects are visible by the camera, (this includes the editor camera)
@@ -109,14 +139,14 @@ public class CameraMotionBlurEffect : ImageEffectBase
         _velocityCamera.CopyFrom(camera);
         _velocityCamera.backgroundColor = new Color(0.4980392f, 0.5f, 0.4980392f, 0.5f); //EncodeFloatRG(0.5) from UnityCG.cginc, this is needed due to floating point precision issues
         _velocityCamera.targetTexture = velocityBuffer;
-        _velocityCamera.cullingMask = ~(1 << 8);
+        _velocityCamera.cullingMask = ~(1 << 8); //exclude layer 8
         _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
         //Render everything
         material.SetTexture("_VelocityBuffer", velocityBuffer);
-        Graphics.Blit(source, destination, material);
-        //Graphics.Blit(velocityBuffer, destination); //render velocity buffer
+        //Graphics.Blit(source, destination, material);
+        Graphics.Blit(velocityBuffer, destination); //render velocity buffer
 
         //reset shaders for visible objects
         foreach (EffectObject obj in objs)
