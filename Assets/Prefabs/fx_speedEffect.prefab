@@ -41,7 +41,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocity: 0
-  MaxEmissionRate: 175
+  MaxEmissionRate: 300
   MinEmissionRate: 50
 --- !u!198 &19800000
 ParticleSystem:
