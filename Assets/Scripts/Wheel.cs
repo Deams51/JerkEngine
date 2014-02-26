@@ -415,7 +415,8 @@ public class Wheel : MonoBehaviour {
             // TESTS
             FCalc(angularVelocity, steering * maxSteeringAngle, normalForce, n);
             body.AddForceAtPosition(new Vector3(0.0f, suspensionForce.y, 0.0f) + F, pos);
-            Debug.DrawLine(model.transform.position, model.transform.position + F, Color.red);
+            //body.AddRelativeTorque(Torque);
+            Debug.DrawLine(model.transform.position, model.transform.position + F, Color.blue);
             Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 1000), Color.blue);
             FBase = roadForce;
             //body.AddForceAtPosition (suspensionForce + roadForce, pos);
@@ -563,12 +564,12 @@ public class Wheel : MonoBehaviour {
         public float x;
         // Deflection on y
         public float y;
-
+        // 
         // Update current deflection
-        public void update(Vector2 vGround, float wr, float delta)
+        public void update(Vector2 vWheel, float radius, float vAng, float delta)
         {
-            x = x + (wr) - (vGround.x);
-            y = y - (vGround.y);
+            x += ((radius * vAng) - (vWheel.x)) * delta;
+            y += (vWheel.y) * delta;
         }
 
         // Constructor
@@ -583,6 +584,22 @@ public class Wheel : MonoBehaviour {
     public float L = 0.02f;
     public float W = 0.01f;
     public int n = 100;
+    public float wr;
+    public float wr_old = 0.0f;
+    public Vector2 vWheel;
+    public Vector2 vWheel_old = Vector2.zero;
+    public float teta1x = 0.0f;
+    public float teta2x = 0.0f;
+    public float teta1y = 0.0f;
+    public float teta2y = 0.0f;
+    public float torque;
+    public Vector3 Torque;
+    public float vrxDebug;
+    public float vryDebug;
+    public float Fz;
+    public float defX;
+    public float defY;
+    public bool tests = false;
 
     // Creating deflections arrays for n bristles
     // At the start no bristle is deflected
@@ -595,17 +612,75 @@ public class Wheel : MonoBehaviour {
             deflections[i] = new defl_struct(0.0f, 0.0f);
         }
     }
+    public void updateDeflection(Vector2 vWheel, float vAng, float delta, int n)
+    {
+        float wr = (-radius * vAng);
+        float subDelta = delta / n;
 
-    public void updateDeflection(Vector2 vGround, float wr, float delta, int n)
+        for (int i = 1; i < n; i++)
+        {
+            deflections[i].x = ((radius * vAng) - (vWheel.x)) * subDelta*i;
+            deflections[i].y = (vWheel.y) * subDelta*i;
+            if (tests)
+                Debug.Log("deflection i : " + i + " = (" + deflections[i].x + "; " + deflections[i].y
+                                + ")"); 
+        }
+    }
+    /*
+    public void updateDeflection(Vector2 vWheel, float vAng, float delta, int n)
+    {
+        // replacing missing data due to delta
+        // number of bristles concerned
+        float wr = (-radius * vAng);
+        int nbr_bristles = Mathf.Abs((int)(wr * delta * n / L)) + 1;
+        float wr_delta = (wr - wr_old) / nbr_bristles;
+        Vector2 vWheel_delta = (vWheel - vWheel_old) / nbr_bristles;
+        float subDelta = delta / nbr_bristles;
+        //if (nbr_bristles > n) Debug.Log("nbr_bristles > n ==> nbr_bristles = " + nbr_bristles + " n = " + n);
+
+        float a = 0.5f;
+        int b = 2*nbr_bristles%n;
+        int c = 2 * nbr_bristles;
+        float wr_old2 = 2 * wr_old;
+        Vector2 vWheel_old2 = 2 * vWheel_old;
+
+        for (int i = 0; i < Mathf.Min(n, nbr_bristles); i++)
+        {
+            float sumWr = a * i * (wr_delta * (i - b + c + 1) + wr_old);
+            float sumVwheelX = a * i * (vWheel_delta.x * (i - b + c + 1) + vWheel_old2.x);
+            float sumVwheelY = a * i * (vWheel_delta.y * (i - b + c + 1) + vWheel_old2.y);
+            deflections[i].x = (sumWr + sumVwheelX)*subDelta;
+            deflections[i].y = (sumVwheelY)*subDelta;
+            if (i==(nbr_bristles % n) / 2)
+            {
+                defX = deflections[i].x;
+                defY = deflections[i].y;
+            }
+            if(tests)
+                Debug.Log("deflection i : " + i + " = (" + deflections[i].x + "; " + deflections[i].y
+                                + "), variation de (" + (sumWr + sumVwheelX) * subDelta + "; " + a * i * (vWheel_delta.y * (i - b + c + 1) + vWheel_old2.y) + ") en delta = " + subDelta + "secondes");
+        }
+        for (int i = nbr_bristles%n; i < n; i++)
+        {
+            deflections[i].update(vWheel, radius, vAng, delta);
+        }
+        wr_old = wr;
+        vWheel_old = vWheel;
+    }
+    /*
+    public void updateDeflection(Vector2 vWheel, float vAng, float delta, int n)
     {
         defl_struct newBristle, temp;
 
         // replacing missing data due to delta
         // number of bristles concerned
+        float wr = (-radius * vAng);
         int nbr_bristles = Mathf.Abs((int)(wr * delta * n / L)) + 1;
+        float wr_delta = (wr - wr_old) / nbr_bristles;
+        Vector2 vWheel_delta = (vWheel - vWheel_old) / nbr_bristles;
         float subDelta = delta / nbr_bristles;
-
-        for (int i = 0; i<nbr_bristles ; i++)
+        //if (nbr_bristles > n) Debug.Log("nbr_bristles > n ==> nbr_bristles = " + nbr_bristles + " n = " + n);
+        for (int i = 0; i < nbr_bristles; i++)
         {
             newBristle = new defl_struct(0.0f, 0.0f);
             temp = deflections[0];
@@ -614,14 +689,20 @@ public class Wheel : MonoBehaviour {
             //Debug.Log("delta = " + delta);        
             for (int j = 1; j < n; j++)
             {
-                temp.update(vGround, wr, subDelta);
+                temp.update(vWheel_old + (i + 1) * vWheel_delta, radius, wr_old + (i + 1) * wr_delta, subDelta);
                 newBristle = deflections[j];
                 deflections[j] = temp;
                 temp = newBristle;
-            }  
+                if (tests && i == nbr_bristles - 1 && j == (int)(n / 2))
+                    Debug.Log("deflection j-1 : " + j + " = (" + deflections[j - 1].x + "; " + deflections[j - 1].y
+                        + "), variation de (" + ((-radius * (wr_old + ((i + 1) * wr_delta))) + ((vWheel_old + ((i + 1) * vWheel_delta)).x)) * subDelta + "; " + ((vWheel_old + (i + 1) * vWheel_delta).y) * subDelta + ") en " + subDelta + "secondes");
+            }
         }
-    }
 
+        wr_old = wr;
+        vWheel_old = vWheel;
+    }
+    */
     // normalized normal pressure distribution
     public float nnpd()
     {
@@ -641,14 +722,14 @@ public class Wheel : MonoBehaviour {
     }
 
     // Phi for a bristle i
-    public Vector2 Phi(int i, Vector2 v, float vAng, float alpha, float Fz, int n)
+    public Vector2 Phi(int i, Vector2 vWheel, float vAng, float alpha, float Fz, int n)
     {
         float phix; // result
         float phiy; // result
-        float teta1 = 0.0f;
-        float teta2 = 0.0f;
-        float teta0x =  (3.16f * 100000.0f * Fz);
-		float teta0y = 0.1f *((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
+        float musl = 0.8f;
+        float teta0x = musl * (3.16f * 100000.0f * Fz);
+		float teta0y = musl * ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
+        this.Fz = Fz;
 
         float muS = -0.054f * Fz + 1.887f; // Given by tables
         float muC = -0.022f * Fz + 0.734f; // Given by tables
@@ -658,21 +739,23 @@ public class Wheel : MonoBehaviour {
         float Fc = muC * Fz; // Coulomb friction force
         float Fs = muS * Fz; // maximum static friction force
 
-        float vrx = (radius * vAng) - (v.x);
-        float vry = -v.y;
+        float vrx = (radius * vAng) + (vWheel.x);
+        vrxDebug = vrx;
+        float vry = vWheel.y;
+        vryDebug = vry;
         float vrAbs = Mathf.Sqrt(vrx * vrx + vry * vry);
 
-        float gvr = ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+        float gvr = musl * ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
 
         float dzx = vrx - ((teta0x * Mathf.Abs(vrAbs) / gvr) * zx(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zx(i) - zx(i - 1)));
         float dzy = vry - ((teta0y * Mathf.Abs(vrAbs) / gvr) * zy(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zy(i) - zy(i - 1)));
 
         float part1 = (nnpd() * L * W) / Fz;
         // phiX calculus
-        float part2x = (teta0x * zx(i)) + (teta1 * dzx) + (teta2 * vrx);
+        float part2x = (teta0x * zx(i)) + (teta1x * dzx) + (teta2x * vrx);
         
         // phiY calculus
-        float part3y = (teta0y * zy(i)) + (teta1 * dzy) + (teta2 * vry);
+        float part3y = (teta0y * zy(i)) + (teta1y * dzy) + (teta2y * vry);
         
         
         phix = part1 * part2x;
@@ -683,31 +766,37 @@ public class Wheel : MonoBehaviour {
         return new Vector2(phix,phiy);
     }
 
-    public Vector2 integral(Vector2 v, float vAng, float alpha, float Fz, int n)
+    public Vector2 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
     {
         float resx = 0.0f;
         float resy = 0.0f;
+        float resT = 0.0f;
         float sumx = 0.0f;
         float sumy = 0.0f;
+        float sumT = 0.0f;
 
         float coef = L/(2*n);
-        Vector2 phiInit = Phi(0, v, vAng, alpha, Fz, n);
+        Vector2 phiInit = Phi(0, vWheel, vAng, alpha, Fz, n);
         sumx += phiInit.x;
         sumy += phiInit.y;
+        sumT += phiInit.y*((L/2)-zy(0)) ;
         for (int i = 1; i < n - 1; i++)
         {
-            Vector2 phi = Phi(i, v, vAng, alpha, Fz, n);
+            Vector2 phi = Phi(i, vWheel, vAng, alpha, Fz, n);
             sumx += (2 * phi.x);
             sumy += (2 * phi.y);
+            sumT += (2 * phi.y*((L / 2) - zy(i)));
         }
-        Vector2 phiLast = Phi(n - 1, v, vAng, alpha, Fz, n);
+        Vector2 phiLast = Phi(n - 1, vWheel, vAng, alpha, Fz, n);
         sumx += phiLast.x;
         sumy += phiLast.y;
+        sumT += phiLast.y * ((L / 2) - zy(n-1));
 
         resx = coef * sumx;
         resy = coef * sumy;
+        resT = coef * sumT;
 
-        return new Vector2(resx,resy);
+        return new Vector3(resx,resy,resT);
     }
     public float alpha;
 
@@ -718,7 +807,7 @@ public class Wheel : MonoBehaviour {
         //Fz = 4000.0f;
         
         // velocity in woorld coordinate
-        Vector3 vGroundInWorld = -body.rigidbody.GetPointVelocity(model.transform.position);
+        Vector3 vWheelInWorld = body.rigidbody.GetPointVelocity(model.transform.position);
         float wr = vAng * radius;
         
         if (!steeringWheel)
@@ -729,32 +818,34 @@ public class Wheel : MonoBehaviour {
         toLocal = Quaternion.Euler(0, -steering, 0);
         toWheel = Quaternion.Euler(0, steering, 0);
         
-        // velocity in wheel coordinate minus alpha angle
-        Vector3 vGround = transform.InverseTransformDirection(vGroundInWorld);
-        // apply alpha angle
-        Vector3 vLocal = toLocal * vGround;
-        // Transform into equations coord system and into ground velocity
-        Vector2 v = new Vector2(vLocal.z, vLocal.x);
-        Debug.DrawRay(model.transform.position+transform.up*3, -vGroundInWorld, Color.green);
+        // velocity in wheel coordinate
+        Vector3 vWheelLocal = toLocal * transform.InverseTransformDirection(vWheelInWorld);
 
-        alpha = Vector2.Angle( new Vector2(-vGroundInWorld.z,-vGroundInWorld.x),
+        // Transform into equations coord system and into ground velocity
+        Vector2 vWheel = new Vector2(vWheelLocal.z, vWheelLocal.x);
+        Debug.DrawRay(model.transform.position + transform.up * 3, vWheelInWorld, Color.green);
+
+        alpha = Vector2.Angle(new Vector2(vWheelInWorld.z, vWheelInWorld.x),
             new Vector2(transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)).z, 
                 transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)).x));
-        Vector3 cross = Vector3.Cross(-vGroundInWorld, transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)));
+        Vector3 cross = Vector3.Cross(vWheelInWorld, transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)));
         if (cross.z > 0) alpha -= 360;
         
         if (steeringWheel)
         {
-            wr = -v.x;
+            wr = vWheel.x;
             angularVelocity = wr / radius;
             vAng = wr / radius;
         }
-
-        updateDeflection(v, wr, Time.fixedDeltaTime, n);
-        Vector2 resIntegral = integral(v, vAng, alpha, Fz, n);
+        this.wr = wr;
+        this.vWheel = vWheel;
+        updateDeflection(vWheel, vAng, Time.fixedDeltaTime, n);
+        Vector3 resIntegral = integral(vWheel, vAng, alpha, Fz, n);
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
-        Vector3 FLocal = new Vector3(10000.0f * Fy, 0.0f, 10000.0f * Fx);
+        torque = W * resIntegral.z;
+        Torque = transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, torque));
+        Vector3 FLocal = new Vector3(100*Fy, 0.0f,10000*Fx);
         if (steeringWheel)
         {
             //FLocal.z=0.0f;
