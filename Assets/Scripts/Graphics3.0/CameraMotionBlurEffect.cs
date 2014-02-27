@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class CameraMotionBlurEffect : ImageEffectBase
 {
     public bool Active = true;
+    public bool RenderVelocityBuffer = false;
 
     public static Matrix4x4 ViewMatrix { get; private set; }
     public static Matrix4x4 PreviousViewMatrix { get; private set; }
@@ -65,7 +66,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     virtual protected void Awake()
     {
-        camera.depthTextureMode = DepthTextureMode.Depth;
+        camera.depthTextureMode |= DepthTextureMode.Depth;
 
         GameObject velCamera = new GameObject("VelocityCamera", typeof(Camera));
         velCamera.transform.parent = transform;
@@ -139,14 +140,19 @@ public class CameraMotionBlurEffect : ImageEffectBase
         _velocityCamera.CopyFrom(camera);
         _velocityCamera.backgroundColor = new Color(0.4980392f, 0.5f, 0.4980392f, 0.5f); //EncodeFloatRG(0.5) from UnityCG.cginc, this is needed due to floating point precision issues
         _velocityCamera.targetTexture = velocityBuffer;
+        _velocityCamera.renderingPath = RenderingPath.Forward;
         _velocityCamera.cullingMask = ~(1 << 8); //exclude layer 8
         _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
-        //Render everything
-        material.SetTexture("_VelocityBuffer", velocityBuffer);
-        //Graphics.Blit(source, destination, material);
-        Graphics.Blit(velocityBuffer, destination); //render velocity buffer
+        //render everything
+        if (!RenderVelocityBuffer)
+        {
+            material.SetTexture("_VelocityBuffer", velocityBuffer);
+            Graphics.Blit(source, destination, material);
+        }
+        else
+            Graphics.Blit(velocityBuffer, destination); //render velocity buffer
 
         //reset shaders for visible objects
         foreach (EffectObject obj in objs)

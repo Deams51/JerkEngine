@@ -18,7 +18,8 @@ public class EffectObject : MonoBehaviour
 
 
     private Material _velocityMaterial;
-    private Material _regularMaterial;
+    private Material[] _velocityMaterials;
+    private Material[] _regularMaterials;
 
     private Matrix4x4 _prevModelMatrix;
 
@@ -30,7 +31,13 @@ public class EffectObject : MonoBehaviour
     void Start()
     {
         _velocityMaterial = NewMaterial();
-        _regularMaterial = renderer.material;
+        _velocityMaterials = new Material[renderer.materials.Length];
+
+        for (int i = 0; i < renderer.materials.Length; i++)
+            _velocityMaterials[i] = _velocityMaterial;
+
+        _regularMaterials = renderer.materials;
+
         _prevModelMatrix = transform.localToWorldMatrix;
     }
 
@@ -62,12 +69,12 @@ public class EffectObject : MonoBehaviour
 
     public void PreVelocityRender()
     {
-        _regularMaterial = renderer.material; // in case the material has changed in-game during previous call
-        renderer.material = _velocityMaterial;
+        _regularMaterials = renderer.materials; // in case the material has changed in-game during previous call
+        renderer.materials = _velocityMaterials;
     }
 
     public void PostVelocityRender()
     {
-        renderer.material = _regularMaterial;
+        renderer.materials = _regularMaterials; // in case the material has changed in-game during previous call
     }
 }
