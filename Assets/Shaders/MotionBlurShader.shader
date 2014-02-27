@@ -9,7 +9,7 @@
 	CGINCLUDE
 	#include "UnityCG.cginc"
 
-	#define NUM_SAMPLES 12
+	#define NUM_SAMPLES 8
 	#define SOFT_Z_DISTANCE 0.0005
 
 	uniform sampler2D _MainTex;
@@ -58,7 +58,7 @@
 			float intensity = 1.0 / (NUM_SAMPLES + 1);
 			float length = (0.5 / NUM_SAMPLES);
 			
-			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 4;
+			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 1.1;
 
 			float zy = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x+offset,0,0)));
 			zy = -Linear01Depth(zy);
@@ -72,6 +72,17 @@
 
 		return result;
 		//return tex2D(_VelocityBuffer, f.uv);
+	}
+
+	float4 debugVelocity(v2f f) : COLOR
+	{
+		return tex2D(_VelocityBuffer, f.uv);
+	}
+
+	float4 debugDepth(v2f f) : COLOR
+	{
+		return tex2D(_CameraDepthTexture, f.uv);
+		//return float4(1, 0, 0, 1);
 	}
 	
 	ENDCG
