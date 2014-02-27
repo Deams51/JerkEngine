@@ -7,6 +7,7 @@ public class HighSpeedEffect : MonoBehaviour
     public float Velocity = 0;
     public float MaxEmissionRate = 150f;
     public float MinEmissionRate = 50f;
+    public GameObject VelocityTrackedObject;
 
     private ParticleSystem _particles;
 
@@ -18,6 +19,10 @@ public class HighSpeedEffect : MonoBehaviour
 
     void Update()
     {
+        if (VelocityTrackedObject != null)
+            if (VelocityTrackedObject.rigidbody != null)
+                Velocity = VelocityTrackedObject.rigidbody.velocity.magnitude;
+
         float emissionRate = Mathf.Clamp(Velocity, 0, MaxEmissionRate);
         float aCol = Mathf.Clamp(Velocity / 255f, 0, 100f / 255f);
 
