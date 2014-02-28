@@ -38,13 +38,15 @@ public class GenerateWindScript : MonoBehaviour
 
 	// Clone the wind object, place it and kick it away
 	void generateWind() {
-		Vector3 newPosition = transform.position;
 		float xr = Random.Range (-1.0f, 1.0f);
 		float yr = Random.Range (-1.0f, 1.0f);
-		newPosition.x += xr * xr * radius;
-		newPosition.y += yr * yr * radius;
 
-		_bubbleInstance = (GameObject)Instantiate (WindObject, newPosition, Quaternion.identity);
+		float x = Mathf.Abs (xr) * xr * radius;
+		float y = Mathf.Abs (yr) * yr * radius;
+
+	
+		_bubbleInstance = (GameObject)Instantiate (WindObject, transform.position, Quaternion.identity);
+		_bubbleInstance.transform.position += (Vector3.Normalize (transform.up) * y) + (Vector3.Normalize (transform.right) * x);
 		_bubbleInstance.rigidbody.velocity = -(Target.rigidbody.velocity) + transform.forward * WindVelocity;
 		_bubbleInstance.GetComponent<WindObjectScript> ().TimeToLive = timeToLive;
 	}
