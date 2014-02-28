@@ -27,9 +27,10 @@ public class GenerateWindScript : MonoBehaviour
 	{
 		transform.LookAt (Target.transform.position);
 		time += Time.deltaTime;
-		if (time > (1.0/frequency)) {
+
+		while (time > 1.0f/frequency) {
 			generateWind();
-			time = 0;
+			time -= 1.0f/frequency;
 		}
 
 
