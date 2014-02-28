@@ -9,6 +9,7 @@ public class GenerateWindScript : MonoBehaviour
 	public GameObject Target;
 	public float WindVelocity;
 	public float frequency;
+	public float radius;
 	private int _i = 0;
 
 	private float time;
@@ -34,8 +35,15 @@ public class GenerateWindScript : MonoBehaviour
 
 	}
 
+	// Clone the wind object, place it and kick it away
 	void generateWind() {
-		_bubbleInstance = (GameObject)Instantiate (WindObject, transform.position, Quaternion.identity);
-		_bubbleInstance.rigidbody.velocity = -(Target.rigidbody.velocity)+transform.forward * WindVelocity;
+		Vector3 newPosition = transform.position;
+		float xr = Random.Range (-1.0f, 1.0f);
+		float yr = Random.Range (-1.0f, 1.0f);
+		newPosition.x += xr * xr * radius;
+		newPosition.y += yr * yr * radius;
+
+		_bubbleInstance = (GameObject)Instantiate (WindObject, newPosition, Quaternion.identity);
+		_bubbleInstance.rigidbody.velocity = -(Target.rigidbody.velocity) + transform.forward * WindVelocity;
 	}
 }
