@@ -90,7 +90,7 @@ public class Wheel : MonoBehaviour {
     public float Fy;
 
     public Vector3 FBase;
-    public Vector3 F;
+    public Vector3 F = Vector3.zero;
 
 
     // Debug variables
@@ -770,7 +770,11 @@ public class Wheel : MonoBehaviour {
         vryDebug = vry;
         float vrAbs = Mathf.Sqrt(vrx * vrx + vry * vry);
 
-        float gvr = mugvr * ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+        //float gvr = mugvr * ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+        float gy = 0.007f*Fz*Fz - 0.028f*Fz + 0.98f;
+        float beta = Mathf.Abs(vry/vrx);
+
+        float gvr = (1.0f + ((gy - 1.0f) / (Mathf.PI * 0.5f)) * beta) * (muC + ((muS - muC) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
 
         float dzx = vrx - ((teta0x * Mathf.Abs(vrAbs) / gvr) * zx(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zx(i) - zx(i - 1)));
         float dzy = vry - ((teta0y * Mathf.Abs(vrAbs) / gvr) * zy(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zy(i) - zy(i - 1)));
@@ -791,14 +795,15 @@ public class Wheel : MonoBehaviour {
         return new Vector2(phix,phiy);
     }
 
-    public Vector2 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
+    public Vector3 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
     {
-        float resx = 0.0f;
-        float resy = 0.0f;
-        float resT = 0.0f;
         float sumx = 0.0f;
         float sumy = 0.0f;
         float sumT = 0.0f;
+
+        float resx = 0.0f;
+        float resy = 0.0f;
+        float rest = 0.0f;
 
         float coef = L/(2*n);
         Vector2 phiInit = Phi(0, vWheel, vAng, alpha, Fz, n);
@@ -819,9 +824,8 @@ public class Wheel : MonoBehaviour {
 
         resx = coef * sumx;
         resy = coef * sumy;
-        resT = coef * sumT;
-
-        return new Vector3(resx,resy,resT);
+        rest = coef * sumT;
+        return  new Vector3(resx, resy, rest);
     }
     public float alpha;
     public float Xcoeff;
@@ -869,8 +873,8 @@ public class Wheel : MonoBehaviour {
         Vector3 resIntegral = integral(vWheel, vAng, alpha, Fz, n);
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
-        //frictionTorque = W * resIntegral.z;
-        //Torque = transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, torque));
+        driveTorque = W * resIntegral.z;
+
         Vector3 FLocal = new Vector3(Ycoeff*Fy, 0.0f,Xcoeff*Fx);
         if (steeringWheel)
         {
