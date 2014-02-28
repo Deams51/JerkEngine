@@ -28,7 +28,7 @@ public class CarController : MonoBehaviour {
 	float steering;
 	float lastShiftTime = -1;
 	float handbrake;
-		
+	
 	// cached Drivetrain reference
 	Drivetrain drivetrain;
 	
@@ -130,8 +130,9 @@ public class CarController : MonoBehaviour {
 		
 		// Throttle/Brake
 
-		bool accelKey = Input.GetKey (KeyCode.UpArrow);
-		bool brakeKey = Input.GetKey (KeyCode.DownArrow);
+        bool accelKey = Input.GetKey(KeyCode.UpArrow);
+        bool brakeKey = Input.GetKey(KeyCode.DownArrow);
+        bool brakeFull = Input.GetKey(KeyCode.B);
 		
 		if (drivetrain.automatic && drivetrain.gear == 0)
 		{
@@ -211,6 +212,11 @@ public class CarController : MonoBehaviour {
 			w.brake = brake;
 			w.handbrake = handbrake;
 			w.steering = steering;
+            if (brakeFull)
+            {
+                w.angularVelocity = 0f;
+            }
+
 		}
 	}
 	
@@ -222,6 +228,7 @@ public class CarController : MonoBehaviour {
 	}
     void FixedUpdate()
     {
+        /*
         int cpt = 0;
         foreach (Wheel w in wheels)
         {
@@ -234,10 +241,6 @@ public class CarController : MonoBehaviour {
             else w.massFraction = 0.0f;
             w.PhysUpdate();
         }
-    }
-
-    void FixedUpdateNew()
-    {
-
+        */
     }
 }

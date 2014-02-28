@@ -1147,7 +1147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 924.764465, y: 7.34989738, z: 804.920959}
+  m_LocalPosition: {x: 16.3408051, y: -.0309001803, z: 7.88555908}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -2940,7 +2940,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
+  debugRay: 0
   radius: .340000004
+  width: 2
   suspensionTravel: .200000003
   damping: 4000
   inertia: 2.20000005
@@ -2990,6 +2993,42 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 0
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
+  L: .200000003
+  W: .100000001
+  n: 100
+  wr: 0
+  wr_old: 0
+  vWheel: {x: 0, y: 0}
+  vWheel_old: {x: 0, y: 0}
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  torque: 0
+  Torque: {x: 0, y: 0, z: 0}
+  vrxDebug: 0
+  vryDebug: 0
+  Fz: 0
+  defX: 0
+  defY: 0
+  tests: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  alpha: 0
+  Xcoeff: 1000
+  Ycoeff: 1000
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3004,7 +3043,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
+  debugRay: 0
   radius: .340000004
+  width: 2
   suspensionTravel: .200000003
   damping: 6000
   inertia: 2.20000005
@@ -3054,6 +3096,42 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 1
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
+  L: .200000003
+  W: .100000001
+  n: 100
+  wr: 0
+  wr_old: 0
+  vWheel: {x: 0, y: 0}
+  vWheel_old: {x: 0, y: 0}
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  torque: 0
+  Torque: {x: 0, y: 0, z: 0}
+  vrxDebug: 0
+  vryDebug: 0
+  Fz: 0
+  defX: 0
+  defY: 0
+  tests: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  alpha: 0
+  Xcoeff: 1000
+  Ycoeff: 1000
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3068,7 +3146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
+  debugRay: 0
   radius: .340000004
+  width: 2
   suspensionTravel: .200000003
   damping: 6000
   inertia: 2.20000005
@@ -3118,6 +3199,42 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 1
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
+  L: .200000003
+  W: .100000001
+  n: 100
+  wr: 0
+  wr_old: 0
+  vWheel: {x: 0, y: 0}
+  vWheel_old: {x: 0, y: 0}
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  torque: 0
+  Torque: {x: 0, y: 0, z: 0}
+  vrxDebug: 0
+  vryDebug: 0
+  Fz: 0
+  defX: 0
+  defY: 0
+  tests: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  alpha: 0
+  Xcoeff: 1000
+  Ycoeff: 1000
 --- !u!1002 &11400005
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3239,7 +3356,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
+  debugRay: 0
   radius: .340000004
+  width: 2
   suspensionTravel: .200000003
   damping: 4000
   inertia: 2.20000005
@@ -3289,6 +3409,42 @@ MonoBehaviour:
   slipRatio: 0
   slipVelo: 0
   compression: 0
+  onGround: 0
+  steeringWheel: 0
+  Fx: 0
+  Fy: 0
+  FBase: {x: 0, y: 0, z: 0}
+  F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
+  L: .200000003
+  W: .100000001
+  n: 100
+  wr: 0
+  wr_old: 0
+  vWheel: {x: 0, y: 0}
+  vWheel_old: {x: 0, y: 0}
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  torque: 0
+  Torque: {x: 0, y: 0, z: 0}
+  vrxDebug: 0
+  vryDebug: 0
+  Fz: 0
+  defX: 0
+  defY: 0
+  tests: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  alpha: 0
+  Xcoeff: 1000
+  Ycoeff: 1000
 --- !u!1002 &11400015
 EditorExtensionImpl:
   serializedVersion: 6
