@@ -5,6 +5,7 @@ public class CameraTracker : MonoBehaviour
 {
     public GameObject TrackingObject;
     public float TrackingAmount = 5.5f;
+	public bool Fixed = false;
 
     private Transform _trackingObject;
     private Vector3 _relCameraPosition;
@@ -17,9 +18,14 @@ public class CameraTracker : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, _trackingObject.position - _relCameraPosition, TrackingAmount * Time.deltaTime);
-        transform.LookAt(_trackingObject);
+		if (!Fixed) 
+		{
+			transform.position = Vector3.Lerp (transform.position, _trackingObject.position - _relCameraPosition, TrackingAmount * Time.deltaTime);
+			transform.LookAt (_trackingObject);
+		} 
+		else 
+		{
+			transform.position = _trackingObject.position - _relCameraPosition;
+		}
     }
-
-
 }
