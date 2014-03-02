@@ -16,8 +16,7 @@
 			uniform float4x4 _mvPrev;
 			uniform float4x4 _mvInvTrans;
 			uniform float4x4 _mvpPrev;
-
-			uniform float _BlurFactor;
+			uniform float _deltaTime;
 
 			struct vertexInput
 			{
@@ -37,19 +36,11 @@
 			fragmentInput vert(vertexInput v)
 			{
 				fragmentInput o;
-				//float4 curPoint = mul(_mv, v.vertex);
-				//float4 prevPoint = mul(_mvPrev, v.vertex);
-
-				//float3 N = (float3)mul(_mvInvTrans, float4(v.normal, 1));
-				//float3 eyeMotion = curPoint.xyz - prevPoint.xyz;
 
 				float4 curPoint = mul(UNITY_MATRIX_MVP, v.vertex);
 				float4 prevPoint = mul(_mvpPrev, v.vertex);
 
-				//float dotMN = dot(eyeMotion, N);
-				//float4 pointStrech = dotMN > 0 ? curPoint : prevPoint;
-
-				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.pos = curPoint;
 				o.newPos = curPoint;
 				o.oldPos = prevPoint;
 
@@ -60,11 +51,11 @@
 			//////////////////////////////////////////////////////////
 			float4 frag(fragmentInput i) : COLOR
 			{
-				float3 curPosition = i.newPos.xyz / i.newPos.w;
-				float3 prevPosition = i.oldPos.xyz / i.oldPos.w;
+				float2 curPosition = i.newPos.xy / i.newPos.w;
+				float2 prevPosition = i.oldPos.xy / i.oldPos.w;
 				float2 delta = curPosition.xy - prevPosition.xy;
 					
-				delta.xy = delta.xy * 0.15 + 0.5; //additional blur factor: *0.25, normalizing to color value: +0.5
+				delta.xy = delta.xy * 0.25 + 0.5; //additional blur factor: *0.25, normalizing to color value: +0.5
 					
 				return float4(EncodeFloatRG(delta.x), EncodeFloatRG(delta.y));
 			}

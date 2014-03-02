@@ -8,18 +8,21 @@ public class HighSpeedEffect : MonoBehaviour
     public float MaxEmissionRate = 150f;
     public float MinEmissionRate = 50f;
     public GameObject VelocityTrackedObject;
+    public bool ManualVelocity = false;
 
     private ParticleSystem _particles;
+    private Camera _mainCamera;
 
     void Awake()
     {
         _particles = this.particleSystem;
         _particles.renderer.sortingLayerName = "Foreground";
+        _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     void Update()
     {
-        if (VelocityTrackedObject != null)
+        if (VelocityTrackedObject != null && !ManualVelocity)
             if (VelocityTrackedObject.rigidbody != null)
                 Velocity = VelocityTrackedObject.rigidbody.velocity.magnitude;
 
@@ -33,5 +36,6 @@ public class HighSpeedEffect : MonoBehaviour
 
         _particles.emissionRate = emissionRate;
         _particles.startColor = new Color(1, 1, 1, aCol);
+        transform.eulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180, 0);
     }
 }

@@ -63,6 +63,7 @@ public class EffectObject : MonoBehaviour
         _velocityMaterial.SetMatrix("_mvPrev", _mvPrev);
         _velocityMaterial.SetMatrix("_mvInvTrans", _mv.transpose.inverse);
         _velocityMaterial.SetMatrix("_mvpPrev", CameraMotionBlurEffect.PreviousViewProjMatrix * _prevModelMatrix);
+        _velocityMaterial.SetFloat("_deltaTime", Time.deltaTime);
 
         _prevModelMatrix = transform.localToWorldMatrix;
     }

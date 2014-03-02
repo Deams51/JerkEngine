@@ -13845,15 +13845,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c74d75982fa694288f62f790a25cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunScript: 0
-  Speed: 10
+  RunScript: 1
+  Speed: 60
 --- !u!114 &1624228167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1624228165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e3c9c8b1544acc49b192d8703aa47ad, type: 3}
   m_Name: 
@@ -13906,7 +13906,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1624228165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.90704584, y: .020318985, z: -3.89715576}
+  m_LocalPosition: {x: 4.90704584, y: .020318985, z: -12.1182804}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19077,6 +19077,7 @@ MonoBehaviour:
   Velocity: 0
   MaxEmissionRate: 300
   MinEmissionRate: 50
+  VelocityTrackedObject: {fileID: 0}
 --- !u!1 &2062423773
 GameObject:
   m_ObjectHideFlags: 0
@@ -19090,6 +19091,7 @@ GameObject:
   - 124: {fileID: 2062423775}
   - 81: {fileID: 2062423774}
   - 114: {fileID: 2062423779}
+  - 114: {fileID: 2062423780}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -19172,6 +19174,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 198f14b749840764a92dcd64831eb153, type: 3}
   Active: 1
+  RenderVelocityBuffer: 0
+--- !u!114 &2062423780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2062423773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c74d75982fa694288f62f790a25cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RunScript: 1
+  Speed: 60
 --- !u!1 &2077344016
 GameObject:
   m_ObjectHideFlags: 0
