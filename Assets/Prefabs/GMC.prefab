@@ -806,7 +806,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.4108238, y: -.269791245, z: 7.62569809}
+  m_LocalPosition: {x: 16.4653015, y: -.269791216, z: 5.09851074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -841,7 +841,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.28429413, z: .552307129}
+  m_LocalPosition: {x: 0, y: .889229298, z: .552307129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -2137,6 +2137,11 @@ MonoBehaviour:
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
   L: .300000012
   W: .400000006
   n: 30
@@ -2156,7 +2161,12 @@ MonoBehaviour:
   defX: 0
   defY: 0
   tests: 0
-  alpha: 0
+  muslx: 1
+  musly: 1
+  mugvr: 1
+  alpha: 1
+  Xcoeff: 1000
+  Ycoeff: 100
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2230,6 +2240,11 @@ MonoBehaviour:
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
   L: .300000012
   W: .400000006
   n: 30
@@ -2249,7 +2264,12 @@ MonoBehaviour:
   defX: 0
   defY: 0
   tests: 0
-  alpha: 0
+  muslx: 1
+  musly: 1
+  mugvr: 1
+  alpha: 1
+  Xcoeff: 1000
+  Ycoeff: 100
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2323,6 +2343,11 @@ MonoBehaviour:
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
   L: .300000012
   W: .400000006
   n: 30
@@ -2342,7 +2367,12 @@ MonoBehaviour:
   defX: 0
   defY: 0
   tests: 0
-  alpha: 0
+  muslx: 1
+  musly: 1
+  mugvr: 1
+  alpha: 1
+  Xcoeff: 1000
+  Ycoeff: 100
 --- !u!1002 &11400005
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2416,6 +2446,11 @@ MonoBehaviour:
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  debugSuspensions: 0
+  debugRoadForce: 0
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 0
   L: .300000012
   W: .400000006
   n: 30
@@ -2435,7 +2470,12 @@ MonoBehaviour:
   defX: 0
   defY: 0
   tests: 0
-  alpha: 0
+  muslx: 1
+  musly: 1
+  mugvr: 1
+  alpha: 1
+  Xcoeff: 1000
+  Ycoeff: 100
 --- !u!1002 &11400007
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2509,7 +2549,7 @@ MonoBehaviour:
   throttle: 0
   throttleInput: 0
   automatic: 1
-  gear: 2
+  gear: 5
   rpm: 0
   slipRatio: 0
 --- !u!1002 &11400011
@@ -2521,7 +2561,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84294d6a5cada41f6b34de2f039453f3, type: 3}
   m_Name: 

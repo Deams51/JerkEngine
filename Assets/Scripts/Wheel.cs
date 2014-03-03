@@ -90,7 +90,15 @@ public class Wheel : MonoBehaviour {
     public float Fy;
 
     public Vector3 FBase;
-    public Vector3 F;
+    public Vector3 F = Vector3.zero;
+
+
+    // Debug variables
+    public bool debugSuspensions = false;
+    public bool debugRoadForce = false;
+    public bool debugWheelsXAxis = false;
+    public bool debugWheelsVelo = false;
+    public bool debugCollisions = false;
 	
 	float CalcLongitudinalForce(float Fz,float slip)
 	{
@@ -249,32 +257,32 @@ public class Wheel : MonoBehaviour {
 		float newAngle = maxSteeringAngle * steering;
 		for (int i=0; i<slipRes; i++)
 		{
-			float f = i * 1.0f/(float)slipRes;
-			localRotation = Quaternion.Euler (0, oldAngle + (newAngle - oldAngle) * f, 0); 		
-			inverseLocalRotation = Quaternion.Inverse(localRotation);
-			forward = transform.TransformDirection (localRotation * Vector3.forward);
-			right = transform.TransformDirection (localRotation * Vector3.right);
+			//float f = i * 1.0f/(float)slipRes;
+			//localRotation = Quaternion.Euler (0, oldAngle + (newAngle - oldAngle) * f, 0); 		
+			//inverseLocalRotation = Quaternion.Inverse(localRotation);
+			//forward = transform.TransformDirection (localRotation * Vector3.forward);
+			//right = transform.TransformDirection (localRotation * Vector3.right);
 			
-			slipRatio = SlipRatio ();
-			slipAngle = SlipAngle ();
-			Vector3 force = invSlipRes * grip * CombinedForce (normalForce, slipRatio, slipAngle);
-			Vector3 worldForce = transform.TransformDirection (localRotation * force);
-			angularVelocity -= (force.z * radius * Time.deltaTime) / totalInertia;
+			//slipRatio = SlipRatio ();
+			//slipAngle = SlipAngle ();
+			//Vector3 force = invSlipRes * grip * CombinedForce (normalForce, slipRatio, slipAngle);
+			//Vector3 worldForce = transform.TransformDirection (localRotation * force);
+			//angularVelocity -= (force.z * radius * Time.deltaTime) / totalInertia;
 			angularVelocity += driveAngularDelta;
 			if (Mathf.Abs(angularVelocity) > frictionAngularDelta)
 				angularVelocity -= frictionAngularDelta * Mathf.Sign(angularVelocity);
 			else
 				angularVelocity = 0;
 				
-			wheelVelo += worldForce* (1/body.mass) * Time.fixedDeltaTime * invSlipRes;
-			totalForce += worldForce;
+			//wheelVelo += worldForce* (1/body.mass) * Time.fixedDeltaTime * invSlipRes;
+			//totalForce += worldForce;
 		}
 
-		float longitunalSlipVelo = Mathf.Abs(angularVelocity * radius - Vector3.Dot (wheelVelo, forward));	
-		float lateralSlipVelo = Vector3.Dot (wheelVelo, right);
-		slipVelo = Mathf.Sqrt(longitunalSlipVelo * longitunalSlipVelo + lateralSlipVelo * lateralSlipVelo);
+		//float longitunalSlipVelo = Mathf.Abs(angularVelocity * radius - Vector3.Dot (wheelVelo, forward));	
+		//float lateralSlipVelo = Vector3.Dot (wheelVelo, right);
+		//slipVelo = Mathf.Sqrt(longitunalSlipVelo * longitunalSlipVelo + lateralSlipVelo * lateralSlipVelo);
 		
-		oldAngle = newAngle;
+		//oldAngle = newAngle;
 		return totalForce;
 	}
 	
@@ -359,7 +367,7 @@ public class Wheel : MonoBehaviour {
         float dist2 = radius;
         
         hit = new RaycastHit();
-        rayElem[] tab = listRays(centerW, radius, width, 50, 10);
+        rayElem[] tab = listRays(centerW, radius, width, 26, 4);
         Debug.DrawRay(centerW, up);
 
         foreach (rayElem r in tab)
@@ -381,25 +389,36 @@ public class Wheel : MonoBehaviour {
 
     void FixedUpdate()
     {
-    
+/*
     }
 
     public void PhysUpdate()
     {
+*/
         Vector3 pos = transform.position;
         up = transform.up;
 
-        // Calulating weight
+        checkOnGround();
 
 
         Vector3 centerW = pos +((-up) * suspensionTravel);
 
 		if (onGround)
         {
-            //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
-            Debug.DrawLine(hit.point, centerW , Color.red, 10.0f);
-            //Logger("Colliding with : " + hitAlternate.collider.name);
+            if (hit.collider.sharedMaterial != null)
+            {
+                muslx = hit.collider.sharedMaterial.staticFriction;
+                musly = hit.collider.sharedMaterial.staticFriction;
+            }
+            else
+            {
+                muslx = 1.0f;
+                musly = 1.0f;
+            }
             Vector3 groundNormalRCM = transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
+            //Debug.DrawLine(hit.point, centerW, Color.green, 10.0f);
+            if (debugCollisions) Debug.DrawRay(hit.point, groundNormalRCM /*centerW*/ , Color.red, 10.0f);
+            //Logger("Colliding with : " + hitAlternate.collider.name);
             groundNormal = groundNormalRCM; // groundNormalRCM; // transform.InverseTransformDirection(inverseLocalRotation * hit.normal);
 
             //Logger("RCM - dist : " + (hitAlternate.distance + suspensionTravel - radius) + " normal : " + groundNormalRCM
@@ -410,20 +429,20 @@ public class Wheel : MonoBehaviour {
             wheelVelo = body.GetPointVelocity (pos);
 			localVelo = transform.InverseTransformDirection (inverseLocalRotation * wheelVelo);
 			suspensionForce = SuspensionForce ();
-            //roadForce = RoadForce();
+            roadForce = RoadForce();
 
             // TESTS
             FCalc(angularVelocity, steering * maxSteeringAngle, normalForce, n);
             body.AddForceAtPosition(new Vector3(0.0f, suspensionForce.y, 0.0f) + F, pos);
             //body.AddRelativeTorque(Torque);
-            Debug.DrawLine(model.transform.position, model.transform.position + F, Color.blue);
-            Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 1000), Color.blue);
+            if (debugRoadForce) Debug.DrawLine(model.transform.position, model.transform.position + F, Color.blue);
+            if (debugSuspensions) Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 5000), Color.blue);
             FBase = roadForce;
             //body.AddForceAtPosition (suspensionForce + roadForce, pos);
 		}
 		else
 		{
-			Logger("not on ground");
+			//Logger("not on ground");
 			deflectionsInit(n);
 			compression = 0.0f;
 			suspensionForce = Vector3.zero;
@@ -469,11 +488,11 @@ public class Wheel : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            angularVelocity += 1;
+            //angularVelocity += 1;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            angularVelocity -= 1;
+            //angularVelocity -= 1;
         }
     }
 	
@@ -600,6 +619,10 @@ public class Wheel : MonoBehaviour {
     public float defX;
     public float defY;
     public bool tests = false;
+    public float muslx = 0.8f; // 0.8 for dry asphalt, 0.6 for wet asphalt, 0.2 for snow, 0.1 for ice?
+    public float musly = 0.8f; // 0.8 for dry asphalt, 0.6 for wet asphalt, 0.2 for snow, 0.1 for ice?
+    public float mugvr = 1f;
+
 
     // Creating deflections arrays for n bristles
     // At the start no bristle is deflected
@@ -615,7 +638,10 @@ public class Wheel : MonoBehaviour {
     public void updateDeflection(Vector2 vWheel, float vAng, float delta, int n)
     {
         float wr = (-radius * vAng);
-        float subDelta = delta / n;
+        int nbr_bristles = Mathf.Abs((int)(wr * delta * n / L)) + 1;
+        float subDelta = (delta/n) + (delta / n) * (int)(nbr_bristles/n);
+
+//        float subDelta = delta / n;
 
         for (int i = 1; i < n; i++)
         {
@@ -726,14 +752,13 @@ public class Wheel : MonoBehaviour {
     {
         float phix; // result
         float phiy; // result
-        float musl = 0.8f;
-        float teta0x = musl * (3.16f * 100000.0f * Fz);
-		float teta0y = musl * ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
+        float teta0x = muslx * (3.16f * 100000.0f * Fz);
+        float teta0y = musly * ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
         this.Fz = Fz;
 
         float muS = -0.054f * Fz + 1.887f; // Given by tables
         float muC = -0.022f * Fz + 0.734f; // Given by tables
-        float Vs = 3.5f; // Given by tables        
+        float Vs = -3.5f; // Given by tables        
         float d = 0.6f; // Given by tables
 
         float Fc = muC * Fz; // Coulomb friction force
@@ -745,7 +770,11 @@ public class Wheel : MonoBehaviour {
         vryDebug = vry;
         float vrAbs = Mathf.Sqrt(vrx * vrx + vry * vry);
 
-        float gvr = musl * ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+        //float gvr = mugvr * ( Fc + ((Fs - Fc) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
+        float gy = 0.007f*Fz*Fz - 0.028f*Fz + 0.98f;
+        float beta = Mathf.Abs(vry/vrx);
+
+        float gvr = (1.0f + ((gy - 1.0f) / (Mathf.PI * 0.5f)) * beta) * (muC + ((muS - muC) * Mathf.Exp(-Mathf.Pow(Mathf.Abs(vrAbs / Vs), d))));
 
         float dzx = vrx - ((teta0x * Mathf.Abs(vrAbs) / gvr) * zx(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zx(i) - zx(i - 1)));
         float dzy = vry - ((teta0y * Mathf.Abs(vrAbs) / gvr) * zy(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zy(i) - zy(i - 1)));
@@ -766,14 +795,15 @@ public class Wheel : MonoBehaviour {
         return new Vector2(phix,phiy);
     }
 
-    public Vector2 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
+    public Vector3 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
     {
-        float resx = 0.0f;
-        float resy = 0.0f;
-        float resT = 0.0f;
         float sumx = 0.0f;
         float sumy = 0.0f;
         float sumT = 0.0f;
+
+        float resx = 0.0f;
+        float resy = 0.0f;
+        float rest = 0.0f;
 
         float coef = L/(2*n);
         Vector2 phiInit = Phi(0, vWheel, vAng, alpha, Fz, n);
@@ -794,12 +824,12 @@ public class Wheel : MonoBehaviour {
 
         resx = coef * sumx;
         resy = coef * sumy;
-        resT = coef * sumT;
-
-        return new Vector3(resx,resy,resT);
+        rest = coef * sumT;
+        return  new Vector3(resx, resy, rest);
     }
     public float alpha;
-
+    public float Xcoeff;
+    public float Ycoeff;
     public void FCalc(float vAng, float steering, float Fz, int n)
     {
         Quaternion toLocal;
@@ -823,7 +853,7 @@ public class Wheel : MonoBehaviour {
 
         // Transform into equations coord system and into ground velocity
         Vector2 vWheel = new Vector2(vWheelLocal.z, vWheelLocal.x);
-        Debug.DrawRay(model.transform.position + transform.up * 3, vWheelInWorld, Color.green);
+        if (debugWheelsVelo) Debug.DrawRay(model.transform.position + transform.up * 3, vWheelInWorld, Color.green);
 
         alpha = Vector2.Angle(new Vector2(vWheelInWorld.z, vWheelInWorld.x),
             new Vector2(transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, 1.0f)).z, 
@@ -843,14 +873,14 @@ public class Wheel : MonoBehaviour {
         Vector3 resIntegral = integral(vWheel, vAng, alpha, Fz, n);
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
-        torque = W * resIntegral.z;
-        Torque = transform.TransformDirection(toWheel * new Vector3(0.0f, 0.0f, torque));
-        Vector3 FLocal = new Vector3(100*Fy, 0.0f,10000*Fx);
+        driveTorque = W * resIntegral.z;
+
+        Vector3 FLocal = new Vector3(Ycoeff*Fy, 0.0f,Xcoeff*Fx);
         if (steeringWheel)
         {
             //FLocal.z=0.0f;
         }
         F = transform.TransformDirection(toWheel * FLocal);
-        Debug.DrawRay(model.transform.position + up * 3, transform.TransformDirection(toWheel * new Vector3(0.0f,0.0f,1.0f)));
+        if (debugWheelsXAxis) Debug.DrawRay(model.transform.position + up * 3, transform.TransformDirection(toWheel * new Vector3(0.0f,0.0f,1.0f)));
     }
 }
