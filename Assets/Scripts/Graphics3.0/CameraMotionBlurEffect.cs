@@ -149,6 +149,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
         if (!RenderVelocityBuffer)
         {
             material.SetTexture("_VelocityBuffer", velocityBuffer);
+            material.SetFloat("_CurrentFPS", 1.0f/Time.deltaTime);
             Graphics.Blit(source, destination, material);
         }
         else

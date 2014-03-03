@@ -16,7 +16,7 @@
 			uniform float4x4 _mvPrev;
 			uniform float4x4 _mvInvTrans;
 			uniform float4x4 _mvpPrev;
-			uniform float _deltaTime;
+			uniform float _currentFPS;
 
 			struct vertexInput
 			{
