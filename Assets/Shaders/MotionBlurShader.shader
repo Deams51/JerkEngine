@@ -11,11 +11,14 @@
 
 	#define NUM_SAMPLES 8
 	#define SOFT_Z_DISTANCE 0.0005
+	#define TARGET_FPS 60
 
 	uniform sampler2D _MainTex;
 	uniform sampler2D _VelocityBuffer;
 	uniform sampler2D _CameraDepthTexture;
 	uniform sampler2D _GrabTexture;
+
+	uniform float _CurrentFPS;
 
 	struct v2f 
 	{
@@ -48,7 +51,7 @@
 		float4 compare = float4(EncodeFloatRG(0.5), EncodeFloatRG(0.5));
 		float2 compare2 = float2(DecodeFloatRG(compare.rg), DecodeFloatRG(compare.ba));
 
-		velocity = (velocity - 0.5); //decode from color to velocity value
+		velocity = (velocity - 0.5) * (_CurrentFPS / TARGET_FPS); //decode from color to velocity value
 
 		float zx = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x,0,0)));
 		zx = -Linear01Depth(zx);
@@ -58,7 +61,7 @@
 			float intensity = 1.0 / (NUM_SAMPLES + 1);
 			float length = (0.5 / NUM_SAMPLES);
 			
-			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 1.1;
+			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 1.3;
 
 			float zy = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x+offset,0,0)));
 			zy = -Linear01Depth(zy);
