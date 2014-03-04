@@ -36,6 +36,6 @@ public class HighSpeedEffect : MonoBehaviour
 
         _particles.emissionRate = emissionRate;
         _particles.startColor = new Color(1, 1, 1, aCol);
-        transform.eulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180, 0);
+        transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180 - (_mainCamera.transform.localEulerAngles.y - VelocityTrackedObject.transform.localEulerAngles.y), 0);
     }
 }
