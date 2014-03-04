@@ -17,4 +17,11 @@ public class WindObjectScript : MonoBehaviour {
 			Destroy(this.gameObject);
 		}
 	}
+
+	void OnCollisionEnter(Collision col) {
+		if(col.collider.name.Equals("Collider")){
+			this.transform.localScale = this.transform.localScale * 0.7f;
+			this.rigidbody.mass = this.rigidbody.mass * 0.5f;
+		}
+	}
 }

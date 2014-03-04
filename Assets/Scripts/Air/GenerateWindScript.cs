@@ -10,7 +10,7 @@ public class GenerateWindScript : MonoBehaviour
 	public float WindVelocity;
 	public float frequency;
 	public float radius;
-	public float timeToLive;
+	public float lifeDistance;
 
 	private float time;
 
@@ -48,6 +48,11 @@ public class GenerateWindScript : MonoBehaviour
 		_bubbleInstance = (GameObject)Instantiate (WindObject, transform.position, Quaternion.identity);
 		_bubbleInstance.transform.position += (Vector3.Normalize (transform.up) * y) + (Vector3.Normalize (transform.right) * x);
 		_bubbleInstance.rigidbody.velocity = -(Target.rigidbody.velocity) + transform.forward * WindVelocity;
-		_bubbleInstance.GetComponent<WindObjectScript> ().TimeToLive = timeToLive;
+		float ttl = 0.5f;
+		float v = Mathf.Abs (_bubbleInstance.rigidbody.velocity.magnitude);
+		if(v > (this.lifeDistance/2)) {
+			ttl = lifeDistance/v;
+		}
+		_bubbleInstance.GetComponent<WindObjectScript> ().TimeToLive = ttl;
 	}
 }
