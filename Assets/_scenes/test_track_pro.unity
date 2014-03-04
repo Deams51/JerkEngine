@@ -17048,6 +17048,7 @@ GameObject:
   - 164: {fileID: 1037752880}
   - 114: {fileID: 1037752879}
   - 81: {fileID: 1037752890}
+  - 114: {fileID: 1037752891}
   m_Layer: 0
   m_Name: Peugeot
   m_TagString: Untagged
@@ -17061,8 +17062,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400146, guid: c74ede15787731b4295e2df178068073, type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037752877}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -317.615631, y: 1.92280817, z: -392.899994}
+  m_LocalRotation: {x: 0, y: .728337109, z: 0, w: .685219049}
+  m_LocalPosition: {x: -714.172241, y: 1.92280817, z: 430.70166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 783843421}
@@ -17085,7 +17086,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037752877}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd2bf5770ef51fa42a508ce882fe054c, type: 3}
   m_Name: 
@@ -17101,7 +17102,7 @@ AudioReverbFilter:
   m_Room: -1000
   m_RoomHF: -270
   m_RoomRolloff: 0
-  m_DecayTime: .300000012
+  m_DecayTime: .100000001
   m_DecayHFRatio: .25999999
   m_ReflectionsLevel: -3870
   m_ReverbLevel: -1887
@@ -17122,7 +17123,7 @@ AudioEchoFilter:
   m_Enabled: 1
   m_Delay: 500
   m_DecayRatio: .5
-  m_WetMix: 1
+  m_WetMix: 0
   m_DryMix: 1
 --- !u!82 &1037752882
 AudioSource:
@@ -17132,7 +17133,7 @@ AudioSource:
   m_GameObject: {fileID: 1037752877}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: d34399aa3e9a92f4981fdb7382be2b6c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7d8a79c913fd9ef40a3a42e27b84ee07, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -17331,6 +17332,17 @@ AudioListener:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037752877}
   m_Enabled: 1
+--- !u!114 &1037752891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1037752877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2491d482be5d7ce46a11f742f6e6afdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1045405436
 GameObject:
   m_ObjectHideFlags: 0
