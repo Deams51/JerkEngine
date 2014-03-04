@@ -45,6 +45,12 @@ public class HighSpeedEffect : MonoBehaviour
 				case CameraTracker.CameraMode.Follow:
         			transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180 - (_mainCamera.transform.localEulerAngles.y - VelocityTrackedObject.transform.localEulerAngles.y), 0);
 					break;
+				case CameraTracker.CameraMode.FirstPerson:
+					transform.localEulerAngles = new Vector3(0, 180, 0);
+					break;
+				case CameraTracker.CameraMode.Fixed: //assumes that the camera is to the left of the car
+					transform.localEulerAngles = new Vector3(0, 90, 0);
+					break;
 			}
 		}
     }

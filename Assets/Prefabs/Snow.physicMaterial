@@ -5,9 +5,9 @@ PhysicMaterial:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Aphalt Wet
-  dynamicFriction: .600000024
-  staticFriction: .600000024
+  m_Name: Snow
+  dynamicFriction: .200000003
+  staticFriction: .200000003
   bounciness: 0
   frictionCombine: 0
   bounceCombine: 0
