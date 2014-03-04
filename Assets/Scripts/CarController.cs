@@ -73,6 +73,8 @@ public class CarController : MonoBehaviour {
 	// factor, to make the correction easier.
 	public float steerCorrectionFactor = 4.0f;
 
+	bool debug = false;
+
 	// Used by SoundController to get average slip velo of all wheels for skid sounds.
 	public float slipVelo {
 		get {
@@ -134,6 +136,7 @@ public class CarController : MonoBehaviour {
         bool brakeKey = Input.GetKey(KeyCode.DownArrow);
         bool brakeFull = Input.GetKey(KeyCode.B);
         bool resetCar = Input.GetKeyDown(KeyCode.R);
+		bool debugMode = Input.GetKeyDown(KeyCode.F1);
 
         if (resetCar)
         {
@@ -209,7 +212,14 @@ public class CarController : MonoBehaviour {
             if (brakeFull)
             {
                 w.angularVelocity = 0f;
-            }
+			}
+			if(debugMode){
+				bool temp = !w.debugWheelsVelo;
+				w.debugWheelsVelo = temp;
+				w.debugRoadForce = temp;
+				w.debugCollisions = temp;
+				w.debugSuspensions = temp;
+			}
 
 		}
 	}

@@ -299,7 +299,7 @@ public class Wheel : MonoBehaviour {
             body.AddForceAtPosition(new Vector3(0.0f, suspensionForce.y, 0.0f) + F, pos);
             //body.AddRelativeTorque(Torque);
             if (debugRoadForce) Debug.DrawLine(model.transform.position, model.transform.position + F, Color.blue);
-            if (debugSuspensions) Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 5000), Color.blue);
+            if (debugSuspensions) Debug.DrawLine(model.transform.position, model.transform.position + (suspensionForce / 2500), Color.blue);
             //body.AddForceAtPosition (suspensionForce + roadForce, pos);
 		}
 		else
@@ -523,7 +523,7 @@ public class Wheel : MonoBehaviour {
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
         driveTorque = W * resIntegral.z;
-        if (Fx < 0) Fx = 100 * Fx;
+        if (Fx < 0) Fx = 10 * Fx;
         Vector3 FLocal = new Vector3(Ycoeff*Fy, 0.0f, Xcoeff*Fx);
         FxDebug = Fx;
         F = transform.TransformDirection(toWheel * FLocal);
