@@ -25,15 +25,14 @@ public class GenerateWindScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		transform.LookAt (Target.transform.position);
-		time += Time.deltaTime;
+        transform.LookAt(Target.transform.position);
+        time += Time.deltaTime;
 
-		while (time > 1.0f/frequency) {
-			generateWind();
-			time -= 1.0f/frequency;
-		}
-
-
+        while (time > 1.0f / frequency)
+        {
+            generateWind();
+            time -= 1.0f / frequency;
+        }
 	}
 
 	// Clone the wind object, place it and kick it away

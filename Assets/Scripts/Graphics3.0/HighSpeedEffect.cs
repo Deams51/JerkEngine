@@ -26,7 +26,7 @@ public class HighSpeedEffect : MonoBehaviour
     {
         if (VelocityTrackedObject != null && !ManualVelocity)
             if (VelocityTrackedObject.rigidbody != null)
-                Velocity = VelocityTrackedObject.rigidbody.velocity.magnitude;
+                Velocity = VelocityTrackedObject.rigidbody.velocity.magnitude * 3.6f; //km/h
 
         float emissionRate = Mathf.Clamp(Velocity, 0, MaxEmissionRate);
         float aCol = Mathf.Clamp(Velocity / 255f, 0, 100f / 255f);
@@ -43,13 +43,15 @@ public class HighSpeedEffect : MonoBehaviour
 			switch(_trackerScript.Mode)
 			{
 				case CameraTracker.CameraMode.Follow:
-        			transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180 - (_mainCamera.transform.localEulerAngles.y - VelocityTrackedObject.transform.localEulerAngles.y), 0);
-					break;
+                    transform.rotation = Quaternion.LookRotation(VelocityTrackedObject.rigidbody.velocity);
+                    transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, this.transform.localEulerAngles.y + 180, this.transform.localEulerAngles.z);
+                    break;
 				case CameraTracker.CameraMode.FirstPerson:
-					transform.localEulerAngles = new Vector3(0, 180, 0);
+				    transform.localEulerAngles = new Vector3(0, 180, 0);
 					break;
 				case CameraTracker.CameraMode.Fixed: //assumes that the camera is to the left of the car
-					transform.localEulerAngles = new Vector3(0, 90, 0);
+                    transform.rotation = Quaternion.LookRotation(VelocityTrackedObject.rigidbody.velocity);
+                    transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, this.transform.localEulerAngles.y + 180, this.transform.localEulerAngles.z);
 					break;
 			}
 		}
