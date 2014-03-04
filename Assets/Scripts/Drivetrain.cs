@@ -61,8 +61,7 @@ public class Drivetrain : MonoBehaviour {
 	public float rpm;
 	public float slipRatio = 0.0f;
 	float engineAngularVelo;
-	
-	
+
 	float Sqr (float x) { return x*x; }
 	
 	// Calculate engine torque for current rpm and throttle values.
@@ -148,6 +147,9 @@ public class Drivetrain : MonoBehaviour {
 			if (throttleInput < 0 && rpm <= minRPM)
 				gear = (gear == 0?2:0);
 		}
+
+		//audio.pitch = 0.875f + rpm/maxRPM;
+		//audio.pitch = 0.5f + rpm/maxRPM;
 	}
 		
 	public void ShiftUp () {

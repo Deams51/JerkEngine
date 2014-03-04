@@ -133,24 +133,23 @@ public class CarController : MonoBehaviour {
         bool accelKey = Input.GetKey(KeyCode.UpArrow);
         bool brakeKey = Input.GetKey(KeyCode.DownArrow);
         bool brakeFull = Input.GetKey(KeyCode.B);
+        bool resetCar = Input.GetKeyDown(KeyCode.R);
+
+        if (resetCar)
+        {
+            this.rigidbody.rotation = Quaternion.identity;
+            this.rigidbody.MovePosition(transform.position + transform.up*0.5f);
+        }
 		
 		if (drivetrain.automatic && drivetrain.gear == 0)
 		{
 			accelKey = Input.GetKey (KeyCode.DownArrow);
 			brakeKey = Input.GetKey (KeyCode.UpArrow);
 		}
-		
-		if (Input.GetKey (KeyCode.LeftShift))
-		{
-			throttle += Time.deltaTime / throttleTime;
-			throttleInput += Time.deltaTime / throttleTime;
-		}
-		else if (accelKey)
+		if (accelKey)
 		{
 			if (drivetrain.slipRatio < 0.10f)
 				throttle += Time.deltaTime / throttleTime;
-			else if (!tractionControl)
-				throttle += Time.deltaTime / throttleTimeTraction;
 			else
 				throttle -= Time.deltaTime / throttleReleaseTime;
 
@@ -170,11 +169,6 @@ public class CarController : MonoBehaviour {
 
 		if (brakeKey)
 		{
-			if (drivetrain.slipRatio < 0.2f)
-				brake += Time.deltaTime / throttleTime;
-			else
-				brake += Time.deltaTime / throttleTimeTraction;
-			throttle = 0;
 			throttleInput -= Time.deltaTime / throttleTime;
 		}
 		else 

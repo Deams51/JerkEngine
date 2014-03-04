@@ -12,12 +12,14 @@ public class HighSpeedEffect : MonoBehaviour
 
     private ParticleSystem _particles;
     private Camera _mainCamera;
+	private CameraTracker _trackerScript;
 
     void Awake()
     {
         _particles = this.particleSystem;
         _particles.renderer.sortingLayerName = "Foreground";
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		_trackerScript = _mainCamera.GetComponent<CameraTracker> ();
     }
 
     void Update()
@@ -36,6 +38,20 @@ public class HighSpeedEffect : MonoBehaviour
 
         _particles.emissionRate = emissionRate;
         _particles.startColor = new Color(1, 1, 1, aCol);
-        transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180 - (_mainCamera.transform.localEulerAngles.y - VelocityTrackedObject.transform.localEulerAngles.y), 0);
+		if (_trackerScript != null) 
+		{
+			switch(_trackerScript.Mode)
+			{
+				case CameraTracker.CameraMode.Follow:
+        			transform.localEulerAngles = new Vector3(_mainCamera.transform.eulerAngles.x, 180 - (_mainCamera.transform.localEulerAngles.y - VelocityTrackedObject.transform.localEulerAngles.y), 0);
+					break;
+				case CameraTracker.CameraMode.FirstPerson:
+					transform.localEulerAngles = new Vector3(0, 180, 0);
+					break;
+				case CameraTracker.CameraMode.Fixed: //assumes that the camera is to the left of the car
+					transform.localEulerAngles = new Vector3(0, 90, 0);
+					break;
+			}
+		}
     }
 }

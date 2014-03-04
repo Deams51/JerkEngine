@@ -112,6 +112,8 @@ public class Wheel : MonoBehaviour {
     public bool debugWheelsVelo = false;
     public bool debugCollisions = false;
 
+    public float FxDebug;
+
 	void Start () {
 		Transform trs = transform;
 		while (trs != null && trs.rigidbody == null)
@@ -201,7 +203,7 @@ public class Wheel : MonoBehaviour {
         int numberRays = rPrecision * wPrecision;
         int cpt = 0;
         float widthInc = width / wPrecision;
-        float rInc = 180.0f / (float)rPrecision;
+        float rInc = 220.0f / (float)rPrecision;
         bool showRays = false;
         rayElem[] tabRays = new rayElem[numberRays];
         Quaternion rotate = Quaternion.Euler(0, maxSteeringAngle * steering, 0);
@@ -214,7 +216,7 @@ public class Wheel : MonoBehaviour {
         }
         for (int w = 0; w < wPrecision; w++)
         {
-            for (float a = 0.0f; a < 180.0f; a += rInc)
+            for (float a = 0.0f; a < 220.0f; a += rInc)
             {
                 Vector3 translation = new Vector3((-width/2) + w*widthInc, -suspensionTravel, 0);
                 Vector3 direction = new Vector3(0, -radius * Mathf.Sin(a * Mathf.PI / 180), radius * Mathf.Cos(a * Mathf.PI / 180));
@@ -239,8 +241,7 @@ public class Wheel : MonoBehaviour {
         float dist2 = radius;
         
         hit = new RaycastHit();
-        rayElem[] tab = listRays(centerW, radius, width, 10, 2);
-        Debug.DrawRay(centerW, up);
+        rayElem[] tab = listRays(centerW, radius, width, 10, 4);
 
         foreach (rayElem r in tab)
         {
@@ -252,8 +253,6 @@ public class Wheel : MonoBehaviour {
                     hit = h;
                     onGround = true;
                     dist2 = h.distance;
-                    //Debug.DrawLine(hitAlternate.point, centerW + new Vector3(hitAlternate.point.x - pos.x, 0, 0), Color.green, 10.0f);
-
                 }
             }
         }
@@ -408,7 +407,7 @@ public class Wheel : MonoBehaviour {
     // normalized normal pressure distribution
     float nnpd()
     {
-        return 1.0f/(float)n;
+        return 1.0f; ///(float)n;
     }
 
     float zx(int i)
@@ -426,8 +425,6 @@ public class Wheel : MonoBehaviour {
     // Phi for a bristle i
     Vector2 Phi(int i, Vector2 vWheel, float vAng, float alpha, float Fz, int n)
     {
-        float phix; // result
-        float phiy; // result
         float teta0x = muslx * (3.16f * 100000.0f * Fz);
         float teta0y = musly * ((-0.18f * Fz * Fz) + (1.88f * Fz) + 1.84f) * 100000.0f;
         
@@ -436,7 +433,7 @@ public class Wheel : MonoBehaviour {
         float Vs = -3.5f; // Given by tables        
         float d = 0.6f; // Given by tables
 
-        float vrx = (radius * vAng) + (vWheel.x);
+        float vrx = (radius * vAng) - (vWheel.x);
         vrxDebug = vrx;
         float vry = vWheel.y;
         vryDebug = vry;
@@ -452,20 +449,17 @@ public class Wheel : MonoBehaviour {
         //Debug.Log("dzx = " + dzx + " gvr = " + gvr);
         float dzy = vry - ((teta0y * Mathf.Abs(vrAbs) / gvr) * zy(i)) - (radius * Mathf.Abs(vAng) * ((n - 1) / L) * (zy(i) - zy(i - 1)));
 
-        float part1 = (nnpd() * L * W) / Fz;
+        float part1 = nnpd() / Fz;
         // phiX calculus
         float part2x = (teta0x * zx(i)) + (teta1x * dzx) + (teta2x * vrx);
         //Debug.Log("Part2x = " + part2x + " teta0x = " + teta0x + " zx(i) = " + zx(i) + " teta1x = " + teta1x + " dzx = " + dzx + " teta2x = " + teta2x + " vrx = " + vrx );
         // phiY calculus
         float part2y = (teta0y * zy(i)) + (teta1y * dzy) + (teta2y * vry);
         
-        
-        phix = part1 * part2x;
-        phiy = part1 * part2y;
         //Debug.Log("vrx = " + vrx + " vrabs = " + vrAbs + " zx(i) = " +  zx(i) + " radius = " + radius + " vAngAbs = " + vAng + " L = " + L  
         //   + "\nphi = " + phix + " part1 = " + part1 + " part2x = " + part2x + " part2y = " + part2y + " dz = " + dzx + " gvr = " + gvr );
         //Debug.Log("phiY = " + phiy);
-        return new Vector2(phix,phiy);
+        return new Vector2(part1 * part2x, part1 * part2y);
     }
 
     Vector3 integral(Vector2 vWheel, float vAng, float alpha, float Fz, int n)
@@ -529,8 +523,9 @@ public class Wheel : MonoBehaviour {
         Fx = W * resIntegral.x;
         Fy = W * resIntegral.y;
         driveTorque = W * resIntegral.z;
-
+        if (Fx < 0) Fx = 100 * Fx;
         Vector3 FLocal = new Vector3(Ycoeff*Fy, 0.0f, Xcoeff*Fx);
+        FxDebug = Fx;
         F = transform.TransformDirection(toWheel * FLocal);
         if (debugWheelsXAxis) Debug.DrawRay(model.transform.position + up * 3, transform.TransformDirection(toWheel * new Vector3(0.0f,0.0f,1.0f)));
     }
