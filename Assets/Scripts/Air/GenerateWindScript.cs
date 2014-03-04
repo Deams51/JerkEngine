@@ -11,7 +11,6 @@ public class GenerateWindScript : MonoBehaviour
 	public float frequency;
 	public float radius;
 	public float lifeDistance;
-    public bool Active = true;
 
 	private float time;
 
@@ -26,16 +25,13 @@ public class GenerateWindScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-        if (Active)
-        {
-            transform.LookAt(Target.transform.position);
-            time += Time.deltaTime;
+        transform.LookAt(Target.transform.position);
+        time += Time.deltaTime;
 
-            while (time > 1.0f / frequency)
-            {
-                generateWind();
-                time -= 1.0f / frequency;
-            }
+        while (time > 1.0f / frequency)
+        {
+            generateWind();
+            time -= 1.0f / frequency;
         }
 	}
 
