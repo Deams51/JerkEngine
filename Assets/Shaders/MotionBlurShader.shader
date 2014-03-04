@@ -19,6 +19,7 @@
 	uniform sampler2D _GrabTexture;
 
 	uniform float _CurrentFPS;
+	uniform float _BlurFactor;
 
 	struct v2f 
 	{
@@ -61,7 +62,7 @@
 			float intensity = 1.0 / (NUM_SAMPLES + 1);
 			float length = (0.5 / NUM_SAMPLES);
 			
-			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * 1.5;
+			float2 offset = velocity * (float(i) / float(NUM_SAMPLES - 1) - 0.5) * _BlurFactor;
 
 			float zy = UNITY_SAMPLE_DEPTH(tex2Dlod(_CameraDepthTexture, float4(x+offset,0,0)));
 			zy = -Linear01Depth(zy);
@@ -74,7 +75,6 @@
 		}
 
 		return result;
-		//return tex2D(_VelocityBuffer, f.uv);
 	}
 
 	float4 debugVelocity(v2f f) : COLOR
@@ -85,7 +85,6 @@
 	float4 debugDepth(v2f f) : COLOR
 	{
 		return tex2D(_CameraDepthTexture, f.uv);
-		//return float4(1, 0, 0, 1);
 	}
 	
 	ENDCG

@@ -7,6 +7,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
 {
     public bool Active = true;
     public bool RenderVelocityBuffer = false;
+	public float BlurFactor = 1.5f;
 
     public static Matrix4x4 ViewMatrix { get; private set; }
     public static Matrix4x4 PreviousViewMatrix { get; private set; }
@@ -150,6 +151,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
         {
             material.SetTexture("_VelocityBuffer", velocityBuffer);
             material.SetFloat("_CurrentFPS", 1.0f/Time.deltaTime);
+			material.SetFloat("_BlurFactor", BlurFactor);
             Graphics.Blit(source, destination, material);
         }
         else
