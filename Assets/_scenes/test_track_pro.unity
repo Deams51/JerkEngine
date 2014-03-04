@@ -2261,6 +2261,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!114 &93110501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5197,13 +5198,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &254477255
 GameObject:
   m_ObjectHideFlags: 0
@@ -12225,6 +12227,7 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: 198f14b749840764a92dcd64831eb153, type: 3}
   Active: 1
   RenderVelocityBuffer: 0
+  BlurFactor: 1.5
 --- !u!81 &704885123
 AudioListener:
   m_ObjectHideFlags: 0
@@ -16815,13 +16818,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1027329644
 GameObject:
   m_ObjectHideFlags: 0
@@ -16924,6 +16928,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1001 &1032749095
 Prefab:
   m_ObjectHideFlags: 0
@@ -24894,6 +24899,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1529744667
 GameObject:
   m_ObjectHideFlags: 0
@@ -28606,13 +28612,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1686264066
 GameObject:
   m_ObjectHideFlags: 0
@@ -29834,13 +29841,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1800297333
 GameObject:
   m_ObjectHideFlags: 0
@@ -31251,6 +31259,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1903188400
 GameObject:
   m_ObjectHideFlags: 0

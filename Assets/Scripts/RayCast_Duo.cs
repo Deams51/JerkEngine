@@ -64,7 +64,7 @@ public class RayCast_Duo : MonoBehaviour {
 			if(hl.distance > 17.0f || hr.distance > 17.0f)
 			{
 				_rev.reverbPreset = AudioReverbPreset.Auditorium;
-				_echo.wetMix = 1.0f;
+				_echo.wetMix = 0.8f;
 				_echo.delay = (((hl.distance + hr.distance)/2)/340.0f) * 1000.0f;
 			}
 			else
@@ -78,7 +78,7 @@ public class RayCast_Duo : MonoBehaviour {
 			if(hl.distance > 17.0f || hu.distance > 17.0f)
 			{
 				_rev.reverbPreset = AudioReverbPreset.Off;
-				_echo.wetMix = 1.0f;
+				_echo.wetMix = 0.8f;
 				_echo.delay = (((hl.distance + hr.distance)/2)/340.0f) * 1000.0f;
 			}
 			else
@@ -92,7 +92,7 @@ public class RayCast_Duo : MonoBehaviour {
 			if(hr.distance > 17.0f || hu.distance > 17.0f)
 			{
 				_rev.reverbPreset = AudioReverbPreset.Off;
-				_echo.wetMix = 1.0f;
+				_echo.wetMix = 0.8f;
 				_echo.delay = (((hl.distance + hr.distance)/2)/340.0f) * 1000.0f;
 			}
 			else
@@ -103,37 +103,37 @@ public class RayCast_Duo : MonoBehaviour {
 		}
 		else if (IsColliding(hl))
 		{
-			if(hl.distance > 17.0f){
-				_rev.reverbPreset = AudioReverbPreset.Off;
-				_echo.wetMix = 0.5f;
-				_echo.delay = ((hl.distance)/340.0f) * 1000.0f;
-			}
-			else{
-				_rev.reverbPreset = AudioReverbPreset.Auditorium;
+			if(hl.distance < 17.0f){
+//				_rev.reverbPreset = AudioReverbPreset.Off;
+//				_echo.wetMix = 0.5f;
+//				_echo.delay = ((hl.distance)/340.0f) * 1000.0f;
+//			}
+//			else{
+				_rev.reverbPreset = AudioReverbPreset.User;
 				_echo.wetMix = 0.0f;
 			}
 		}
 		else if (IsColliding(hr))
 		{
-			if(hr.distance > 17.0f){
-				_rev.reverbPreset = AudioReverbPreset.Off;
-				_echo.wetMix = 0.5f;
-				_echo.delay = ((hr.distance)/340.0f) * 1000.0f;
-			}
-			else{
+			if(hr.distance < 17.0f){
+//				_rev.reverbPreset = AudioReverbPreset.Off;
+//				_echo.wetMix = 0.5f;
+//				_echo.delay = ((hr.distance)/340.0f) * 1000.0f;
+//			}
+//			else{
 				_echo.wetMix = 0.0f;
-				_rev.reverbPreset = AudioReverbPreset.Auditorium;
+				_rev.reverbPreset = AudioReverbPreset.User;
 			}
 		}
 		else if (IsColliding(hu))
 		{
-			if(hu.distance > 17.0f){
-				_rev.reverbPreset = AudioReverbPreset.Off;
-				_echo.wetMix = 0.5f;
-				_echo.delay = ((hu.distance)*340.0f) * 1000.0f;
-			}
-			else{
-				_rev.reverbPreset = AudioReverbPreset.Auditorium;
+			if(hu.distance < 17.0f){
+//				_rev.reverbPreset = AudioReverbPreset.Off;
+//				_echo.wetMix = 0.5f;
+//				_echo.delay = ((hu.distance)*340.0f) * 1000.0f;
+//			}
+//			else{
+				_rev.reverbPreset = AudioReverbPreset.User;
 				_echo.wetMix = 0.0f;
 			}
 		}
@@ -142,7 +142,6 @@ public class RayCast_Duo : MonoBehaviour {
 			//No effects.
 			_echo.wetMix = 0.0f;
 			_echo.dryMix = 1.0f;
-			_echo.enabled.Equals(false);
 			_rev.reverbPreset = AudioReverbPreset.Off;
 		}
 	}
