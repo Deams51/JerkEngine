@@ -148,8 +148,8 @@ public class Drivetrain : MonoBehaviour {
 				gear = (gear == 0?2:0);
 		}
 
-		audio.pitch = 0.875f + rpm/maxRPM;
-
+		//audio.pitch = 0.875f + rpm/maxRPM;
+		//audio.pitch = 0.5f + rpm/maxRPM;
 	}
 		
 	public void ShiftUp () {
