@@ -3916,8 +3916,8 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1
-  Ycoeff: 1
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
@@ -3977,8 +3977,8 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1
-  Ycoeff: 1
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
@@ -4038,8 +4038,8 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1
-  Ycoeff: 1
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
@@ -4220,8 +4220,8 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1
-  Ycoeff: 1
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0

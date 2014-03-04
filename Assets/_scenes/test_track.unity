@@ -6800,13 +6800,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &395719881
 GameObject:
   m_ObjectHideFlags: 0
@@ -12774,13 +12775,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &757948389
 GameObject:
   m_ObjectHideFlags: 0
@@ -15904,6 +15906,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &932284438
 GameObject:
   m_ObjectHideFlags: 0
@@ -19207,13 +19210,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1182324339
 GameObject:
   m_ObjectHideFlags: 0
@@ -24112,6 +24116,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &1365779893
 GameObject:
   m_ObjectHideFlags: 0
@@ -28125,6 +28130,7 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1001 &1669231913
 Prefab:
   m_ObjectHideFlags: 0
@@ -33575,13 +33581,14 @@ MonoBehaviour:
   muslx: .5
   musly: .5
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 1000
+  Xcoeff: .5
+  Ycoeff: .5
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
 --- !u!1 &2012723744
 GameObject:
   m_ObjectHideFlags: 0
@@ -35506,3 +35513,4 @@ MonoBehaviour:
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
+  FxDebug: 0
