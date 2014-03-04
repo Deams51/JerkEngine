@@ -525,7 +525,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400064}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: WheelRL
   m_TagString: Untagged
@@ -768,7 +767,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400094}
   - 114: {fileID: 11400004}
-  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: WheelFL
   m_TagString: Untagged
@@ -839,7 +837,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400102}
   - 114: {fileID: 11400010}
-  - 114: {fileID: 11400012}
   m_Layer: 0
   m_Name: WheelRR
   m_TagString: Untagged
@@ -1193,7 +1190,6 @@ GameObject:
   - 114: {fileID: 11400020}
   - 114: {fileID: 11400018}
   - 114: {fileID: 11400016}
-  - 114: {fileID: 11400028}
   m_Layer: 0
   m_Name: Peugeot
   m_TagString: Untagged
@@ -1273,7 +1269,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400156}
   - 114: {fileID: 11400030}
-  - 114: {fileID: 11400032}
   m_Layer: 0
   m_Name: WheelFR
   m_TagString: Untagged
@@ -2307,7 +2302,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.0065918, y: -.0662474483, z: 8.79083252}
+  m_LocalPosition: {x: 16.4404774, y: -.066247426, z: 8.67858887}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400148}
@@ -3755,41 +3750,12 @@ MonoBehaviour:
   suspensionTravel: .119999997
   damping: 5000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 3000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100014}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3802,78 +3768,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .100000001
+  W: .200000003
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .5
+  musly: .5
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .100000001
-  W: .200000003
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: -1
-  teta2x: -1
-  teta1y: -1
-  teta2y: -1
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .5
-  musly: .5
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100064}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nS: 0
-  nL: 0
-  r: 0
-  angleChassis: 0
-  v: {x: 0, y: 0, z: 0}
-  alpha: 0
-  sL: 0
-  sS: 0
-  sRes: 0
-  muRes: 0
-  Fz: 0
-  FL: 0
-  Fx: 0
-  Fy: 0
-  FS: 0
-  FZC: 0
-  position: 
-  CoG: {fileID: 0}
-  radius: .310000002
-  width: .200000003
-  kT: 0
-  kS: .899999976
-  vcog: 0
-  vphi: 0
-  beta: 0
-  dw: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3892,41 +3810,12 @@ MonoBehaviour:
   suspensionTravel: .119999997
   damping: 4000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 14
   model: {fileID: 100078}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3939,78 +3828,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .100000001
+  W: .200000003
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .5
+  musly: .5
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .100000001
-  W: .200000003
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: -1
-  teta2x: -1
-  teta1y: -1
-  teta2y: -1
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .5
-  musly: .5
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
---- !u!114 &11400006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100094}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nS: 0
-  nL: 0
-  r: 0
-  angleChassis: 0
-  v: {x: 0, y: 0, z: 0}
-  alpha: 0
-  sL: 0
-  sS: 0
-  sRes: 0
-  muRes: 0
-  Fz: 0
-  FL: 0
-  Fx: 0
-  Fy: 0
-  FS: 0
-  FZC: 0
-  position: 
-  CoG: {fileID: 0}
-  radius: .310000002
-  width: .200000003
-  kT: 0
-  kS: .899999976
-  vcog: 0
-  vphi: 0
-  beta: 0
-  dw: 0
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4043,41 +3884,12 @@ MonoBehaviour:
   suspensionTravel: .119999997
   damping: 5000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 3000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100056}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -4090,78 +3902,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .100000001
+  W: .200000003
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .5
+  musly: .5
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .100000001
-  W: .200000003
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: -1
-  teta2x: -1
-  teta1y: -1
-  teta2y: -1
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .5
-  musly: .5
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
---- !u!114 &11400012
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100102}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nS: 0
-  nL: 0
-  r: 0
-  angleChassis: 0
-  v: {x: 0, y: 0, z: 0}
-  alpha: 0
-  sL: 0
-  sS: 0
-  sRes: 0
-  muRes: 0
-  Fz: 0
-  FL: 0
-  Fx: 0
-  Fy: 0
-  FS: 0
-  FZC: 0
-  position: 
-  CoG: {fileID: 0}
-  radius: .310000002
-  width: .200000003
-  kT: 0
-  kS: .899999976
-  vcog: 0
-  vphi: 0
-  beta: 0
-  dw: 0
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4298,33 +4062,6 @@ MonoBehaviour:
   steerReleaseTime: .300000012
   veloSteerReleaseTime: 0
   steerCorrectionFactor: 4
---- !u!114 &11400028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100146}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aadb4cd4da6bcff4eaa31b8601186e45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fL: {fileID: 11400006}
-  fR: {fileID: 11400032}
-  rL: {fileID: 11400002}
-  rR: {fileID: 11400012}
-  g: 9.81000042
-  massCoG: 0
-  bR: 0
-  bF: 0
-  lF: 0
-  lR: 0
-  totalForce: {x: 0, y: 0, z: 0}
-  FR: 0
-  angularVelo: 10
-  aY: 0
-  aX: 0
-  dW: 0
 --- !u!114 &11400030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4343,41 +4080,12 @@ MonoBehaviour:
   suspensionTravel: .119999997
   damping: 4000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 5000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 14
   model: {fileID: 100066}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -4390,78 +4098,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .100000001
+  W: .200000003
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .5
+  musly: .5
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .100000001
-  W: .200000003
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: -1
-  teta2x: -1
-  teta1y: -1
-  teta2y: -1
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .5
-  musly: .5
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
---- !u!114 &11400032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100156}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ceeee854ff02340bc2a27bb99c5aac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nS: 0
-  nL: 0
-  r: 0
-  angleChassis: 0
-  v: {x: 0, y: 0, z: 0}
-  alpha: 0
-  sL: 0
-  sS: 0
-  sRes: 0
-  muRes: 0
-  Fz: 0
-  FL: 0
-  Fx: 0
-  Fy: 0
-  FS: 0
-  FZC: 0
-  position: 
-  CoG: {fileID: 0}
-  radius: .310000002
-  width: .200000003
-  kT: 0
-  kS: .899999976
-  vcog: 0
-  vphi: 0
-  beta: 0
-  dw: 0
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

@@ -1147,7 +1147,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.3408051, y: -.0309001803, z: 7.88555908}
+  m_LocalPosition: {x: 16.622057, y: -.0309001803, z: 8.16683578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -2947,41 +2947,12 @@ MonoBehaviour:
   suspensionTravel: .200000003
   damping: 4000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 1500
   handbrakeFrictionTorque: 1500
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100112}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2994,41 +2965,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .200000003
+  W: .100000001
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 0
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .200000003
-  W: .100000001
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: 0
-  teta2x: 0
-  teta1y: 0
-  teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .800000012
-  musly: .800000012
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3050,41 +3010,12 @@ MonoBehaviour:
   suspensionTravel: .200000003
   damping: 6000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 4000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 28
   model: {fileID: 100108}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3097,41 +3028,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .200000003
+  W: .100000001
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 0
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .200000003
-  W: .100000001
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: 0
-  teta2x: 0
-  teta1y: 0
-  teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .800000012
-  musly: .800000012
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3153,41 +3073,12 @@ MonoBehaviour:
   suspensionTravel: .200000003
   damping: 6000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 4000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 28
   model: {fileID: 100104}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3200,41 +3091,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .200000003
+  W: .100000001
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 0
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .200000003
-  W: .100000001
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: 0
-  teta2x: 0
-  teta1y: 0
-  teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .800000012
-  musly: .800000012
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
 --- !u!1002 &11400005
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3363,41 +3243,12 @@ MonoBehaviour:
   suspensionTravel: .200000003
   damping: 4000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 1500
   handbrakeFrictionTorque: 1500
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100000}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3410,41 +3261,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
+  L: .200000003
+  W: .100000001
+  n: 100
+  teta1x: 0
+  teta2x: 0
+  teta1y: 0
+  teta2y: 0
+  vrxDebug: 0
+  vryDebug: 0
+  muslx: .800000012
+  musly: .800000012
+  mugvr: 1
+  Xcoeff: 1000
+  Ycoeff: 1000
   debugSuspensions: 0
   debugRoadForce: 0
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
   debugCollisions: 0
-  L: .200000003
-  W: .100000001
-  n: 100
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
-  teta1x: 0
-  teta2x: 0
-  teta1y: 0
-  teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
-  vrxDebug: 0
-  vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
-  muslx: .800000012
-  musly: .800000012
-  mugvr: 1
-  alpha: 0
-  Xcoeff: 1000
-  Ycoeff: 1000
 --- !u!1002 &11400015
 EditorExtensionImpl:
   serializedVersion: 6
@@ -3510,6 +3350,9 @@ MonoBehaviour:
   - {fileID: 11400004}
   - {fileID: 11400002}
   compensationFactor: .100000001
+  oldGrip: 0
+  angle: 0
+  angularVelo: 0
 --- !u!1002 &11400023
 EditorExtensionImpl:
   serializedVersion: 6

@@ -806,7 +806,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.4653015, y: -.269791216, z: 5.09851074}
+  m_LocalPosition: {x: 16.7653923, y: -.271585941, z: 9.18548584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -2085,41 +2085,12 @@ MonoBehaviour:
   suspensionTravel: .449999988
   damping: 7000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 2000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100000}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2132,41 +2103,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
-  debugSuspensions: 0
-  debugRoadForce: 0
-  debugWheelsXAxis: 0
-  debugWheelsVelo: 0
-  debugCollisions: 0
   L: .300000012
   W: .400000006
-  n: 30
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
+  n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
   vrxDebug: 0
   vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  alpha: 1
   Xcoeff: 1000
   Ycoeff: 100
+  debugSuspensions: 1
+  debugRoadForce: 1
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 1
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2188,41 +2148,12 @@ MonoBehaviour:
   suspensionTravel: .449999988
   damping: 7000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 2000
   handbrakeFrictionTorque: 2000
   frictionTorque: 0
   maxSteeringAngle: 0
   model: {fileID: 100078}
   massFraction: .200000003
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2235,41 +2166,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 0
+  drivingWheel: 1
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
-  debugSuspensions: 0
-  debugRoadForce: 0
-  debugWheelsXAxis: 0
-  debugWheelsVelo: 0
-  debugCollisions: 0
   L: .300000012
   W: .400000006
-  n: 30
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
+  n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
   vrxDebug: 0
   vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  alpha: 1
   Xcoeff: 1000
   Ycoeff: 100
+  debugSuspensions: 1
+  debugRoadForce: 1
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 1
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2291,41 +2211,12 @@ MonoBehaviour:
   suspensionTravel: .449999988
   damping: 8000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 4000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 28
   model: {fileID: 100074}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2338,41 +2229,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
-  debugSuspensions: 0
-  debugRoadForce: 0
-  debugWheelsXAxis: 0
-  debugWheelsVelo: 0
-  debugCollisions: 0
   L: .300000012
   W: .400000006
-  n: 30
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
+  n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
   vrxDebug: 0
   vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  alpha: 1
   Xcoeff: 1000
   Ycoeff: 100
+  debugSuspensions: 1
+  debugRoadForce: 1
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 1
 --- !u!1002 &11400005
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2394,41 +2274,12 @@ MonoBehaviour:
   suspensionTravel: .449999988
   damping: 8000
   inertia: 2.20000005
-  grip: 1
   brakeFrictionTorque: 4000
   handbrakeFrictionTorque: 0
   frictionTorque: 0
   maxSteeringAngle: 28
   model: {fileID: 100070}
   massFraction: .300000012
-  a:
-  - 1
-  - -60
-  - 1688
-  - 4140
-  - 6.02600002
-  - 0
-  - -.358900011
-  - 1
-  - 0
-  - -.0061110002
-  - -.0324399993
-  - 0
-  - 0
-  - 0
-  - 0
-  b:
-  - 1
-  - -60
-  - 1588
-  - 0
-  - 229
-  - 0
-  - 0
-  - 0
-  - -10
-  - 0
-  - 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2441,41 +2292,30 @@ MonoBehaviour:
   slipVelo: 0
   compression: 0
   onGround: 0
-  steeringWheel: 1
+  drivingWheel: 0
   Fx: 0
   Fy: 0
   FBase: {x: 0, y: 0, z: 0}
   F: {x: 0, y: 0, z: 0}
-  debugSuspensions: 0
-  debugRoadForce: 0
-  debugWheelsXAxis: 0
-  debugWheelsVelo: 0
-  debugCollisions: 0
   L: .300000012
   W: .400000006
-  n: 30
-  wr: 0
-  wr_old: 0
-  vWheel: {x: 0, y: 0}
-  vWheel_old: {x: 0, y: 0}
+  n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  torque: 0
-  Torque: {x: 0, y: 0, z: 0}
   vrxDebug: 0
   vryDebug: 0
-  Fz: 0
-  defX: 0
-  defY: 0
-  tests: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  alpha: 1
   Xcoeff: 1000
   Ycoeff: 100
+  debugSuspensions: 1
+  debugRoadForce: 1
+  debugWheelsXAxis: 0
+  debugWheelsVelo: 0
+  debugCollisions: 1
 --- !u!1002 &11400007
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2635,6 +2475,9 @@ MonoBehaviour:
   - {fileID: 11400006}
   - {fileID: 11400004}
   compensationFactor: .100000001
+  oldGrip: 0
+  angle: 0
+  angularVelo: 0
 --- !u!1002 &11400021
 EditorExtensionImpl:
   serializedVersion: 6
