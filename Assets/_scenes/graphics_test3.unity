@@ -17993,8 +17993,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 1745481480}
   m_GameObject: {fileID: 2048109496}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -18264,9 +18264,9 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 9
-    radius: 7.9000001
-    angle: 2.55999994
-    length: 11.1499996
+    radius: 5.32000017
+    angle: 0
+    length: 16
     boxX: 1
     boxY: 1
     boxZ: 1
@@ -19075,9 +19075,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocity: 0
-  MaxEmissionRate: 300
-  MinEmissionRate: 50
+  MaxEmissionRate: 80
+  MinEmissionRate: 30
   VelocityTrackedObject: {fileID: 0}
+  ManualVelocity: 0
 --- !u!1 &2062423773
 GameObject:
   m_ObjectHideFlags: 0
@@ -19175,6 +19176,7 @@ MonoBehaviour:
   shader: {fileID: 4800000, guid: 198f14b749840764a92dcd64831eb153, type: 3}
   Active: 1
   RenderVelocityBuffer: 0
+  BlurFactor: 1.5
 --- !u!114 &2062423780
 MonoBehaviour:
   m_ObjectHideFlags: 0
