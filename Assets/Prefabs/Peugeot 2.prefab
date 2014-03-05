@@ -4271,6 +4271,7 @@ MonoBehaviour:
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 100182}
   WindVelocity: 0
+  WindMass: 2.00999999
   frequency: 80
   radius: 1.5
   lifeDistance: 4.34000015

@@ -19,9 +19,9 @@ public class WindObjectScript : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col) {
-		if(col.collider.name.Equals("Collider")){
-			this.transform.localScale = this.transform.localScale * 0.7f;
-			this.rigidbody.mass = this.rigidbody.mass * 0.5f;
+		if(col.collider.name.Equals("Collider")) {
+			this.transform.localScale = this.transform.localScale * 0.8f;
+			this.rigidbody.mass = this.rigidbody.mass * 0.6f;
 		}
 	}
 }
