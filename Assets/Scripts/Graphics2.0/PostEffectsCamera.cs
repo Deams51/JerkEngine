@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Scripts/Graphics3.0/CameraMotionBlurEffect for latest version
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class PostEffectsCamera : MonoBehaviour 
 {

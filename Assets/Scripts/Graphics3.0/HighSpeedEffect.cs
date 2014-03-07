@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// Author: Anders Treptow
+/// <summary>
+/// A script that handles the high speed particle effect depending on the speed of the tracked object.
+/// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 public class HighSpeedEffect : MonoBehaviour 
 {
@@ -22,6 +26,15 @@ public class HighSpeedEffect : MonoBehaviour
 		_trackerScript = _mainCamera.GetComponent<CameraTracker> ();
     }
 
+    /// <summary>
+    /// During each Update() call the scripts calculates the velocity of the tracked object and depending on the speed calculates
+    /// an amount of emission of particles based on the minimum amount of minimum and maximum particle emission. The amount of emission
+    /// is calulcated by a function that interpolates between the minimum and maximum speeds in relation to emission so that the
+    /// increasing amount of emission is linear between the values indepedent of the boundary values.
+    /// 
+    /// The script also handles the angle the particles are viewed from so that it matches that between the main camera and the tracked object 
+    /// as well as between the effect camera and the particle emission.
+    /// </summary>
     void Update()
     {
         if (VelocityTrackedObject != null && !ManualVelocity)
@@ -29,7 +42,8 @@ public class HighSpeedEffect : MonoBehaviour
                 Velocity = VelocityTrackedObject.rigidbody.velocity.magnitude * 3.6f; //km/h
 
         float emissionRate = Mathf.Clamp(Velocity, 0, MaxEmissionRate);
-        float aCol = Mathf.Clamp(Velocity / 255f, 0, 100f / 255f);
+        //sets an amount of opacity on the particles depending on how close the current speed is to the max speed
+        float aCol = Mathf.Clamp(Velocity / 255f, 0, 100f / 255f); 
 
         if (emissionRate < MinEmissionRate)
             emissionRate = 0;
@@ -40,6 +54,7 @@ public class HighSpeedEffect : MonoBehaviour
         _particles.startColor = new Color(1, 1, 1, aCol);
 		if (_trackerScript != null) 
 		{
+            //Rotates the particle system to match the angle of the tracked object to the main camera
 			switch(_trackerScript.Mode)
 			{
 				case CameraTracker.CameraMode.Follow:

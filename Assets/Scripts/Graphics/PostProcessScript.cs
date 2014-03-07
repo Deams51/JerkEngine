@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Scripts/Graphics3.0/CameraMotionBlurEffect for latest version
+/// </summary>
 public class PostProcessScript : MonoBehaviour
 {
     public Shader DepthShader;

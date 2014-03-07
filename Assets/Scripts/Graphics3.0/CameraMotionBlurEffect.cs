@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// Author: Anders Treptow
+/// <summary>
+/// The script that handles the rendering of the velocity buffer and the post-processing effect of motion blur
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class CameraMotionBlurEffect : ImageEffectBase
 {
@@ -29,12 +33,22 @@ public class CameraMotionBlurEffect : ImageEffectBase
         }
     }
     protected static HashSet<EffectObject> _effectObjects;
-
+    
+    /// <summary>
+    /// Static function so that each EffectObject can add itself into the list of objects to be rendered
+    /// to the velocity buffer. (OnEnable)
+    /// </summary>
+    /// <param name="obj">The instance of the EffectObject</param>
     public static void AddEffectObject(EffectObject obj)
     {
         EffectObjects.Add(obj);
     }
 
+    /// <summary>
+    /// Static function so that each EffectObject can remove itself from the list of objects to be rendered
+    /// to the velocity buffer. (OnDisable)
+    /// </summary>
+    /// <param name="obj">The instance of the EffectObject</param>
     public static void RemoveEffectObject(EffectObject obj)
     {
         if (EffectObjects.Contains(obj))
@@ -43,6 +57,10 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     protected Camera _velocityCamera;
 
+    /// <summary>
+    /// Instanciates the necessary datastructures for the rendering of the velocity buffer and the post-processing effect.
+    /// Basically it finds every gameobject that contains a MeshRenderer component and adds the EffectObject script to that object.
+    /// </summary>
     override protected void Start()
     {
         //sets up the EffectObject script for each object that is rendered by the mesh renderer
@@ -65,6 +83,12 @@ public class CameraMotionBlurEffect : ImageEffectBase
         base.Start();
     }
 
+    /// <summary>
+    /// When Awake() is invoked the scripts sets up a separate camera to render the velocity buffer from. This camera
+    /// renders the velocity buffer to a RenderTexture that can be accessed from the post-processing shader.
+    /// It also sets up the necessary matrices (view, projection, previous view, previous projection) and gives them
+    /// the starting values.
+    /// </summary>
     virtual protected void Awake()
     {
         camera.depthTextureMode |= DepthTextureMode.Depth;
@@ -86,6 +110,10 @@ public class CameraMotionBlurEffect : ImageEffectBase
         UpdateViewProjectionMatrices();
     }
 
+    /// <summary>
+    /// Each Update() call sets the values of the current view, projection, and viewprojection matrices and then
+    /// updates the current values from the scene.
+    /// </summary>
     void Update()
     {
         PreviousViewMatrix = ViewMatrix;
@@ -95,6 +123,9 @@ public class CameraMotionBlurEffect : ImageEffectBase
         UpdateViewProjectionMatrices();
     }
 
+    /// <summary>
+    /// Sets the values of the current view and projection matrices from the main camera.
+    /// </summary>
     void UpdateViewProjectionMatrices()
     {
         ViewMatrix = camera.worldToCameraMatrix;
@@ -116,6 +147,15 @@ public class CameraMotionBlurEffect : ImageEffectBase
         ViewProjMatrix = ProjectionMatrix * ViewMatrix;
     }
 
+    /// <summary>
+    /// On every render call each object that is visible from the camera containing the EffectObject script will 
+    /// replace its current shader with the velocity shader. It will then render this to a separate texture.
+    /// This texture is then sent as an uniform to the post-processing shader (motion blur shader) and each
+    /// EffectObject will reset the shaders to render properly and everything is rendered from the post-processing shader
+    /// in a second rendering pass from the main camera.
+    /// </summary>
+    /// <param name="source">The source texture to render from</param>
+    /// <param name="destination">The destination texture to render to (framebuffer)</param>
     virtual protected void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (!UnityEditorInternal.InternalEditorUtility.HasPro() || !Active)
@@ -137,12 +177,13 @@ public class CameraMotionBlurEffect : ImageEffectBase
         foreach (EffectObject obj in objs)
             obj.PreVelocityRender();
 
+        //Renders only the velocity buffer to a texture
         RenderTexture velocityBuffer = RenderTexture.GetTemporary(source.width, source.height, 24);
         _velocityCamera.CopyFrom(camera);
         _velocityCamera.backgroundColor = new Color(0.4980392f, 0.5f, 0.4980392f, 0.5f); //EncodeFloatRG(0.5) from UnityCG.cginc, this is needed due to floating point precision issues
         _velocityCamera.targetTexture = velocityBuffer;
         _velocityCamera.renderingPath = RenderingPath.Forward;
-        _velocityCamera.cullingMask = ~(1 << 8); //exclude layer 8
+        _velocityCamera.cullingMask = ~(1 << 8); //exclude layer 8 (fx_layer)
         _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
@@ -155,7 +196,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
             Graphics.Blit(source, destination, material);
         }
         else
-            Graphics.Blit(velocityBuffer, destination); //render velocity buffer
+            Graphics.Blit(velocityBuffer, destination); //render only velocity buffer
 
         //reset shaders for visible objects
         foreach (EffectObject obj in objs)

@@ -1,4 +1,11 @@
-﻿Shader "Custom/MotionBlur2" 
+﻿
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Shaders/VelocityShader for latest version.
+/// This implementation was used when the approach was to render the velocity and regular rendering in the same shader
+/// using multiple passes, this approach screwed up the depth buffer.
+/// </summary>
+Shader "Custom/MotionBlur2" 
 {
 	Properties 
 	{

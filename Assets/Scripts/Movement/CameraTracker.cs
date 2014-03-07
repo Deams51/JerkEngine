@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// Author: Anders Treptow
+/// <summary>
+/// This class handles camera movement. The class defines 3 possible camera positions with different 
+/// behaviours depending on the type of tracking. Follow lerps between the camera and a fixed point, Fixed and FirstPerson are
+/// just setting the camera at a set of points that the camera then becomes the child of.
+/// </summary>
 public class CameraTracker : MonoBehaviour 
 {
     public enum CameraMode
@@ -16,7 +22,6 @@ public class CameraTracker : MonoBehaviour
     public GameObject FixedPoint;
     public float TrackingAmount = 5.5f;
     public CameraMode Mode = CameraMode.Follow; 
-	
 
     private Transform _trackingObject;
     private Vector3 _relCameraPosition;
@@ -59,13 +64,5 @@ public class CameraTracker : MonoBehaviour
                 transform.parent = FixedPoint.transform;
                 break;
         }
-    }
-
-    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
-    {
-        Vector3 dir = point - pivot; // get point direction relative to pivot
-        dir = Quaternion.Euler(angles) * dir; // rotate it
-        point = dir + pivot; // calculate rotated point
-        return point; // return it
     }
 }

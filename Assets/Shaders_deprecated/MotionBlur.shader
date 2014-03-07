@@ -1,4 +1,9 @@
-﻿Shader "Custom/MotionBlur" 
+﻿
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Shaders/MotionBlurShader for latest version.
+/// </summary>
+Shader "Custom/MotionBlur" 
 {
 	Properties 
 	{

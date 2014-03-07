@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// Author: Anders Treptow
+/// <summary>
+/// A movement script for testing purposes. Just moves the camera in the Z-axis.
+/// </summary>
 public class SimpleCameraMovementScript : MonoBehaviour 
 {
     public bool RunScript = false;

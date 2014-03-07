@@ -1,4 +1,9 @@
-﻿Shader "Custom/Velocity Shader" 
+﻿
+/// Author: Anders Treptow
+/// <summary>
+/// A shader to render velocity by calculating delta values between vertices.
+/// </summary>
+Shader "Custom/Velocity Shader" 
 {
 	SubShader 
 	{
@@ -14,9 +19,8 @@
 
 			uniform float4x4 _mv;
 			uniform float4x4 _mvPrev;
-			uniform float4x4 _mvInvTrans;
+			uniform float4x4 _mvInvTrans; // not used in this implementation
 			uniform float4x4 _mvpPrev;
-			uniform float _currentFPS;
 
 			struct vertexInput
 			{
@@ -31,8 +35,11 @@
 				float4 oldPos;
 			};
 
-			//vertex shader
-			//////////////////////////////////////////////////////////
+			/// <summary>
+			/// The vertex shader for the velocity shading. The vertex shader pass along the current
+			/// and previous positions of each vertex to the fragment shader based on the current model view projection
+			/// matrix and the previous model view projection matrix.
+			/// </summary>
 			fragmentInput vert(vertexInput v)
 			{
 				fragmentInput o;
@@ -47,8 +54,11 @@
 				return o;
 			}
 
-			//fragment shader
-			//////////////////////////////////////////////////////////
+			/// <summary>
+			/// The fragment shader calculates delta value between the previous and current position of each 
+			/// fragment in screen space. Note that this needs to be calculated in the fragment shader rather than the vertex shader
+			/// in order to get correct values when clipping occurs. The value is then encoded into RGBA where RG is delta X and BA is delta Y.
+			/// </summary>
 			float4 frag(fragmentInput i) : COLOR
 			{
 				float2 curPosition = i.newPos.xy / i.newPos.w;

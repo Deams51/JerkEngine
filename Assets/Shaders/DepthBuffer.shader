@@ -1,4 +1,11 @@
-﻿Shader "Custom/Depth Buffer" 
+﻿
+/// Author: Anders Treptow
+/// <summary>
+/// A shader to manually render the depth buffer, this shader is not used in the current version as this
+/// is now retrieved from the _CameraDepthTexture instead. This shader was used in a previous version 
+/// where it was not possible to use the _CameraDepthTexture.
+/// </summary>
+Shader "Custom/Depth Buffer" 
 {
 	SubShader 
 	{

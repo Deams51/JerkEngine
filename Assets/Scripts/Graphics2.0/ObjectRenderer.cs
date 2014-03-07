@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Scripts/Graphics3.0/EffectObject for latest version
+/// </summary>
 public class ObjectRenderer : MonoBehaviour 
 {
     private Camera _camera;

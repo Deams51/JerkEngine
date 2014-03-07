@@ -1,4 +1,9 @@
-﻿Shader "Custom/PostProcessShader" 
+﻿
+/// Author: Anders Treptow
+/// <summary>
+/// Deprecated code (not used), see Shaders/MotionBlurShader for latest version.
+/// </summary>
+Shader "Custom/PostProcessShader" 
 {
 	Properties 
 	{
@@ -35,8 +40,8 @@
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = MultiplyUV(UNITY_MATRIX_TEXTURE0, v.texcoord.xy);
 				o.scrPos=ComputeScreenPos(o.pos);
-			   //for some reason, the y position of the depth texture comes out inverted
-			   o.scrPos.y = 1 - o.scrPos.y;
+			    //for some reason, the y position of the depth texture comes out inverted
+			    o.scrPos.y = 1 - o.scrPos.y;
 				return o;
 			}
 
