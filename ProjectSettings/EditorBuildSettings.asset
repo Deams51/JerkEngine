@@ -10,4 +10,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_scenes/test_track_tires.unity
   - enabled: 1
-    path: Assets/_scenes/test_track.unity
+    path: Assets/_scenes/tech_demo.unity
