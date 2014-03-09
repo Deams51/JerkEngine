@@ -75,7 +75,7 @@ public class EffectObject : MonoBehaviour
     void LateUpdate()
     {
         Vector4 currentPos = transform.position;
-        currentPos.w = 1f;
+        //currentPos.w = 1f;
 
         Matrix4x4 _mv = CameraMotionBlurEffect.ViewMatrix * transform.localToWorldMatrix;
         Matrix4x4 _mvPrev = CameraMotionBlurEffect.PreviousViewMatrix * _prevModelMatrix;

@@ -39,6 +39,7 @@ The rendering particles are located in the 'fx_speedEffect' prefab which is foun
 	------------------------------------
 	Assets/Resources/Shaders
 	Assets/Scripts/Graphics3.0
+	Assets/Scripts/Movement/CameraTracker.cs
 	Assets/Scripts/Graphics (deprecated)
 	Assets/Scripts/Graphics2.0 (deprecated)
 	

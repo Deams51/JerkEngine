@@ -114,7 +114,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
     /// Each Update() call sets the values of the current view, projection, and viewprojection matrices and then
     /// updates the current values from the scene.
     /// </summary>
-    void Update()
+    void LateUpdate()
     {
         PreviousViewMatrix = ViewMatrix;
         PreviousProjectionMatrix = ProjectionMatrix;
