@@ -158,11 +158,19 @@ public class CameraMotionBlurEffect : ImageEffectBase
     /// <param name="destination">The destination texture to render to (framebuffer)</param>
     virtual protected void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+#if UNITY_EDITOR
         if (!UnityEditorInternal.InternalEditorUtility.HasPro() || !Active)
         {
             Graphics.Blit(source, destination);
             return;
         }
+#else
+        if(!Active)
+        {
+            Graphics.Blit(source, destination);
+            return;
+        }
+#endif
 
         List<EffectObject> objs = new List<EffectObject>();
 

@@ -27703,7 +27703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74cb947ccb6f2a4f8eb5a3ad502b008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 198f14b749840764a92dcd64831eb153, type: 3}
+  shader: {fileID: 0}
   Active: 1
   RenderVelocityBuffer: 0
   BlurFactor: 1.5
