@@ -42,4 +42,12 @@ The rendering particles are located in the 'fx_speedEffect' prefab which is foun
 	Assets/Scripts/Movement/CameraTracker.cs
 	Assets/Scripts/Graphics (deprecated)
 	Assets/Scripts/Graphics2.0 (deprecated)
-	
+
+AIR & WIND
+------------------------------------
+Air resistance and wind objects use the same code and game objects. Everything you need can be found in the WindTarget prefab.
+
+To create a stationary wind generator, simply drag the WindTarget into the scene. The parent object defines the target, towards which the wind will move. The child object WindFX is the actual generator and should be placed relative to the target to 
+
+CAR PHYSICS
+------------------------------------
