@@ -16,7 +16,7 @@ public class CameraTracker : MonoBehaviour
         FirstPerson
     };
 
-    public GameObject TrackingObject;
+    public GameObject TrackingObject; //the object to follow
     public GameObject FirstPersonObject;
     public GameObject FollowPoint;
     public GameObject FixedPoint;

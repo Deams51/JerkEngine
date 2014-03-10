@@ -943,9 +943,9 @@ MonoBehaviour:
   Target: {fileID: 1234290105}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &68588755
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,9 +1986,9 @@ MonoBehaviour:
   Target: {fileID: 502886220}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1001 &126053061
 Prefab:
   m_ObjectHideFlags: 0
@@ -3493,9 +3493,9 @@ MonoBehaviour:
   Target: {fileID: 1600646384}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &189315680
 GameObject:
   m_ObjectHideFlags: 0
@@ -8971,9 +8971,9 @@ MonoBehaviour:
   Target: {fileID: 1435344758}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &491064348
 GameObject:
   m_ObjectHideFlags: 0
@@ -10710,9 +10710,9 @@ MonoBehaviour:
   Target: {fileID: 2017172154}
   WindVelocity: 0
   WindMass: 2.00999999
-  frequency: 80
   radius: 1.5
   lifeDistance: 4.34000015
+  aliveWindObjects: 0
 --- !u!1 &642976982
 GameObject:
   m_ObjectHideFlags: 0
@@ -12737,9 +12737,9 @@ MonoBehaviour:
   Target: {fileID: 1287513095}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &757948389
 GameObject:
   m_ObjectHideFlags: 0
@@ -15284,9 +15284,9 @@ MonoBehaviour:
   Target: {fileID: 1786494771}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &921347395
 GameObject:
   m_ObjectHideFlags: 0
@@ -18386,9 +18386,9 @@ MonoBehaviour:
   Target: {fileID: 868021763}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &1099074111
 GameObject:
   m_ObjectHideFlags: 0
@@ -22341,8 +22341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -22354,6 +22352,7 @@ MonoBehaviour:
   maxSteeringAngle: 14
   model: {fileID: 1316853276}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -22361,36 +22360,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1001 &1264016715
 Prefab:
   m_ObjectHideFlags: 0
@@ -22880,8 +22871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -22893,6 +22882,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 1156622072}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -22900,36 +22890,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1 &1290139770
 GameObject:
   m_ObjectHideFlags: 0
@@ -24449,8 +24431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -24462,6 +24442,7 @@ MonoBehaviour:
   maxSteeringAngle: 14
   model: {fileID: 214245315}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -24469,36 +24450,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1 &1383257723
 GameObject:
   m_ObjectHideFlags: 0
@@ -25482,9 +25455,9 @@ MonoBehaviour:
   Target: {fileID: 1218950535}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &1439075035
 GameObject:
   m_ObjectHideFlags: 0
@@ -26644,9 +26617,9 @@ MonoBehaviour:
   Target: {fileID: 1905813801}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &1531175879
 GameObject:
   m_ObjectHideFlags: 0
@@ -27622,7 +27595,6 @@ GameObject:
   - 81: {fileID: 1603867884}
   - 114: {fileID: 1603867889}
   - 114: {fileID: 1603867890}
-  - 114: {fileID: 1603867891}
   m_Layer: 0
   m_Name: camera_main
   m_TagString: MainCamera
@@ -27724,19 +27696,6 @@ MonoBehaviour:
   FixedPoint: {fileID: 643102557}
   TrackingAmount: 10
   Mode: 0
---- !u!114 &1603867891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1603867883}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5c74d75982fa694288f62f790a25cfb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RunScript: 1
-  Speed: 100
 --- !u!1 &1605540403
 GameObject:
   m_ObjectHideFlags: 0
@@ -27777,8 +27736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -27790,6 +27747,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 1245085597}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -27797,36 +27755,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1 &1606591067
 GameObject:
   m_ObjectHideFlags: 0
@@ -28017,9 +27967,9 @@ MonoBehaviour:
   Target: {fileID: 197068273}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1001 &1621201130
 Prefab:
   m_ObjectHideFlags: 0
@@ -28611,9 +28561,9 @@ MonoBehaviour:
   Target: {fileID: 912103611}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &1683265794
 GameObject:
   m_ObjectHideFlags: 0
@@ -34591,7 +34541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9002999100024a19acb4fe3a369fa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coefficients: {x: 3, y: 4, z: .5}
 --- !u!114 &2017172162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35711,9 +35660,9 @@ MonoBehaviour:
   Target: {fileID: 108380186}
   WindVelocity: 30.3999996
   WindMass: 79.3000031
-  frequency: 98.4000015
   radius: 1.5
   lifeDistance: 5
+  aliveWindObjects: 0
 --- !u!1 &2119570985
 GameObject:
   m_ObjectHideFlags: 0
