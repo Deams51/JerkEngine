@@ -118,9 +118,7 @@ public class Drivetrain : MonoBehaviour {
 				w.drivetrainInertia = inertia * drivetrainFraction;
 				w.driveFrictionTorque = engineFrictionTorque * Mathf.Abs(ratio) * drivetrainFraction;
 				w.driveTorque = engineTorque * ratio * drivetrainFraction + lockingTorque;
-
-				slipRatio += w.slipRatio * drivetrainFraction;
-			}
+            }
 			
 			// update engine angular velo
 			engineAngularVelo = averageAngularVelo * ratio;
@@ -147,9 +145,6 @@ public class Drivetrain : MonoBehaviour {
 			if (throttleInput < 0 && rpm <= minRPM)
 				gear = (gear == 0?2:0);
 		}
-
-		//audio.pitch = 0.875f + rpm/maxRPM;
-		//audio.pitch = 0.5f + rpm/maxRPM;
 	}
 		
 	public void ShiftUp () {
@@ -161,11 +156,4 @@ public class Drivetrain : MonoBehaviour {
 		if (gear > 0)
 			gear --;
 	}
-	
-	// Debug GUI. Disable when not needed.
-	void OnGUI () {
-	/*	GUILayout.Label("RPM: "+rpm);
-		GUILayout.Label("Gear: "+(gear-1));
-		automatic = GUILayout.Toggle(automatic, "Automatic Transmission");
-	*/}
 }

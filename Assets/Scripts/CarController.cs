@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 // This class is repsonsible for controlling inputs to the car.
-// Change this code to implement other input types, such as support for analogue input, or AI cars.
 [RequireComponent (typeof (Drivetrain))]
 public class CarController : MonoBehaviour {
 
@@ -72,18 +71,6 @@ public class CarController : MonoBehaviour {
 	// steering speed will be multiplied by the difference between optimal and current steering times this 
 	// factor, to make the correction easier.
 	public float steerCorrectionFactor = 4.0f;
-
-	bool debug = false;
-
-	// Used by SoundController to get average slip velo of all wheels for skid sounds.
-	public float slipVelo {
-		get {
-			float val = 0.0f;
-			foreach(Wheel w in wheels)
-				val += w.slipVelo / wheels.Length;
-			return val;
-		}
-	}
 
 	// Initialize
 	void Start () 
@@ -228,6 +215,5 @@ public class CarController : MonoBehaviour {
 	void OnGUI ()
 	{
 		GUI.Label (new Rect(0,60,100,200),"km/h: "+rigidbody.velocity.magnitude * 3.6f);
-		//tractionControl = GUI.Toggle(new Rect(0,80,300,20), tractionControl, "Traction Control (bypassed by shift key)");
 	}
 }
