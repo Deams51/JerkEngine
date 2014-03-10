@@ -25,6 +25,7 @@ CONTROLS
 	LEFT:   turn left
 	RIGHT:  turn right
 	B:   	break
+	D: 		Shows rays used for collision detection
 	R:	  	reset the car rotation and add an up translation
 	F1:   	debug wheels
 

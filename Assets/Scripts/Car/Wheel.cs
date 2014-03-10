@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 // This class simulates a single car's wheel with tire based on a brush tire model and suspension (simple oscillator model)
+// Written by Mickaël Fourgeaud
+// Last modified : 10/3/14
+
 public class Wheel : MonoBehaviour {        
 	// Wheel Specifications
 
@@ -141,7 +144,7 @@ public class Wheel : MonoBehaviour {
 		float springForce = compression * fullCompressionSpringForce;
 		normalForce = springForce;
 		float damperForce = Vector3.Dot(localVelo, groundNormal) * damping;
-		return (springForce - damperForce + suspensionForceInput) * up;
+		return (springForce - damperForce + suspensionForceInput) * transform.up;
 	}
 	
 	// Calculate the new wheel velocity based on the drivetrain state
@@ -464,10 +467,6 @@ public class Wheel : MonoBehaviour {
         {
             debugRay = true;
         }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            body.AddForce(Physics.gravity * 5000);
-        }
     }
 
     void FixedUpdate()
@@ -496,7 +495,7 @@ public class Wheel : MonoBehaviour {
             localVelo = transform.InverseTransformDirection(inverseLocalRotation * wheelVelo);
             suspensionForce = SuspensionForce();
             FCalc(angularVelocity, steering * maxSteeringAngle, normalForce, n);
-            body.AddForceAtPosition(suspensionForce + RoadForce, pos);
+            body.AddForceAtPosition(new Vector3(0.0f, suspensionForce.y, 0.0f) + RoadForce, pos);
 
             // Debug
             if (debugCollisions) Debug.DrawRay(hit.point, groundNormal, Color.red, 10.0f);
