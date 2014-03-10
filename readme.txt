@@ -51,9 +51,21 @@ The rendering particles are located in the 'fx_speedEffect' prefab which is foun
 
 AIR & WIND
 ------------------------------------
-Air resistance and wind objects use the same code and game objects. Everything you need can be found in the WindTarget prefab.
+Air resistance and wind objects use the same code and game objects. Everything you need can be found in the WindTarget prefab. The module consists of three objects: WindObject - the ball that acts as wind, WindFX - the object that generates WindObjects and governs their parameters, and WindTarget - A generic target which the WindFX aims at.
 
-To create a stationary wind generator, simply drag the WindTarget into the scene. The parent object defines the target, towards which the wind will move. The child object WindFX is the actual generator and should be placed relative to the target to 
+To create a stationary wind generator, simply drag the WindTarget into the scene. The parent object defines the target, towards which the wind will move. The child object WindFX is the actual generator and should be placed relative to the target to achieve the desired wind effect (below target for upwind, westward for a western wind). Adjust the parameters in the WindFX object and you're good to go. 
+
+To create air resistance, use the WindFX object within the WindTarget and place it as a child to the car. Position the object just in front of the car and assign the car object as target gameobject in the WindFX script panel. The velocity of each generated wind ball will be compensated by the velocity of the target, so if the Wind Velocity parameter is set to 0, the WindObjects will appear static to the ground when the car moves.
+
+Description of WindFX Properties:
+  Script - Should be GenerateWindScript.cs
+  Wind Object - Expects GameObject with Rigidbody and WindObjectScript.cs that will be spawned as wind (Should be the WindObject prefab)
+  Target - Expects GameObject with Transform and Rigidbody. Can be a near-empty object, or complex object like a car.
+  Wind Velocity - Float that defines the wind velocity, compensated by target velocity
+  Wind Mass - Float that defines the mass of each WindObject spawned by this WindFX object
+  Radius - Defines the size of the plane from which WindObject randomly will spawn
+  Life Distance - How far in meters each WindObject will travel before they are destroyed
+  Alive Wind Objects - How many WindObjects that may be simultaneously alive, spawned by this WindFX object
 
 
 CAR PHYSICS - WHEELS
