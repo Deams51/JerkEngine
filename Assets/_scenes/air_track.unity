@@ -348,7 +348,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 22600335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 244926316}
@@ -365,11 +365,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 244926315}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!1001 &26929404
 Prefab:
   m_ObjectHideFlags: 0
@@ -2718,11 +2718,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 2117962684}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &152484991
 Transform:
   m_ObjectHideFlags: 0
@@ -2730,7 +2730,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 152484989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2117962685}
@@ -4197,7 +4197,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 206463815}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 835241678}
@@ -4214,11 +4214,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 835241677}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!1001 &213599995
 Prefab:
   m_ObjectHideFlags: 0
@@ -5079,11 +5079,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1802527407}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &258209924
 Transform:
   m_ObjectHideFlags: 0
@@ -5091,7 +5091,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 258209922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1802527408}
@@ -7075,7 +7075,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 369822044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 852013723}
@@ -7092,11 +7092,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 852013721}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!1 &373978998
 GameObject:
   m_ObjectHideFlags: 0
@@ -11273,11 +11273,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1889507408}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &622653739
 Transform:
   m_ObjectHideFlags: 0
@@ -11285,7 +11285,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 622653737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1889507409}
@@ -14210,11 +14210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1919734067}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &765029732
 Transform:
   m_ObjectHideFlags: 0
@@ -14222,7 +14222,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 765029730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1919734068}
@@ -15418,6 +15418,52 @@ Transform:
   m_Children:
   - {fileID: 85810606}
   m_Father: {fileID: 542404418}
+--- !u!1 &849325756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 849325758}
+  - 114: {fileID: 849325757}
+  m_Layer: 0
+  m_Name: WindFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &849325757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: ec2eed6dcea1741f09cca69e9a12beed,
+    type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  m_GameObject: {fileID: 849325756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa24c97f7c5734e7b945d10cc1fe8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
+  Target: {fileID: 1302087491}
+  WindVelocity: 1
+  WindMass: 2
+  radius: 1
+  lifeDistance: 1
+  aliveWindObjects: 1
+--- !u!4 &849325758
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  m_GameObject: {fileID: 849325756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1302087492}
 --- !u!1 &852013721
 GameObject:
   m_ObjectHideFlags: 0
@@ -17264,9 +17310,9 @@ MonoBehaviour:
   Target: {fileID: 644646598}
   WindVelocity: 0
   WindMass: 1.97000003
-  frequency: 80
   radius: 1.62
   lifeDistance: 4.34000015
+  aliveWindObjects: 10
 --- !u!1 &980329361
 GameObject:
   m_ObjectHideFlags: 0
@@ -18030,7 +18076,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1021536203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1533578567}
@@ -18047,11 +18093,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1533578565}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!1 &1021715481
 GameObject:
   m_ObjectHideFlags: 0
@@ -20009,6 +20055,46 @@ Transform:
   - {fileID: 476149352}
   - {fileID: 1629769444}
   m_Father: {fileID: 1144421017}
+--- !u!1001 &1167632458
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -326.167114
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.77789879
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -394.681549
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+  m_RootGameObject: {fileID: 1302087491}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1001 &1176010674
 Prefab:
   m_ObjectHideFlags: 0
@@ -23335,11 +23421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1965019157}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &1267029020
 Transform:
   m_ObjectHideFlags: 0
@@ -23347,7 +23433,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1267029018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1965019158}
@@ -23820,6 +23906,50 @@ Prefab:
   m_RootGameObject: {fileID: 586985624}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1302087491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1302087492}
+  - 54: {fileID: 1302087493}
+  m_Layer: 0
+  m_Name: WindTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1302087492
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: ec2eed6dcea1741f09cca69e9a12beed, type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  m_GameObject: {fileID: 1302087491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -326.167114, y: 1.77789879, z: -394.681549}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 849325758}
+  m_Father: {fileID: 0}
+--- !u!54 &1302087493
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400000, guid: ec2eed6dcea1741f09cca69e9a12beed,
+    type: 2}
+  m_PrefabInternal: {fileID: 1167632458}
+  m_GameObject: {fileID: 1302087491}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &1314774756
 Prefab:
   m_ObjectHideFlags: 0
@@ -24394,11 +24524,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 1965268300}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &1343537768
 Transform:
   m_ObjectHideFlags: 0
@@ -24406,7 +24536,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1343537766}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1965268301}
@@ -28727,7 +28857,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1639704011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 75924678}
@@ -28744,11 +28874,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 75924677}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!1001 &1641084506
 Prefab:
   m_ObjectHideFlags: 0
@@ -35632,11 +35762,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
   Target: {fileID: 179625567}
-  WindVelocity: 30.3999996
-  WindMass: 79.3000031
-  frequency: 98.4000015
-  radius: 1.5
+  WindVelocity: 37.0999985
+  WindMass: 33.7000008
+  radius: 2.02999997
   lifeDistance: 5
+  aliveWindObjects: 10
 --- !u!4 &2068259503
 Transform:
   m_ObjectHideFlags: 0
@@ -35644,7 +35774,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2068259501}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 179625568}
