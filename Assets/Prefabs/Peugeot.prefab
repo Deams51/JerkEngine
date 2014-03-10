@@ -1184,6 +1184,11 @@ GameObject:
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400020}
+  - 82: {fileID: 8200000}
+  - 168: {fileID: 16800000}
+  - 164: {fileID: 16400000}
+  - 81: {fileID: 8100000}
+  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: Peugeot
   m_TagString: Untagged
@@ -1471,6 +1476,22 @@ GameObject:
   - 4: {fileID: 400182}
   m_Layer: 0
   m_Name: point_viewFront
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400184}
+  - 114: {fileID: 11400002}
+  m_Layer: 0
+  m_Name: AirResistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2360,6 +2381,7 @@ Transform:
   m_LocalPosition: {x: -317.615631, y: 0, z: -392.899994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 400184}
   - {fileID: 400148}
   - {fileID: 400084}
   - {fileID: 400134}
@@ -2576,6 +2598,17 @@ Transform:
   m_GameObject: {fileID: 100182}
   m_LocalRotation: {x: .0697564706, y: 0, z: 0, w: .997564077}
   m_LocalPosition: {x: 0, y: 1.19466209, z: .956970215}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400146}
+--- !u!4 &400184
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .699999988, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400146}
@@ -3778,6 +3811,71 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.75, y: .800000012, z: 3.75}
   m_Center: {x: 0, y: .649999976, z: .0500000007}
+--- !u!81 &8100000
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 7d8a79c913fd9ef40a3a42e27b84ee07, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!108 &10800000
 Light:
   m_ObjectHideFlags: 1
@@ -3914,6 +4012,24 @@ MonoBehaviour:
   compression: 0
   onGround: 0
   RoadForce: {x: 0, y: 0, z: 0}
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa24c97f7c5734e7b945d10cc1fe8192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WindObject: {fileID: 100000, guid: 009d3c717f7c548f1aea293c585df054, type: 2}
+  Target: {fileID: 100146}
+  WindVelocity: 0
+  WindMass: 2.00999999
+  radius: 1.5
+  lifeDistance: 4.34000015
+  aliveWindObjects: 15
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3966,6 +4082,17 @@ MonoBehaviour:
   compression: 0
   onGround: 0
   RoadForce: {x: 0, y: 0, z: 0}
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2491d482be5d7ce46a11f742f6e6afdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4179,6 +4306,40 @@ MonoBehaviour:
   compression: 0
   onGround: 0
   RoadForce: {x: 0, y: 0, z: 0}
+--- !u!164 &16400000
+AudioReverbFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  m_DryLevel: 0
+  m_Room: -1000
+  m_RoomHF: -270
+  m_RoomRolloff: 0
+  m_DecayTime: .100000001
+  m_DecayHFRatio: .25999999
+  m_ReflectionsLevel: -3870
+  m_ReverbLevel: -1887
+  m_ReverbDelay: .00430000015
+  m_Diffusion: 100
+  m_Density: 100
+  m_HFReference: 5000
+  m_RoomLF: 0
+  m_LFReference: 250
+  m_ReflectionsDelay: 0
+  m_ReverbPreset: 27
+--- !u!168 &16800000
+AudioEchoFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100146}
+  m_Enabled: 1
+  m_Delay: 500
+  m_DecayRatio: .5
+  m_WetMix: 0
+  m_DryMix: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
