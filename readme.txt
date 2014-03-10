@@ -65,4 +65,10 @@ You can take a look at the prefab Peugeot to see a working example.
 	Assets/Scripts/Car/CarController.cs => This code comes from a unity example (only controls were added to it)
 	Assets/Scripts/Car/Drivetrain.cs => This code comes from a unity example
 	Assets/Scripts/Car/Wheel.cs => This code was developed during this project
+
+AUDIO EFFECT
+------------------------------------
+To see what the script affects you need to target [car_Peugeot] in the hierarchy. The object have an AudioSource where you can change the sound. The effects will be seen in the Echo-filter component and the Reverb-filter component.
+
+You cannot change the values from Unity since the script controls them on each update. The values on the Echo-filter component changes dynamically when moving the car, as well as the preset on the Reverb-filter component.
 	
