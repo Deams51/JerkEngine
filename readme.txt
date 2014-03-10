@@ -13,9 +13,11 @@ AUTHORS
     Robin Gabre
     Max Witt
 
+
 README
 ------------------------------------
 The demo can be run from the scene "Assets/_scenes/tech_demo". 
+
 
 CONTROLS
 ------------------------------------
@@ -28,6 +30,7 @@ CONTROLS
 	D: 		Shows rays used for collision detection
 	R:	  	reset the car rotation and add an up translation
 	F1:   	debug wheels
+
 
 GRAPHICS
 ------------------------------------
@@ -45,11 +48,13 @@ The rendering particles are located in the 'fx_speedEffect' prefab which is foun
 	Assets/Scripts/Graphics (deprecated)
 	Assets/Scripts/Graphics2.0 (deprecated)
 
+
 AIR & WIND
 ------------------------------------
 Air resistance and wind objects use the same code and game objects. Everything you need can be found in the WindTarget prefab.
 
 To create a stationary wind generator, simply drag the WindTarget into the scene. The parent object defines the target, towards which the wind will move. The child object WindFX is the actual generator and should be placed relative to the target to 
+
 
 CAR PHYSICS - WHEELS
 ------------------------------------
@@ -61,6 +66,7 @@ It is possible to add a physics material to surface, the static friction coeffic
 You can take a look at the prefab Peugeot to see a working example.
 
 	CAR PHYSICS - WHEELS RELEVANT CODE
+	------------------------------------
 	Assets/Scripts/Car/AntiRollBar.cs => This code comes from a unity example
 	Assets/Scripts/Car/CarController.cs => This code comes from a unity example (only controls were added to it)
 	Assets/Scripts/Car/Drivetrain.cs => This code comes from a unity example
