@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-// This class simulates a single car's wheel with tire, brake and simple
-// suspension (basically just a single, independant spring and damper).
+// This class simulates a single car's wheel with tire based on a brush tire model and suspension (simple oscillator model)
 public class Wheel : MonoBehaviour {        
 	// Wheel Specifications
 
@@ -53,14 +52,18 @@ public class Wheel : MonoBehaviour {
     public float WidthContactPatch = 0.1f;
     // The number of bristles used in the model
     public int n = 100;
+
     // Parameters for Tire model
+
     public float teta1x = 0.0f;
     public float teta2x = 0.0f;
     public float teta1y = 0.0f;
     public float teta2y = 0.0f;
+    //Frictions coefficients
     public float muslx = 1.0f; // 1.0 for dry asphalt, 0.6 for wet asphalt, 0.2 for snow, 0.1 for ice?
     public float musly = 1.0f; // 1.0 for dry asphalt, 0.6 for wet asphalt, 0.2 for snow, 0.1 for ice?
     public float mugvr = 1.0f;
+    //Scaling coefficients
     public float Xcoeff;
     public float Ycoeff;
 
