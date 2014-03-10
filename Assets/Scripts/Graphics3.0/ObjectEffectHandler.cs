@@ -3,14 +3,14 @@ using System.Collections;
 
 /// Author: Anders Treptow
 /// <summary>
-/// The EffectObject script is applied to every gameobject that contains the Mesh Renderer Component.
+/// The ObjectEffectHandler script is applied to every gameobject that contains the Mesh Renderer Component.
 /// The script keeps track of previous frame's transform data, keeps track of materials of the mesh
 /// and replaces it with a material that has the velocity buffer attached to it when rendering the velocity buffer, 
 /// and inputs the necessary uniforms for the velocity shader for each object draw call.
 /// </summary>
-public class EffectObject : MonoBehaviour 
+public class ObjectEffectHandler : MonoBehaviour 
 {
-    public bool IsObjectVisible { get { return renderer.isVisible; } }
+    public bool IsObjectVisible { get { return renderer.isVisible; } } //whether this object is visible from the camera view frustrum
     public static Shader VelocityBufferShader
     {
         get
@@ -56,12 +56,12 @@ public class EffectObject : MonoBehaviour
 
     void OnEnable()
     {
-        CameraMotionBlurEffect.AddEffectObject(this);
+        PostEffectHandler.AddEffectObject(this);
     }
 
     void OnDisable()
     {
-        CameraMotionBlurEffect.AddEffectObject(this);
+		PostEffectHandler.AddEffectObject(this);
     }
 
     /// <summary>
@@ -77,13 +77,13 @@ public class EffectObject : MonoBehaviour
         Vector4 currentPos = transform.position;
         //currentPos.w = 1f;
 
-        Matrix4x4 _mv = CameraMotionBlurEffect.ViewMatrix * transform.localToWorldMatrix;
-        Matrix4x4 _mvPrev = CameraMotionBlurEffect.PreviousViewMatrix * _prevModelMatrix;
+		Matrix4x4 _mv = PostEffectHandler.ViewMatrix * transform.localToWorldMatrix;
+		Matrix4x4 _mvPrev = PostEffectHandler.PreviousViewMatrix * _prevModelMatrix;
 
         _velocityMaterial.SetMatrix("_mv", _mv);
         _velocityMaterial.SetMatrix("_mvPrev", _mvPrev);
         _velocityMaterial.SetMatrix("_mvInvTrans", _mv.transpose.inverse);
-        _velocityMaterial.SetMatrix("_mvpPrev", CameraMotionBlurEffect.PreviousViewProjMatrix * _prevModelMatrix);
+		_velocityMaterial.SetMatrix("_mvpPrev", PostEffectHandler.PreviousViewProjMatrix * _prevModelMatrix);
         _velocityMaterial.SetFloat("_deltaTime", Time.deltaTime);
 
         _prevModelMatrix = transform.localToWorldMatrix;

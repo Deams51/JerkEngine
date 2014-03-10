@@ -4,14 +4,18 @@ using System.Collections.Generic;
 
 /// Author: Anders Treptow
 /// <summary>
-/// The script that handles the rendering of the velocity buffer and the post-processing effect of motion blur
+/// This script that handles the rendering of the velocity buffer and the post-processing effect of motion blur.
+/// The script will find every mesh renderer component in the scene and apply a EffectObjectHandler script to that object dynamically
+/// in order to render the velocity buffer using the shader material attached to each object as an extra material.
+/// This script will also handle the rendering of the final image by first rendering the velocity buffer to a separate texture and
+/// then use this texture together with the attached post-process effect shader that will render the final image to the frame buffer.
 /// </summary>
 [RequireComponent(typeof(Camera))]
-public class CameraMotionBlurEffect : ImageEffectBase
+public class PostEffectHandler : ImageEffectBase
 {
     public bool Active = true;
     public bool RenderVelocityBuffer = false;
-	public float BlurFactor = 1.5f;
+	public float BlurFactor = 1.5f; //blur factor is an extra amount that blur will be multiplied with
 
     public static Matrix4x4 ViewMatrix { get; private set; }
     public static Matrix4x4 PreviousViewMatrix { get; private set; }
@@ -22,34 +26,34 @@ public class CameraMotionBlurEffect : ImageEffectBase
     public static Matrix4x4 ViewProjMatrix { get; private set; }
     public static Matrix4x4 PreviousViewProjMatrix { get; private set; }
 
-    protected static HashSet<EffectObject> EffectObjects
+	protected static HashSet<ObjectEffectHandler> EffectObjects //A set of objects that will be rendered to the velocity buffer in the scene
     {
         get
         {
             if (_effectObjects == null)
-                _effectObjects = new HashSet<EffectObject>();
+				_effectObjects = new HashSet<ObjectEffectHandler>();
 
             return _effectObjects;
         }
     }
-    protected static HashSet<EffectObject> _effectObjects;
+	protected static HashSet<ObjectEffectHandler> _effectObjects;
     
     /// <summary>
-    /// Static function so that each EffectObject can add itself into the list of objects to be rendered
+	/// Static function so that each ObjectEffectHandler can add itself into the list of objects to be rendered
     /// to the velocity buffer. (OnEnable)
     /// </summary>
-    /// <param name="obj">The instance of the EffectObject</param>
-    public static void AddEffectObject(EffectObject obj)
+	/// <param name="obj">The instance of the ObjectEffectHandler</param>
+	public static void AddEffectObject(ObjectEffectHandler obj)
     {
         EffectObjects.Add(obj);
     }
 
     /// <summary>
-    /// Static function so that each EffectObject can remove itself from the list of objects to be rendered
+	/// Static function so that each ObjectEffectHandler can remove itself from the list of objects to be rendered
     /// to the velocity buffer. (OnDisable)
     /// </summary>
-    /// <param name="obj">The instance of the EffectObject</param>
-    public static void RemoveEffectObject(EffectObject obj)
+	/// <param name="obj">The instance of the ObjectEffectHandler</param>
+	public static void RemoveEffectObject(ObjectEffectHandler obj)
     {
         if (EffectObjects.Contains(obj))
             EffectObjects.Remove(obj);
@@ -59,11 +63,11 @@ public class CameraMotionBlurEffect : ImageEffectBase
 
     /// <summary>
     /// Instanciates the necessary datastructures for the rendering of the velocity buffer and the post-processing effect.
-    /// Basically it finds every gameobject that contains a MeshRenderer component and adds the EffectObject script to that object.
+	/// Basically it finds every gameobject that contains a MeshRenderer component and adds the ObjectEffectHandler script to that object.
     /// </summary>
     override protected void Start()
     {
-        //sets up the EffectObject script for each object that is rendered by the mesh renderer
+		//sets up the ObjectEffectHandler script for each object that is rendered by the mesh renderer
         Object[] sceneObjects = GameObject.FindObjectsOfType(typeof(MeshRenderer));
 
         foreach (Object obj in sceneObjects)
@@ -72,9 +76,9 @@ public class CameraMotionBlurEffect : ImageEffectBase
             {
                 GameObject gmObj = ((MeshRenderer)obj).gameObject;
 
-                EffectObject component = gmObj.GetComponent<EffectObject>();
+				ObjectEffectHandler component = gmObj.GetComponent<ObjectEffectHandler>();
                 if (component == null)
-                    gmObj.AddComponent<EffectObject>();
+					gmObj.AddComponent<ObjectEffectHandler>();
                 else if (!component.enabled)
                     component.enabled = true;
             }
@@ -148,10 +152,10 @@ public class CameraMotionBlurEffect : ImageEffectBase
     }
 
     /// <summary>
-    /// On every render call each object that is visible from the camera containing the EffectObject script will 
+	/// On every render call each object that is visible from the camera containing the ObjectEffectHandler script will 
     /// replace its current shader with the velocity shader. It will then render this to a separate texture.
     /// This texture is then sent as an uniform to the post-processing shader (motion blur shader) and each
-    /// EffectObject will reset the shaders to render properly and everything is rendered from the post-processing shader
+	/// ObjectEffectHandler will reset the shaders to render properly and everything is rendered from the post-processing shader
     /// in a second rendering pass from the main camera.
     /// </summary>
     /// <param name="source">The source texture to render from</param>
@@ -172,17 +176,17 @@ public class CameraMotionBlurEffect : ImageEffectBase
         }
 #endif
 
-        List<EffectObject> objs = new List<EffectObject>();
+		List<ObjectEffectHandler> objs = new List<ObjectEffectHandler>();
 
         //check which objects are visible by the camera, (this includes the editor camera)
-        foreach (EffectObject obj in EffectObjects)
+		foreach (ObjectEffectHandler obj in EffectObjects)
         {
             if (obj.IsObjectVisible)
                 objs.Add(obj);
         }
 
         //Set shaders for these objects to render velocity buffer
-        foreach (EffectObject obj in objs)
+		foreach (ObjectEffectHandler obj in objs)
             obj.PreVelocityRender();
 
         //Renders only the velocity buffer to a texture
@@ -192,7 +196,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
         _velocityCamera.targetTexture = velocityBuffer;
         _velocityCamera.renderingPath = RenderingPath.Forward;
         _velocityCamera.cullingMask = ~(1 << 8); //exclude layer 8 (fx_layer)
-        _velocityCamera.RenderWithShader(EffectObject.VelocityBufferShader, "");
+		_velocityCamera.RenderWithShader(ObjectEffectHandler.VelocityBufferShader, "");
         _velocityCamera.targetTexture = null;
 
         //render everything
@@ -207,7 +211,7 @@ public class CameraMotionBlurEffect : ImageEffectBase
             Graphics.Blit(velocityBuffer, destination); //render only velocity buffer
 
         //reset shaders for visible objects
-        foreach (EffectObject obj in objs)
+		foreach (ObjectEffectHandler obj in objs)
             obj.PostVelocityRender();
 
         RenderTexture.ReleaseTemporary(velocityBuffer);
