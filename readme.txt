@@ -5,6 +5,7 @@
 \________|\___  >__|  |__|_ \/_______  /___|  /\___  /|__|___|  /\___  >
               \/           \/        \/     \//_____/         \/     \/ 
 A driving simulation engine v.1.0
+Jerk (physics) - Rate of change of acceleration. Unit is m / s^3
 
 AUTHORS
 ------------------------------------
@@ -18,18 +19,23 @@ README
 ------------------------------------
 The demo can be run from the scene "Assets/_scenes/tech_demo". 
 
+Interesting game objects in the hierarchy are:
+	camera_main 						- the main camera
+	car_Peugeot 						- the car
+	env_surfaces 						- The various surfaces
+	env_airPlatforms/airTargets/AirTarget1-6/WindFX1-6 	- static air generating objects
 
 CONTROLS
 ------------------------------------
    Controls for the car are as follows:
-	UP:		accelerate
-	DOWN:   decelerate/reverse
-	LEFT:   turn left
-	RIGHT:  turn right
-	B:   	break
-	D: 		Shows rays used for collision detection
-	R:	  	reset the car rotation and add an up translation
-	F1:   	debug wheels
+	UP:	Accelerate
+	DOWN:   Decelerate/reverse
+	LEFT:   Turn left
+	RIGHT:  Turn right
+	B:   	Break
+	D: 	Shows rays used for collision detection
+	R:	Reset the car rotation and add an up translation
+	F1:   	Debug wheels
 
 
 GRAPHICS
