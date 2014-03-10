@@ -1184,7 +1184,6 @@ GameObject:
   - 114: {fileID: 11400024}
   - 114: {fileID: 11400022}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400018}
   m_Layer: 0
   m_Name: Peugeot
   m_TagString: Untagged
@@ -3874,8 +3873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -3887,6 +3884,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 100014}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3894,36 +3892,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3935,8 +3925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -3948,6 +3936,7 @@ MonoBehaviour:
   maxSteeringAngle: 14
   model: {fileID: 100078}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -3955,36 +3944,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3996,8 +3977,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -4009,6 +3988,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 100056}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -4016,36 +3996,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4058,18 +4030,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   liftCoefficient: .200000003
---- !u!114 &11400018
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100146}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9002999100024a19acb4fe3a369fa48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coefficients: {x: 3, y: 4, z: .5}
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4178,8 +4138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  debugRay: 0
   radius: .310000002
   width: .200000003
   suspensionTravel: .119999997
@@ -4191,6 +4149,7 @@ MonoBehaviour:
   maxSteeringAngle: 14
   model: {fileID: 100066}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -4198,36 +4157,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .100000001
-  W: .200000003
+  LengthContactPatch: .200000003
+  WidthContactPatch: .100000001
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: .5
   musly: .5
   mugvr: 1
   Xcoeff: .5
   Ycoeff: .5
+  debugCollisions: 0
   debugSuspensions: 0
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 0
-  FxDebug: 0
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

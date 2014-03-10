@@ -806,7 +806,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.7653923, y: -.271585941, z: 9.18548584}
+  m_LocalPosition: {x: -320.306152, y: -.269791245, z: -392.499512}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400006}
@@ -2078,8 +2078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
-  debugRay: 0
   radius: .50999999
   width: .400000006
   suspensionTravel: .449999988
@@ -2091,6 +2089,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 100000}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2098,35 +2097,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .300000012
-  W: .400000006
+  LengthContactPatch: .300000012
+  WidthContactPatch: .400000006
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 100
+  Xcoeff: .5
+  Ycoeff: .5
+  debugCollisions: 1
   debugSuspensions: 1
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 1
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2141,8 +2133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
-  debugRay: 0
   radius: .50999999
   width: .400000006
   suspensionTravel: .449999988
@@ -2154,6 +2144,7 @@ MonoBehaviour:
   maxSteeringAngle: 0
   model: {fileID: 100078}
   massFraction: .200000003
+  drivingWheel: 1
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2161,35 +2152,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 1
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .300000012
-  W: .400000006
+  LengthContactPatch: .300000012
+  WidthContactPatch: .400000006
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 100
+  Xcoeff: .5
+  Ycoeff: .5
+  debugCollisions: 1
   debugSuspensions: 1
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 1
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1002 &11400003
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2204,8 +2188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
-  debugRay: 0
   radius: .50999999
   width: .400000006
   suspensionTravel: .449999988
@@ -2217,6 +2199,7 @@ MonoBehaviour:
   maxSteeringAngle: 28
   model: {fileID: 100074}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2224,35 +2207,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .300000012
-  W: .400000006
+  LengthContactPatch: .300000012
+  WidthContactPatch: .400000006
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 100
+  Xcoeff: .5
+  Ycoeff: .5
+  debugCollisions: 1
   debugSuspensions: 1
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 1
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1002 &11400005
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2267,8 +2243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9dcce9c99f34d4d87a567b96669b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 1
-  debugRay: 0
   radius: .50999999
   width: .400000006
   suspensionTravel: .449999988
@@ -2280,6 +2254,7 @@ MonoBehaviour:
   maxSteeringAngle: 28
   model: {fileID: 100070}
   massFraction: .300000012
+  drivingWheel: 0
   driveTorque: 0
   driveFrictionTorque: 0
   brake: 0
@@ -2287,35 +2262,28 @@ MonoBehaviour:
   steering: 0
   drivetrainInertia: 0
   suspensionForceInput: 0
-  angularVelocity: 0
-  slipRatio: 0
-  slipVelo: 0
-  compression: 0
-  onGround: 0
-  drivingWheel: 0
-  Fx: 0
-  Fy: 0
-  FBase: {x: 0, y: 0, z: 0}
-  F: {x: 0, y: 0, z: 0}
-  L: .300000012
-  W: .400000006
+  LengthContactPatch: .300000012
+  WidthContactPatch: .400000006
   n: 100
   teta1x: 0
   teta2x: 0
   teta1y: 0
   teta2y: 0
-  vrxDebug: 0
-  vryDebug: 0
   muslx: 1
   musly: 1
   mugvr: 1
-  Xcoeff: 1000
-  Ycoeff: 100
+  Xcoeff: .5
+  Ycoeff: .5
+  debugCollisions: 1
   debugSuspensions: 1
   debugRoadForce: 1
   debugWheelsXAxis: 0
   debugWheelsVelo: 0
-  debugCollisions: 1
+  debugRay: 0
+  angularVelocity: 0
+  compression: 0
+  onGround: 0
+  RoadForce: {x: 0, y: 0, z: 0}
 --- !u!1002 &11400007
 EditorExtensionImpl:
   serializedVersion: 6

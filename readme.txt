@@ -57,6 +57,7 @@ To be able to use the tire model, it is required to have a gameobject, with a ri
 Next you have to add gameobject representing wheel(s) as child of the car gameobject and add the wheel scripts to it, but also an object representing the center of gravity of the car.
 You can then add the wheel(s) to the Wheels array in the CarController script and to the PoweredWheels array in the DriveTrain script. 
 It is also required to set all the parameters of each scripts depending of the car simulated.
+It is possible to add a physics material to surface, the static friction coefficent will be used by the wheel script when the car is driving on it. 
 You can take a look at the prefab Peugeot to see a working example.
 
 	CAR PHYSICS - WHEELS RELEVANT CODE
