@@ -20,12 +20,14 @@ The demo can be run from the scene "Assets/_scenes/tech_demo".
 CONTROLS
 ------------------------------------
    Controls for the car are as follows:
-	UP:   accelerate
-      DOWN:   deccelerate/reverse
-      LEFT:   turn left
-     RIGHT:   turn right
-         B:   break
-	F1:   debug wheels
+	UP:		accelerate
+	DOWN:   decelerate/reverse
+	LEFT:   turn left
+	RIGHT:  turn right
+	B:   	break
+	D: 		Shows rays used for collision detection
+	R:	  	reset the car rotation and add an up translation
+	F1:   	debug wheels
 
 GRAPHICS
 ------------------------------------
@@ -49,5 +51,18 @@ Air resistance and wind objects use the same code and game objects. Everything y
 
 To create a stationary wind generator, simply drag the WindTarget into the scene. The parent object defines the target, towards which the wind will move. The child object WindFX is the actual generator and should be placed relative to the target to 
 
-CAR PHYSICS
+CAR PHYSICS - WHEELS
 ------------------------------------
+To be able to use the tire model, it is required to have a gameobject, with a rigidbody applied to it, representing the car and to add the CarController and DriveTrain scripts to it. (Optionally you can add 2 AntiRollBar Scripts to stabilize the behavior of the car)
+Next you have to add gameobject representing wheel(s) as child of the car gameobject and add the wheel scripts to it, but also an object representing the center of gravity of the car.
+You can then add the wheel(s) to the Wheels array in the CarController script and to the PoweredWheels array in the DriveTrain script. 
+It is also required to set all the parameters of each scripts depending of the car simulated.
+It is possible to add a physics material to surface, the static friction coefficent will be used by the wheel script when the car is driving on it. 
+You can take a look at the prefab Peugeot to see a working example.
+
+	CAR PHYSICS - WHEELS RELEVANT CODE
+	Assets/Scripts/Car/AntiRollBar.cs => This code comes from a unity example
+	Assets/Scripts/Car/CarController.cs => This code comes from a unity example (only controls were added to it)
+	Assets/Scripts/Car/Drivetrain.cs => This code comes from a unity example
+	Assets/Scripts/Car/Wheel.cs => This code was developed during this project
+	
